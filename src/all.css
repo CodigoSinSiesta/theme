@@ -1,0 +1,10 @@
+/* @codigosinsiesta/theme · all.css
+ * Punto de entrada único: tokens + chrome juntos.
+ * Equivalente a `@import` de tokens.css + chrome.css.
+ *
+ * Uso típico (Astro + global.css):
+ *   @import '@codigosinsiesta/theme/all.css';
+ */
+
+@import './tokens.css';
+@import './chrome.css';

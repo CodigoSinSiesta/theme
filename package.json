@@ -1,0 +1,40 @@
+{
+  "name": "@codigosinsiesta/theme",
+  "version": "0.1.0",
+  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome (accent-bar + breadcrumb + footer + eyebrow bar) + Tailwind preset.",
+  "type": "module",
+  "main": "./src/tokens.css",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./src/index.js"
+    },
+    "./tokens.css": "./src/tokens.css",
+    "./chrome.css": "./src/chrome.css",
+    "./all.css": "./src/all.css",
+    "./tailwind.preset.js": "./src/tailwind.preset.js"
+  },
+  "keywords": [
+    "design-system",
+    "presentations",
+    "astro",
+    "svelte",
+    "tailwind",
+    "css-tokens",
+    "codigo-sin-siesta"
+  ],
+  "license": "MIT",
+  "author": "Alejandro de la Fuente — Código Sin Siesta",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodigoSinSiesta/theme"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

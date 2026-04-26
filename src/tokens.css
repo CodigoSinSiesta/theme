@@ -1,0 +1,121 @@
+/* @codigosinsiesta/theme · tokens.css
+ *
+ * Sistema V4 "dark blueprint" — paleta azul cobalto sobre slate-900.
+ * Portado del handoff de Claude Design (codigo-sin-siesta/project/src/css-system-v4.jsx).
+ *
+ * Uso:
+ *   @import '@codigosinsiesta/theme/tokens.css';
+ *   body { background: var(--color-fondo); color: var(--color-tinta); }
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ─── Paleta azul ─── */
+  --color-cobalto: #1e3a8a;
+  --color-azul: #2563eb;
+  --color-electrico: #3b82f6;
+  --color-cielo: #60a5fa;
+  --color-cielo2: #93c5fd;
+  --color-marino: #0c1e4f;
+
+  /* ─── Neutros — slate con tinte navy ─── */
+  --color-fondo: #0f172a;       /* slate-900 — canvas principal */
+  --color-fondo-alt: #1e293b;   /* slate-800 — superficies */
+  --color-fondo-elev: #152033;  /* intermedio — cards */
+  --color-borde: #334155;       /* slate-700 — líneas finas */
+  --color-borde2: #475569;      /* slate-600 — bordes activos */
+  --color-tinta: #f1f5f9;       /* slate-100 — texto principal */
+  --color-tinta2: #cbd5e1;      /* slate-300 — texto secundario */
+  --color-tinta3: #94a3b8;      /* slate-400 — meta */
+  --color-tinta4: #64748b;      /* slate-500 — placeholder */
+
+  /* ─── Acentos semánticos ─── */
+  --color-ok: #34d399;          /* emerald-400 */
+  --color-ok-bg: rgba(52, 211, 153, 0.10);
+  --color-ok-bd: rgba(52, 211, 153, 0.35);
+  --color-warn: #fbbf24;        /* amber-400 */
+  --color-warn-bg: rgba(251, 191, 36, 0.10);
+  --color-warn-bd: rgba(251, 191, 36, 0.35);
+  --color-err: #f87171;         /* red-400 */
+  --color-err-bg: rgba(248, 113, 113, 0.10);
+  --color-err-bd: rgba(248, 113, 113, 0.35);
+
+  /* ─── Aliases legacy (compatibilidad con presentaciones pre-V4) ─── */
+  --color-base-dark: var(--color-fondo);
+  --color-primary-cobalt: var(--color-cobalto);
+  --color-accent-bright: var(--color-electrico);
+  --color-electric: var(--color-cielo);
+  --color-neutral-light: var(--color-tinta);
+  --color-shadow: rgba(15, 23, 42, 0.8);
+  --color-shadow-light: rgba(15, 23, 42, 0.4);
+  --color-glow: rgba(59, 130, 246, 0.3);
+  --color-accent-soft: rgba(59, 130, 246, 0.08);
+  --color-accent-strong: rgba(59, 130, 246, 0.45);
+  --color-electric-soft: rgba(96, 165, 250, 0.12);
+  --color-electric-strong: rgba(96, 165, 250, 0.45);
+
+  /* ─── Tipografía ─── */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-subheader: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+
+  /* ─── Spacing ─── */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  --spacing-content: var(--spacing-lg);
+
+  /* ─── Radii ─── */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  /* ─── Transitions ─── */
+  --transition-fast: 150ms ease-out;
+  --transition-base: 300ms ease-out;
+  --transition-slow: 600ms ease-out;
+
+  /* ─── Slide canvas (usado por slides estáticos 1280×720) ─── */
+  --slide-width: 1280px;
+  --slide-height: 720px;
+}
+
+/* ─── Reset mínimo ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-tinta);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+/* ─── Glassmorphism card V4 ─── */
+.card-glass {
+  background: var(--color-fondo-elev);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-base);
+}
+.card-glass:hover {
+  background: rgba(30, 58, 138, 0.25);
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow:
+    0 12px 40px 0 rgba(59, 130, 246, 0.2),
+    inset 0 1px 1px 0 rgba(96, 165, 250, 0.25);
+  transform: translateY(-4px);
+}

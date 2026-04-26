@@ -1,0 +1,131 @@
+/* @codigosinsiesta/theme · chrome.css
+ *
+ * Chrome global V4 para presentaciones full-screen tipo deck:
+ * - Top accent-bar 3px con gradiente cobalto → eléctrico → cielo
+ * - Breadcrumb mono "código sin siesta / <deck> · NN/NN" arriba con pulse-dot
+ * - Footer mono "Hecho con ♥ por Código Sin Siesta · 2026 · ←/→ · Esc"
+ * - Padding global para que .swiper-slide deje cinturón vertical al chrome
+ * - Eyebrow bar 24×2px antes de cada <span class="label"> de los slides
+ *
+ * Renderizar el chrome una sola vez en el layout principal con esta estructura HTML:
+ *
+ *   <div class="slide-accent-bar" aria-hidden="true"></div>
+ *   <div class="slide-breadcrumb" aria-hidden="true">
+ *     <div class="crumbs">
+ *       <span class="pulse-dot"></span>
+ *       <span class="org">código sin siesta</span>
+ *       <span class="sep">/</span>
+ *       <span class="deck">nombre-del-deck</span>
+ *     </div>
+ *     <div class="counter" id="slide-counter">01 / NN</div>
+ *   </div>
+ *   <div class="slide-footer" aria-hidden="true">
+ *     <span>Hecho con <span class="heart">♥</span> por Código Sin Siesta · 2026</span>
+ *     <span>← / → · Esc</span>
+ *   </div>
+ *
+ * Asume que tokens.css ya está cargado (var(--color-electrico), etc.).
+ */
+
+/* ─── Reserva de espacio para el chrome ─── */
+.swiper-slide {
+  padding-top: 28px;
+  padding-bottom: 32px;
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  .swiper-slide {
+    padding-top: 22px;
+    padding-bottom: 26px;
+  }
+}
+
+/* ─── Top accent bar (gradiente azul) ─── */
+.slide-accent-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-cobalto) 0%,
+    var(--color-electrico) 50%,
+    var(--color-cielo) 100%
+  );
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* ─── Breadcrumb superior ─── */
+.slide-breadcrumb {
+  position: fixed;
+  top: 18px; left: 48px; right: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-tinta3);
+  letter-spacing: 0.04em;
+  z-index: 100;
+  pointer-events: none;
+}
+.slide-breadcrumb .crumbs { display: flex; align-items: center; gap: 10px; }
+.slide-breadcrumb .pulse-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--color-electrico);
+  box-shadow: 0 0 8px var(--color-electrico);
+  animation: csi-pulse 2s ease-in-out infinite;
+}
+.slide-breadcrumb .org { font-weight: 600; color: var(--color-cielo); }
+.slide-breadcrumb .sep { color: var(--color-tinta4); }
+.slide-breadcrumb .deck { color: var(--color-tinta2); }
+.slide-breadcrumb .counter { color: var(--color-tinta3); }
+
+@keyframes csi-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* ─── Footer inferior ─── */
+.slide-footer {
+  position: fixed;
+  bottom: 18px; left: 48px; right: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-tinta4);
+  z-index: 100;
+  pointer-events: none;
+}
+.slide-footer .heart { color: var(--color-electrico); }
+
+@media (max-width: 768px) {
+  .slide-breadcrumb,
+  .slide-footer {
+    left: 16px;
+    right: 16px;
+    font-size: 10px;
+  }
+  .slide-breadcrumb .crumbs { gap: 6px; }
+}
+
+/* ─── Eyebrow V4 — barra horizontal antes del label ─── */
+.swiper-slide .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.swiper-slide .label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-electrico);
+  flex-shrink: 0;
+  border-radius: 1px;
+}
+.swiper-slide .label[data-accent="ok"]::before   { background: var(--color-ok); }
+.swiper-slide .label[data-accent="warn"]::before { background: var(--color-warn); }
+.swiper-slide .label[data-accent="err"]::before  { background: var(--color-err); }
