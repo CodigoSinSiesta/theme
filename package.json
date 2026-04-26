@@ -1,7 +1,7 @@
 {
   "name": "@codigosinsiesta/theme",
-  "version": "0.2.0",
-  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 (Eyebrow, Callout, ToolCard, TerminalLine, QRCode).",
+  "version": "0.3.0",
+  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 + slide-shells canónicos.",
   "type": "module",
   "main": "./src/tokens.css",
   "files": [
@@ -23,7 +23,14 @@
     "./components/Callout.svelte": "./src/components/Callout.svelte",
     "./components/ToolCard.svelte": "./src/components/ToolCard.svelte",
     "./components/TerminalLine.svelte": "./src/components/TerminalLine.svelte",
-    "./components/QRCode.svelte": "./src/components/QRCode.svelte"
+    "./components/TerminalWindow.svelte": "./src/components/TerminalWindow.svelte",
+    "./components/QRCode.svelte": "./src/components/QRCode.svelte",
+    "./slides": "./src/slides/index.js",
+    "./slides/SlideShell.svelte": "./src/slides/SlideShell.svelte",
+    "./slides/SlideHero.svelte": "./src/slides/SlideHero.svelte",
+    "./slides/SlideTOC.svelte": "./src/slides/SlideTOC.svelte",
+    "./slides/SlideTerminal.svelte": "./src/slides/SlideTerminal.svelte",
+    "./slides/SlideResources.svelte": "./src/slides/SlideResources.svelte"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"

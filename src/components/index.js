@@ -10,8 +10,9 @@
  *   import Eyebrow from '@codigosinsiesta/theme/components/Eyebrow.svelte';
  */
 
-export { default as Eyebrow }      from './Eyebrow.svelte';
-export { default as Callout }      from './Callout.svelte';
-export { default as ToolCard }     from './ToolCard.svelte';
-export { default as TerminalLine } from './TerminalLine.svelte';
-export { default as QRCode }       from './QRCode.svelte';
+export { default as Eyebrow }        from './Eyebrow.svelte';
+export { default as Callout }        from './Callout.svelte';
+export { default as ToolCard }       from './ToolCard.svelte';
+export { default as TerminalLine }   from './TerminalLine.svelte';
+export { default as TerminalWindow } from './TerminalWindow.svelte';
+export { default as QRCode }         from './QRCode.svelte';

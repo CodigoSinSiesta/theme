@@ -9,7 +9,8 @@ Sistema de diseño **V4 "dark blueprint"** compartido por las presentaciones de 
 - **Tokens CSS** completos: paleta azul cobalto sobre slate-900 (12 colores), neutros slate (8 variantes), semánticos `ok` / `warn` / `err` con `*-bg` y `*-bd` predefinidos, tipografías (`Space Grotesk` / `Inter` / `JetBrains Mono`), spacing/radii/transitions.
 - **Chrome global de slide** listo para drop-in: top accent-bar 3px (gradiente cobalto→eléctrico→cielo), breadcrumb mono `código sin siesta / <deck> · NN/NN` con pulse-dot, footer `Hecho con ♥ · ←/→ · Esc`, padding global `.swiper-slide`.
 - **Eyebrow V4** — barra horizontal 24×2px antes de cada `<span class="label">` de los slides, con variantes semánticas vía `data-accent="ok|warn|err"`.
-- **5 componentes Svelte 5** importables (v0.2.0+): `Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `QRCode`. Cubren los slide-types canónicos del kit V4.
+- **6 componentes Svelte 5** importables (v0.2.0+): `Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `TerminalWindow`, `QRCode`. Cubren los átomos del kit V4.
+- **5 slide-shells canónicos** importables (v0.3.0+): `SlideShell`, `SlideHero`, `SlideTOC`, `SlideTerminal`, `SlideResources`. Componen los átomos en layouts pixel-perfect, props-driven.
 - **Tailwind preset** con todos los tokens mapeados a `theme.extend.colors.csi.*`, fonts `font-csi*`, gradientes `bg-csi-accent-bar` y `bg-csi-highlight-text`.
 - **`tokens` JS** para consumidores que necesitan los valores en runtime.
 
@@ -165,6 +166,122 @@ QR placeholder 21×21 determinístico (NO escaneable; pensado como decoración p
 
 > Para un QR escaneable real, genera un SVG con la lib `qrcode` y mételo dentro de la misma caja blanca. El componente sigue valiendo como contenedor estilizado.
 
+### Slide-shells canónicos (v0.3.0+)
+
+Para slides estandar — pásale props con el contenido y obtienes un layout
+pixel-perfect del kit V4. Composición de los componentes-átomo internamente.
+
+```svelte
+<script>
+  import {
+    SlideShell, SlideHero, SlideTOC, SlideTerminal, SlideResources
+  } from '@codigosinsiesta/theme/slides';
+</script>
+```
+
+#### `<SlideHero>`
+
+```svelte
+<SlideHero
+  eyebrow="Taller · Código Sin Siesta · 2026"
+  title="Taller Graphify"
+  titleHighlight="Graphify"
+  subtitle="Indexa un repo, navega el grafo, decide con criterio."
+  intro="90 minutos para salir con un veredicto razonado."
+  tools={[
+    { label: 'Graphify' },
+    { label: 'Tree-sitter' },
+    { label: 'Veredicto razonado', highlight: true }
+  ]}
+  author={{
+    name: 'Alejandro de la Fuente',
+    role: 'Software Engineer · NTT Data',
+    avatarUrl: 'https://...',
+    links: [
+      { url: 'https://...', label: '🌐' },
+      { url: 'https://github.com/...', label: '🐙' }
+    ]
+  }}
+/>
+```
+
+#### `<SlideTOC>`
+
+```svelte
+<SlideTOC
+  eyebrow="Agenda"
+  title="Lo que vamos a recorrer en 90 minutos"
+  titleHighlight="90 minutos"
+  lead="6 capítulos. La mitad del tiempo en hands-on real."
+  current={null}
+  chapters={[
+    { title: 'El problema',  body: 'Context budget reventado.', duration: '5 min' },
+    { title: 'Knowledge graph', body: 'Nodes + edges + triples.', duration: '8 min' }
+    /* ... */
+  ]}
+/>
+```
+
+#### `<SlideTerminal>`
+
+```svelte
+<SlideTerminal
+  eyebrow="Hands-on 1 · 25-30 min ⭐"
+  eyebrowAccent="ok"
+  title="Setup + primera ejecución"
+  titleHighlight="primera ejecución"
+  lead="Output: <code>graph.json</code> real, reporte leído, ojo entrenado."
+  terminalTitle="~/taller-graphify-starter · zsh"
+  lines={[
+    { type: 'comment', text: 'instala graphify' },
+    { type: 'cmd',     text: 'uv tool install graphifyy' },
+    { type: 'ok',      text: '✓ installed graphifyy 0.8.2' }
+  ]}
+  steps={[
+    'Prerequisitos: Node ≥ 20 y `uv`.',
+    'Instala Graphify globalmente.',
+    '**Predice antes de ejecutar** — papel y boli.'
+  ]}
+  tip="El paso 4 (predecir) es no-negociable."
+/>
+```
+
+#### `<SlideResources>`
+
+```svelte
+<SlideResources
+  eyebrow="Cierre"
+  title="Cinco takeaways. Un siguiente paso esta semana."
+  titleHighlight="Un siguiente paso"
+  takeaways={[
+    { num: 1, text: 'Graphify resuelve un problema específico.' },
+    { num: 2, text: 'El cuadrante manda. Verifica las 3 alternativas.' }
+    /* ... */
+  ]}
+  links={[
+    { icon: '🐙', title: 'Repo del starter', url: 'github.com/...', tag: 'template' }
+  ]}
+  qr={{ title: 'Escanea para todo', url: 'codigosinsiesta.github.io/...' }}
+  closing="El veredicto razonado **es el output real del taller**."
+/>
+```
+
+#### `<SlideShell>` — base genérica
+
+Para slides custom que no encajan en un shell predefinido, usa `<SlideShell>`
+como wrapper y compón a mano:
+
+```svelte
+<SlideShell bgPreset="naranja">
+  <Eyebrow accent="warn">Cuándo NO usar</Eyebrow>
+  <h2>...</h2>
+  <!-- tu layout custom -->
+</SlideShell>
+```
+
+`bgPreset` acepta: `azul` (default), `identidad`, `verde`, `cierre`, `lila`,
+`naranja`, `none`.
+
 ### JS runtime
 
 ```js
@@ -182,13 +299,21 @@ src/
 ├── all.css                    · tokens + chrome juntos
 ├── tailwind.preset.js         · preset Tailwind con namespace csi-*
 ├── index.js                   · export `tokens` para uso JS runtime
-└── components/                · componentes Svelte 5 (v0.2.0+)
+├── components/                · componentes-átomo Svelte 5 (v0.2.0+)
+│   ├── index.js               · barrel re-export
+│   ├── Eyebrow.svelte         · barra horizontal + texto mono uppercase
+│   ├── Callout.svelte         · aside box semántico (info/ok/warn/err)
+│   ├── ToolCard.svelte        · card con accent bar + icon box + tag pill
+│   ├── TerminalLine.svelte    · línea individual de terminal (cmd/out/ok/err/comment)
+│   ├── TerminalWindow.svelte  · caja Mac-style que envuelve TerminalLine (v0.3.0+)
+│   └── QRCode.svelte          · placeholder 21×21 con caption
+└── slides/                    · slide-shells canónicos (v0.3.0+)
     ├── index.js               · barrel re-export
-    ├── Eyebrow.svelte         · barra horizontal + texto mono uppercase
-    ├── Callout.svelte         · aside box semántico (info/ok/warn/err)
-    ├── ToolCard.svelte        · card con accent bar + icon box + tag pill
-    ├── TerminalLine.svelte    · línea individual de terminal (cmd/out/ok/err/comment)
-    └── QRCode.svelte          · placeholder 21×21 con caption
+    ├── SlideShell.svelte      · wrapper base con bg presets + slot
+    ├── SlideHero.svelte       · portada (eyebrow + title + tools + author + orbs)
+    ├── SlideTOC.svelte        · agenda con chapter cards en grid 2-cols
+    ├── SlideTerminal.svelte   · hands-on (TerminalWindow + narración paso a paso)
+    └── SlideResources.svelte  · cierre (takeaways + links + QR)
 package.json
 README.md
 LICENSE
@@ -208,9 +333,10 @@ LICENSE
 ## Roadmap
 
 - [x] **v0.1.0** — primer release con tokens + chrome + Tailwind preset, consumido por `taller-graphify-presentation`.
-- [x] **v0.2.0** — 5 componentes Svelte 5 (`Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `QRCode`) cubriendo los slide-types canónicos del kit V4.
-- [ ] **v0.3.0** — Storybook publicado en GitHub Pages (`codigosinsiesta.github.io/theme/`) para que los decks vean los componentes en vivo antes de adoptarlos.
-- [ ] **v0.4.0** — slide-shells completos (`SlideHero`, `SlideTOC`, `SlideTerminal`, `SlideResources`...) que componen los componentes-átomo en layouts canónicos.
+- [x] **v0.2.0** — 5 componentes-átomo Svelte 5 (`Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `QRCode`).
+- [x] **v0.3.0** — `TerminalWindow` + 5 slide-shells canónicos (`SlideShell`, `SlideHero`, `SlideTOC`, `SlideTerminal`, `SlideResources`) que componen los átomos en layouts pixel-perfect.
+- [ ] **v0.4.0** — Storybook publicado en GitHub Pages (`codigosinsiesta.github.io/theme/`) para que los decks vean los componentes y shells en vivo antes de adoptarlos.
+- [ ] **v0.5.0** — más shells: `SlideStatement`, `SlideCompare`, `SlideStats`, `SlideDiagram`, `SlideCode`, `SlideList` cubriendo los 15 slide-types completos del kit V4.
 - [ ] **v1.0.0** — los 7 decks de la organización migrados, paridad visual completa, npm publish bajo `@codigosinsiesta/theme`.
 
 ## Licencia
