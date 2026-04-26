@@ -1,0 +1,84 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import TerminalWindow from '../../../../src/components/TerminalWindow.svelte';
+
+const lines = [
+  { type: 'comment' as const, text: 'verifica prerequisitos' },
+  { type: 'cmd' as const,     text: 'node --version && uv --version' },
+  { type: 'out' as const,     text: 'v20.11.1' },
+  { type: 'out' as const,     text: 'uv 0.4.15' },
+  { type: 'comment' as const, text: 'instala graphify' },
+  { type: 'cmd' as const,     text: 'uv tool install graphifyy' },
+  { type: 'ok' as const,      text: '✓ installed graphifyy 0.8.2' }
+];
+---
+
+<DocsLayout title="TerminalWindow · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.3.0+</span>
+    <h1 class="docs-page-title">TerminalWindow</h1>
+    <p class="docs-page-desc">
+      Caja Mac-style (titlebar con 3 dots rojo/amarillo/verde + título central) que envuelve <code>TerminalLine</code>. Pinta cursor parpadeante final automáticamente.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Default</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="display: block;">
+        <TerminalWindow
+          title="~/taller-graphify-starter · zsh"
+          lines={lines}
+          minHeight={280}
+          client:load
+        />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;TerminalWindow</span>
+  <span class="key">title</span>=<span class="str">"~/taller-graphify-starter · zsh"</span>
+  <span class="key">lines</span>={'{'}[
+    {'{'} <span class="key">type</span>: <span class="str">'cmd'</span>, <span class="key">text</span>: <span class="str">'uv tool install graphifyy'</span> {'}'},
+    {'{'} <span class="key">type</span>: <span class="str">'ok'</span>,  <span class="key">text</span>: <span class="str">'✓ installed graphifyy 0.8.2'</span> {'}'}
+  ]{'}'}
+  <span class="key">minHeight</span>={'{'}<span class="num">280</span>{'}'}
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Sin cursor parpadeante</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="display: block;">
+        <TerminalWindow
+          title="output capturado"
+          lines={[
+            { type: 'comment' as const, text: 'snapshot — sin prompt activo' },
+            { type: 'cmd' as const,     text: 'pnpm test' },
+            { type: 'ok' as const,      text: '✓ 9 tests passed' }
+          ]}
+          showCursor={false}
+          minHeight={180}
+          client:load
+        />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;TerminalWindow</span> <span class="key">showCursor</span>={'{'}<span class="key">false</span>{'}'} <span class="key">minHeight</span>={'{'}<span class="num">180</span>{'}'} <span class="key">lines</span>={'{'}[...]{'}'} <span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>'~ · zsh'</code></td><td>Caption central de la titlebar.</td></tr>
+        <tr><td><code>lines</code></td><td><code>{`{ type, text }[]`}</code></td><td><code>[]</code></td><td>Líneas (renderizadas con TerminalLine).</td></tr>
+        <tr><td><code>showCursor</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Pinta el prompt parpadeante final.</td></tr>
+        <tr><td><code>minHeight</code></td><td><code>number | string</code></td><td><code>480</code></td><td>Alto mínimo (px o cualquier unidad CSS).</td></tr>
+        <tr><td><code>children</code></td><td><code>Snippet</code></td><td>—</td><td>Alternativa a <code>lines</code>: meter <code>&lt;TerminalLine&gt;</code>s a mano.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

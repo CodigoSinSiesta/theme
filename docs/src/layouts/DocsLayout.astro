@@ -1,0 +1,81 @@
+---
+import '../styles/docs.css';
+
+interface Props {
+  title?: string;
+  pathname?: string;
+}
+
+const { title = 'theme · @codigosinsiesta', pathname = Astro.url.pathname } = Astro.props;
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+function isActive(href: string): boolean {
+  const full = base + href;
+  return pathname === full || pathname === full + '/';
+}
+
+const componentLinks = [
+  { href: '/components/eyebrow',         label: 'Eyebrow' },
+  { href: '/components/callout',         label: 'Callout' },
+  { href: '/components/toolcard',        label: 'ToolCard' },
+  { href: '/components/terminal-line',   label: 'TerminalLine' },
+  { href: '/components/terminal-window', label: 'TerminalWindow' },
+  { href: '/components/qrcode',          label: 'QRCode' }
+];
+const shellLinks = [
+  { href: '/slides/shell',     label: 'SlideShell' },
+  { href: '/slides/hero',      label: 'SlideHero' },
+  { href: '/slides/toc',       label: 'SlideTOC' },
+  { href: '/slides/terminal',  label: 'SlideTerminal' },
+  { href: '/slides/resources', label: 'SlideResources' }
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Mini-Storybook de @codigosinsiesta/theme — sistema V4 'dark blueprint' con 6 componentes-átomo + 5 slide-shells navegables." />
+    <link rel="icon" type="image/svg+xml" href={base + '/favicon.svg'} />
+  </head>
+  <body>
+    <div class="docs-shell">
+      <aside class="docs-sidebar">
+        <a class="docs-brand" href={base + '/'}>
+          <span class="pulse" aria-hidden="true"></span>
+          <span class="docs-brand-text">
+            <span class="docs-brand-org">código sin siesta</span>
+            <span class="docs-brand-name">theme</span>
+          </span>
+        </a>
+        <span class="docs-version">v0.4.0 · dark blueprint</span>
+
+        <nav class="docs-nav" aria-label="Navegación de docs">
+          <div class="docs-nav-section">
+            <span class="docs-nav-title">Componentes-átomo</span>
+            {componentLinks.map((l) => (
+              <a class={`docs-nav-link ${isActive(l.href) ? 'active' : ''}`} href={base + l.href}>{l.label}</a>
+            ))}
+          </div>
+          <div class="docs-nav-section">
+            <span class="docs-nav-title">Slide-shells</span>
+            {shellLinks.map((l) => (
+              <a class={`docs-nav-link ${isActive(l.href) ? 'active' : ''}`} href={base + l.href}>{l.label}</a>
+            ))}
+          </div>
+          <div class="docs-nav-section">
+            <span class="docs-nav-title">Recursos</span>
+            <a class="docs-nav-link" href="https://github.com/CodigoSinSiesta/theme" target="_blank" rel="noopener">GitHub repo ↗</a>
+            <a class="docs-nav-link" href="https://github.com/CodigoSinSiesta/taller-graphify-presentation" target="_blank" rel="noopener">Pilot consumidor ↗</a>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="docs-main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

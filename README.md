@@ -1,6 +1,8 @@
 # @codigosinsiesta/theme
 
-Sistema de diseño **V4 "dark blueprint"** compartido por las presentaciones de [Código Sin Siesta](https://codigosinsiesta.github.io). Tokens CSS + chrome global de presentación + Tailwind preset, en un solo paquete.
+Sistema de diseño **V4 "dark blueprint"** compartido por las presentaciones de [Código Sin Siesta](https://codigosinsiesta.github.io). Tokens CSS + chrome global + Tailwind preset + componentes Svelte 5 + slide-shells canónicos, en un solo paquete.
+
+📖 **Docs site (Storybook)**: [codigosinsiesta.github.io/theme](https://codigosinsiesta.github.io/theme/) — los 6 componentes-átomo + 5 slide-shells navegables con preview en vivo + tabla de props + ejemplos de código.
 
 > Origen: handoff de [Claude Design](https://claude.ai/design) — `Codigo sin siesta.zip`, sección "Dirección · Zine". Portado de `codigo-sin-siesta/project/src/css-system-v4.jsx`.
 
@@ -335,7 +337,7 @@ LICENSE
 - [x] **v0.1.0** — primer release con tokens + chrome + Tailwind preset, consumido por `taller-graphify-presentation`.
 - [x] **v0.2.0** — 5 componentes-átomo Svelte 5 (`Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `QRCode`).
 - [x] **v0.3.0** — `TerminalWindow` + 5 slide-shells canónicos (`SlideShell`, `SlideHero`, `SlideTOC`, `SlideTerminal`, `SlideResources`) que componen los átomos en layouts pixel-perfect.
-- [ ] **v0.4.0** — Storybook publicado en GitHub Pages (`codigosinsiesta.github.io/theme/`) para que los decks vean los componentes y shells en vivo antes de adoptarlos.
+- [x] **v0.4.0** — Storybook publicado en [codigosinsiesta.github.io/theme](https://codigosinsiesta.github.io/theme/) con preview en vivo + tabla de props + ejemplos de código por cada componente y shell. Mismo stack Astro+Svelte que los decks consumidores — lo que ves aquí funciona idéntico en producción.
 - [ ] **v0.5.0** — más shells: `SlideStatement`, `SlideCompare`, `SlideStats`, `SlideDiagram`, `SlideCode`, `SlideList` cubriendo los 15 slide-types completos del kit V4.
 - [ ] **v1.0.0** — los 7 decks de la organización migrados, paridad visual completa, npm publish bajo `@codigosinsiesta/theme`.
 

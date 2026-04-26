@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Eyebrow from '../../../../src/components/Eyebrow.svelte';
+---
+
+<DocsLayout title="Eyebrow · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.2.0+</span>
+    <h1 class="docs-page-title">Eyebrow</h1>
+    <p class="docs-page-desc">
+      Barra horizontal 24×2px + texto mono uppercase. Acompaña el header de cada slide para anclar al lector en la sección.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Variantes por <code>accent</code></h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="flex-direction: column; gap: 16px;">
+        <Eyebrow client:load>Default · electrico</Eyebrow>
+        <Eyebrow accent="ok"   client:load>Accent ok · hands-on</Eyebrow>
+        <Eyebrow accent="warn" client:load color="var(--color-warn)">Accent warn · cuidado</Eyebrow>
+        <Eyebrow accent="err"  client:load color="var(--color-err)">Accent err · anti-patrón</Eyebrow>
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;Eyebrow&gt;</span>Default · electrico<span class="tag">&lt;/Eyebrow&gt;</span>
+<span class="tag">&lt;Eyebrow</span> <span class="key">accent</span>=<span class="str">"ok"</span><span class="tag">&gt;</span>Accent ok · hands-on<span class="tag">&lt;/Eyebrow&gt;</span>
+<span class="tag">&lt;Eyebrow</span> <span class="key">accent</span>=<span class="str">"warn"</span> <span class="key">color</span>=<span class="str">"var(--color-warn)"</span><span class="tag">&gt;</span>Accent warn<span class="tag">&lt;/Eyebrow&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>accent</code></td>
+          <td><code>'electrico' | 'ok' | 'warn' | 'err'</code></td>
+          <td><code>'electrico'</code></td>
+          <td>Color del bar lateral.</td>
+        </tr>
+        <tr>
+          <td><code>color</code></td>
+          <td><code>string</code></td>
+          <td><code>var(--color-cielo)</code></td>
+          <td>Color del texto. Acepta cualquier color CSS válido.</td>
+        </tr>
+        <tr>
+          <td><code>children</code></td>
+          <td><code>Snippet</code></td>
+          <td>—</td>
+          <td>Texto del eyebrow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

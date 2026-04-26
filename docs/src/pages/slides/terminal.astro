@@ -1,0 +1,101 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideTerminal from '../../../../src/slides/SlideTerminal.svelte';
+import '../../styles/shell-preview.css';
+
+const lines = [
+  { type: 'comment' as const, text: 'verifica prerequisitos' },
+  { type: 'cmd' as const,     text: 'node --version && uv --version' },
+  { type: 'out' as const,     text: 'v20.11.1' },
+  { type: 'out' as const,     text: 'uv 0.4.15' },
+  { type: 'comment' as const, text: 'instala graphify' },
+  { type: 'cmd' as const,     text: 'uv tool install graphifyy' },
+  { type: 'ok' as const,      text: '✓ installed graphifyy 0.8.2' },
+  { type: 'comment' as const, text: 'lanza el pipeline desde Claude Code' },
+  { type: 'cmd' as const,     text: '/graphify .' },
+  { type: 'out' as const,     text: 'detect: 24 files · 6,840 words' },
+  { type: 'ok' as const,      text: '✓ graph.json + GRAPH_REPORT.md' }
+];
+
+const steps = [
+  'Prerequisitos: Node ≥ 20 y `uv`.',
+  'Instala Graphify globalmente.',
+  'Clona el starter. Verifica con tests + typecheck.',
+  '**Predice antes de ejecutar** — papel y boli.',
+  'Lanza el pipeline. ~$0.30-0.50, 4-5 subagentes en paralelo.',
+  'Lee `GRAPH_REPORT.md` → `graph.html` → contrasta predicción.'
+];
+---
+
+<DocsLayout title="SlideTerminal · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.3.0+</span>
+    <h1 class="docs-page-title">SlideTerminal</h1>
+    <p class="docs-page-desc">
+      Hands-on con <code>TerminalWindow</code> a la izquierda + narración paso a paso a la derecha + Pro tip <code>Callout</code> al final. Renderiza markdown inline (<code>**strong**</code> y <code>`code`</code>) en steps y lead.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Preview <small style="color: var(--color-tinta4); font-family: var(--font-mono); font-size: 11px;">(escala 0.55)</small></h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideTerminal
+          eyebrow="Hands-on 1 · 25-30 min ⭐"
+          eyebrowAccent="ok"
+          title="Setup + primera ejecución sobre el starter"
+          titleHighlight="primera ejecución"
+          lead="Output del hands-on: <code>graph.json</code> real, reporte leído, y <strong>ojo entrenado</strong>."
+          terminalTitle="~/taller-graphify-starter · zsh"
+          lines={lines}
+          steps={steps}
+          tip="El paso 4 (predecir) es no-negociable. Si saltas a ejecutar, pierdes el músculo crítico que el taller entrena."
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">invocación</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;SlideTerminal</span>
+  <span class="key">eyebrow</span>=<span class="str">"Hands-on 1 · 25-30 min ⭐"</span>
+  <span class="key">eyebrowAccent</span>=<span class="str">"ok"</span>
+  <span class="key">title</span>=<span class="str">"Setup + primera ejecución"</span>
+  <span class="key">titleHighlight</span>=<span class="str">"primera ejecución"</span>
+  <span class="key">lead</span>=<span class="str">"Output: &lt;code&gt;graph.json&lt;/code&gt; real."</span>
+  <span class="key">terminalTitle</span>=<span class="str">"~/taller-graphify-starter · zsh"</span>
+  <span class="key">lines</span>={'{'}[
+    {'{'} <span class="key">type</span>: <span class="str">'cmd'</span>, <span class="key">text</span>: <span class="str">'uv tool install graphifyy'</span> {'}'},
+    {'{'} <span class="key">type</span>: <span class="str">'ok'</span>,  <span class="key">text</span>: <span class="str">'✓ installed graphifyy 0.8.2'</span> {'}'}
+  ]{'}'}
+  <span class="key">steps</span>={'{'}[
+    <span class="str">'Prerequisitos: Node ≥ 20 y `uv`.'</span>,
+    <span class="str">'**Predice antes de ejecutar** — papel y boli.'</span>
+  ]{'}'}
+  <span class="key">tip</span>=<span class="str">"El paso 4 es no-negociable."</span>
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto del eyebrow.</td></tr>
+        <tr><td><code>eyebrowAccent</code></td><td><code>'electrico' | 'ok' | 'warn' | 'err'</code></td><td><code>'ok'</code></td><td>Color del bar del eyebrow.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring a destacar.</td></tr>
+        <tr><td><code>lead</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>&lt;code&gt;</code> y <code>&lt;strong&gt;</code>).</td></tr>
+        <tr><td><code>terminalTitle</code></td><td><code>string</code></td><td><code>'~ · zsh'</code></td><td>Caption de la titlebar del terminal.</td></tr>
+        <tr><td><code>lines</code></td><td><code>{`{ type; text }[]`}</code></td><td><code>[]</code></td><td>Líneas del terminal.</td></tr>
+        <tr><td><code>steps</code></td><td><code>string[]</code></td><td><code>[]</code></td><td>Pasos numerados (markdown inline: <code>**strong**</code>, <code>`code`</code>).</td></tr>
+        <tr><td><code>tip</code></td><td><code>string</code></td><td><code>''</code></td><td>Pro-tip al final (Callout info, opcional).</td></tr>
+        <tr><td><code>tipTitle</code></td><td><code>string</code></td><td><code>'Pro tip'</code></td><td>Título del Pro-tip Callout.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

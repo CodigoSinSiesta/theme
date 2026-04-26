@@ -1,0 +1,89 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideTOC from '../../../../src/slides/SlideTOC.svelte';
+import '../../styles/shell-preview.css';
+
+const chapters = [
+  { title: 'El problema',         body: 'Context budget reventado y RAG vectorial cross-doc.', duration: '5 min' },
+  { title: 'Knowledge graph',      body: 'Nodes + edges + triples. La idea Karpathy.',         duration: '8 min' },
+  { title: 'Anatomía + outputs',   body: 'Las 4 capas de Graphify y los 5 outputs.',           duration: '10 min' },
+  { title: 'Cuadrante de decisión', body: 'Graphify vs GitNexus vs vector RAG vs agentic.',   duration: '12 min' },
+  { title: 'Hands-on',              body: 'Setup + primera ejecución, skill + queries.',      duration: '50 min' },
+  { title: 'Más allá + cierre',    body: 'MCP, incremental, save-result. Takeaways y QR.',    duration: '15 min' }
+];
+---
+
+<DocsLayout title="SlideTOC · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.3.0+</span>
+    <h1 class="docs-page-title">SlideTOC</h1>
+    <p class="docs-page-desc">
+      Agenda con chapter cards en grid 2-cols. Cada card tiene número 44×44 + título display + body + duration pill. Estados visuales: <strong>current</strong> (gradient cobalto + glow), <strong>past</strong> (opacity 0.5 + ✓ verde), <strong>future</strong> (default).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Vista global <small style="color: var(--color-tinta4); font-family: var(--font-mono); font-size: 11px;">(<code>current=null</code> · escala 0.55)</small></h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideTOC
+          eyebrow="Agenda"
+          title="Lo que vamos a recorrer en 90 minutos"
+          titleHighlight="90 minutos"
+          lead="6 capítulos. La mitad del tiempo en hands-on real. El output del taller no es la herramienta funcionando — es <strong>tu veredicto razonado</strong>."
+          chapters={chapters}
+          current={null}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Con progreso (<code>current=2</code>)</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideTOC
+          eyebrow="Agenda"
+          title="Estamos aquí"
+          titleHighlight="aquí"
+          chapters={chapters}
+          current={2}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">invocación</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;SlideTOC</span>
+  <span class="key">eyebrow</span>=<span class="str">"Agenda"</span>
+  <span class="key">title</span>=<span class="str">"Lo que vamos a recorrer en 90 minutos"</span>
+  <span class="key">titleHighlight</span>=<span class="str">"90 minutos"</span>
+  <span class="key">lead</span>=<span class="str">"6 capítulos."</span>
+  <span class="key">current</span>={'{'}<span class="num">2</span>{'}'}
+  <span class="key">chapters</span>={'{'}[
+    {'{'} <span class="key">title</span>: <span class="str">'El problema'</span>, <span class="key">body</span>: <span class="str">'...'</span>, <span class="key">duration</span>: <span class="str">'5 min'</span> {'}'}
+  ]{'}'}
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'Agenda'</code></td><td>Eyebrow del slide.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar con gradiente.</td></tr>
+        <tr><td><code>lead</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta HTML inline como <code>&lt;strong&gt;</code>).</td></tr>
+        <tr><td><code>chapters</code></td><td><code>{`{ title; body?; duration? }[]`}</code></td><td><code>[]</code></td><td>Items de la agenda.</td></tr>
+        <tr><td><code>current</code></td><td><code>number | null</code></td><td><code>null</code></td><td>Índice 0-based del chapter activo. <code>null</code> = vista global (todos future).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

@@ -1,0 +1,25 @@
+{
+  "name": "@codigosinsiesta/theme-docs",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Mini-Storybook del sistema V4 'dark blueprint'. 6 componentes-átomo + 5 slide-shells navegables. Mismo stack Astro 5 + Svelte 5 + Tailwind 4 que los decks consumidores — lo que ves aquí funciona idéntico en producción.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^7.2.2",
+    "astro": "^5.18.1",
+    "svelte": "^5.45.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,91 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideResources from '../../../../src/slides/SlideResources.svelte';
+import '../../styles/shell-preview.css';
+
+const takeaways = [
+  { num: 1, text: 'Graphify resuelve un problema específico: context budget reventado por re-leer ficheros.' },
+  { num: 2, text: 'El cuadrante manda. Verifica las 3 alternativas (GitNexus, vector RAG, agentic search).' },
+  { num: 3, text: 'AST gratis, semántica cuesta. Las 4 capas tienen rentabilidad distinta.' },
+  { num: 4, text: 'El grafo es activo persistente, no decorativo. Si solo abres el HTML al primer pase, has tirado dinero.' },
+  { num: 5, text: 'Honestidad: cada arista EXTRACTED/INFERRED/AMBIGUOUS. Cohesion en números.' }
+];
+
+const links = [
+  { icon: '🐙', title: 'Repo del starter',         url: 'github.com/CodigoSinSiesta/taller-graphify-starter',     tag: 'template' },
+  { icon: '🎬', title: 'Slides de este taller',    url: 'codigosinsiesta.github.io/taller-graphify-presentation', tag: 'deck' },
+  { icon: '📦', title: 'Graphify · repo oficial',  url: 'github.com/safishamsi/graphify',                         tag: 'tool' },
+  { icon: '📖', title: 'Wiki: graphify',           url: 'codigosinsiesta.github.io/wiki/graphify',                tag: 'docs' },
+  { icon: '🧭', title: 'GitNexus (alternativa)',   url: 'github.com/abhigyanpatwari/GitNexus',                    tag: 'alt' }
+];
+
+const qr = {
+  title: 'Escanea para todo',
+  url: 'codigosinsiesta.github.io/taller-graphify',
+  size: 220
+};
+---
+
+<DocsLayout title="SlideResources · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.3.0+</span>
+    <h1 class="docs-page-title">SlideResources</h1>
+    <p class="docs-page-desc">
+      Slide de cierre con <strong>takeaways</strong> en grid 5×1 arriba + bloque inferior 1.4fr/1fr con <strong>link cards</strong> a la izquierda y <strong>QR placeholder</strong> a la derecha. Acepta closing line opcional al pie.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Preview <small style="color: var(--color-tinta4); font-family: var(--font-mono); font-size: 11px;">(escala 0.55)</small></h2>
+    <div class="shell-preview-frame" style="height: 540px;">
+      <div class="shell-preview-scale">
+        <SlideResources
+          eyebrow="Cierre"
+          title="Cinco takeaways. Un siguiente paso esta semana."
+          titleHighlight="Un siguiente paso"
+          takeaways={takeaways}
+          links={links}
+          qr={qr}
+          closing="El veredicto razonado del Ejercicio 3 **es el output real del taller**. La herramienta es útil solo si entra a tu workflow con criterio."
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">invocación</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;SlideResources</span>
+  <span class="key">eyebrow</span>=<span class="str">"Cierre"</span>
+  <span class="key">title</span>=<span class="str">"Cinco takeaways. Un siguiente paso esta semana."</span>
+  <span class="key">titleHighlight</span>=<span class="str">"Un siguiente paso"</span>
+  <span class="key">takeaways</span>={'{'}[
+    {'{'} <span class="key">num</span>: <span class="num">1</span>, <span class="key">text</span>: <span class="str">'Graphify resuelve un problema específico.'</span> {'}'}
+  ]{'}'}
+  <span class="key">links</span>={'{'}[
+    {'{'} <span class="key">icon</span>: <span class="str">'🐙'</span>, <span class="key">title</span>: <span class="str">'Repo del starter'</span>, <span class="key">url</span>: <span class="str">'github.com/...'</span>, <span class="key">tag</span>: <span class="str">'template'</span> {'}'}
+  ]{'}'}
+  <span class="key">qr</span>={'{'}{'{'} <span class="key">title</span>: <span class="str">'Escanea'</span>, <span class="key">url</span>: <span class="str">'codigosinsiesta.github.io/...'</span> {'}'}{'}'}
+  <span class="key">closing</span>=<span class="str">"El veredicto razonado **es el output real del taller**."</span>
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'Cierre'</code></td><td>Eyebrow del slide.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring a destacar.</td></tr>
+        <tr><td><code>takeaways</code></td><td><code>{`{ num?; text }[]`}</code></td><td><code>[]</code></td><td>Bloques numerados arriba.</td></tr>
+        <tr><td><code>links</code></td><td><code>{`{ icon?; title; url; tag? }[]`}</code></td><td><code>[]</code></td><td>Link cards de la columna izquierda.</td></tr>
+        <tr><td><code>qr</code></td><td><code>{`{ title?; url?; size?; bgColor?; fgColor? }`}</code></td><td><code>{`{}`}</code></td><td>Config del QR placeholder.</td></tr>
+        <tr><td><code>closing</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto de cierre al pie (acepta <code>**strong**</code>).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

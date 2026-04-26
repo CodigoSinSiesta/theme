@@ -1,0 +1,63 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import QRCode from '../../../../src/components/QRCode.svelte';
+---
+
+<DocsLayout title="QRCode · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.2.0+</span>
+    <h1 class="docs-page-title">QRCode</h1>
+    <p class="docs-page-desc">
+      Placeholder 21×21 determinístico — <strong>NO escaneable</strong>. Pensado como decoración para slides finales de "escanea para más". Para un QR real, genera un SVG con la lib <code>qrcode</code> y mételo dentro de la misma caja blanca.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Default + caption</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="justify-content: center;">
+        <QRCode
+          size={220}
+          title="Escanea para todo"
+          url="codigosinsiesta.github.io/taller-graphify"
+          client:load
+        />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;QRCode</span>
+  <span class="key">size</span>={'{'}<span class="num">220</span>{'}'}
+  <span class="key">title</span>=<span class="str">"Escanea para todo"</span>
+  <span class="key">url</span>=<span class="str">"codigosinsiesta.github.io/taller-graphify"</span>
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Tamaño compacto, sin caption</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="justify-content: center; gap: 32px;">
+        <QRCode size={140} client:load />
+        <QRCode size={180} title="Slides" url="cs/talg" client:load />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;QRCode</span> <span class="key">size</span>={'{'}<span class="num">140</span>{'}'} <span class="tag">/&gt;</span>
+<span class="tag">&lt;QRCode</span> <span class="key">size</span>={'{'}<span class="num">180</span>{'}'} <span class="key">title</span>=<span class="str">"Slides"</span> <span class="key">url</span>=<span class="str">"cs/talg"</span> <span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>size</code></td><td><code>number</code></td><td><code>220</code></td><td>Lado del cuadrado (px).</td></tr>
+        <tr><td><code>bgColor</code></td><td><code>string</code></td><td><code>'#fff'</code></td><td>Fondo de la tarjeta blanca.</td></tr>
+        <tr><td><code>fgColor</code></td><td><code>string</code></td><td><code>var(--color-fondo)</code></td><td>Color de las celdas activas.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Caption display superior (opcional).</td></tr>
+        <tr><td><code>url</code></td><td><code>string</code></td><td><code>''</code></td><td>Caption mono inferior (opcional).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

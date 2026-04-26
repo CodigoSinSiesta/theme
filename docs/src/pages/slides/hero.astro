@@ -1,0 +1,89 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideHero from '../../../../src/slides/SlideHero.svelte';
+import '../../styles/shell-preview.css';
+---
+
+<DocsLayout title="SlideHero · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.3.0+</span>
+    <h1 class="docs-page-title">SlideHero</h1>
+    <p class="docs-page-desc">
+      Slide de portada completo: eyebrow con dot pulsante + título grande con highlight gradient + subtítulo inline + intro + tools row + author card + 3 orbs decorativos.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Preview <small style="color: var(--color-tinta4); font-family: var(--font-mono); font-size: 11px;">(escala 0.55)</small></h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideHero
+          eyebrow="Taller · Código Sin Siesta · 2026"
+          title="Taller Graphify"
+          titleHighlight="Graphify"
+          subtitle="Indexa un repo o /raw, navega el grafo, decide con criterio"
+          intro="Knowledge graph + skill en tu agente + cuadrante de decisión honesto. 90-120 min para salir con un veredicto razonado."
+          tools={[
+            { label: 'Graphify' },
+            { label: 'Tree-sitter AST' },
+            { label: 'Subagentes Claude' },
+            { label: 'Leiden clustering' },
+            { label: 'MCP server' },
+            { label: 'Veredicto razonado', highlight: true }
+          ]}
+          author={{
+            name: 'Alejandro de la Fuente',
+            role: 'Software Engineer · NTT Data · GDNE',
+            avatarUrl: 'https://www.gravatar.com/avatar/8461e0b8674185c1df153079e820504b?s=120',
+            links: [
+              { url: 'https://tellmealex.dev', label: '🌐' },
+              { url: 'https://github.com/TellMeAlex', label: '🐙' },
+              { url: 'https://es.linkedin.com/in/alejandro-de-la-fuente', label: '💼' }
+            ]
+          }}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">invocación</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;SlideHero</span>
+  <span class="key">eyebrow</span>=<span class="str">"Taller · Código Sin Siesta · 2026"</span>
+  <span class="key">title</span>=<span class="str">"Taller Graphify"</span>
+  <span class="key">titleHighlight</span>=<span class="str">"Graphify"</span>
+  <span class="key">subtitle</span>=<span class="str">"Indexa un repo, navega el grafo, decide con criterio"</span>
+  <span class="key">tools</span>={'{'}[
+    {'{'} <span class="key">label</span>: <span class="str">'Graphify'</span> {'}'},
+    {'{'} <span class="key">label</span>: <span class="str">'Veredicto razonado'</span>, <span class="key">highlight</span>: <span class="key">true</span> {'}'}
+  ]{'}'}
+  <span class="key">author</span>={'{'}{'{'}
+    <span class="key">name</span>: <span class="str">'Alejandro de la Fuente'</span>,
+    <span class="key">role</span>: <span class="str">'Software Engineer'</span>,
+    <span class="key">avatarUrl</span>: <span class="str">'https://...'</span>,
+    <span class="key">links</span>: [{'{'} <span class="key">url</span>: <span class="str">'...'</span>, <span class="key">label</span>: <span class="str">'🐙'</span> {'}'}]
+  {'}'}{'}'}
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'Código Sin Siesta · 2026'</code></td><td>Texto del eyebrow superior.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título principal.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a renderizar con gradiente.</td></tr>
+        <tr><td><code>subtitle</code></td><td><code>string</code></td><td><code>''</code></td><td>Subtítulo inline (debajo del título).</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo introductorio (opcional).</td></tr>
+        <tr><td><code>tools</code></td><td><code>{`{ label: string; highlight?: boolean }[]`}</code></td><td><code>[]</code></td><td>Pills del stack.</td></tr>
+        <tr><td><code>author</code></td><td><code>{`{ name; role?; avatarUrl?; links? }`}</code></td><td>—</td><td>Author card (opcional).</td></tr>
+        <tr><td><code>showOrbs</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Pinta los 3 orbs decorativos animados.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

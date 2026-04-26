@@ -1,7 +1,7 @@
 {
   "name": "@codigosinsiesta/theme",
-  "version": "0.3.0",
-  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 + slide-shells canónicos.",
+  "version": "0.4.0",
+  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 + slide-shells canónicos. Docs site (Storybook) en codigosinsiesta.github.io/theme.",
   "type": "module",
   "main": "./src/tokens.css",
   "files": [

@@ -1,0 +1,114 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+const components = [
+  { href: '/components/eyebrow',         name: 'Eyebrow',        desc: 'Barra horizontal 24×2px + texto mono uppercase. Acompaña el header de cada slide.' },
+  { href: '/components/callout',         name: 'Callout',        desc: 'Aside box con kind semántico (info/ok/warn/err). Border-left + icono + título + body.' },
+  { href: '/components/toolcard',        name: 'ToolCard',       desc: 'Card con accent bar + icon box 42×42 + tag pill + meta strip opcional.' },
+  { href: '/components/terminal-line',   name: 'TerminalLine',   desc: 'Una línea individual de terminal con tipos cmd/out/ok/err/comment.' },
+  { href: '/components/terminal-window', name: 'TerminalWindow', desc: 'Caja Mac-style (titlebar + 3 dots) que envuelve TerminalLine.' },
+  { href: '/components/qrcode',          name: 'QRCode',         desc: 'Placeholder 21×21 determinístico (NO escaneable). Decoración para slides finales.' }
+];
+
+const shells = [
+  { href: '/slides/shell',     name: 'SlideShell',     desc: 'Wrapper base con .swiper-slide + 7 bg presets (azul / identidad / verde / cierre / lila / naranja / none) + slot.' },
+  { href: '/slides/hero',      name: 'SlideHero',      desc: 'Portada completa: eyebrow + title con highlight + subtitle + intro + tools + author card + 3 orbs.' },
+  { href: '/slides/toc',       name: 'SlideTOC',       desc: 'Agenda con chapter cards en grid 2-cols. Estados current/past/future.' },
+  { href: '/slides/terminal',  name: 'SlideTerminal',  desc: 'Hands-on con TerminalWindow + narración paso a paso lateral + Pro tip Callout.' },
+  { href: '/slides/resources', name: 'SlideResources', desc: 'Cierre con takeaways grid arriba + links + QR placeholder abajo.' }
+];
+---
+
+<DocsLayout title="theme · @codigosinsiesta · docs">
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">v0.4.0 · dark blueprint</span>
+    <h1 class="docs-page-title">@codigosinsiesta/theme</h1>
+    <p class="docs-page-desc">
+      Sistema de diseño V4 compartido entre las presentaciones de Código Sin Siesta.
+      Tokens CSS + chrome global + Tailwind preset + 6 componentes-átomo Svelte + 5 slide-shells canónicos. Mismo stack Astro 5 + Svelte 5 + Tailwind 4 que los decks consumidores — lo que ves aquí funciona idéntico en producción.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Empieza aquí</h2>
+    <p>
+      Instala el theme en tu deck (Astro o Svelte) — basta con la dependencia git URL hasta que se publique en npm:
+    </p>
+    <div class="docs-example">
+      <div class="docs-example-label">terminal</div>
+      <pre class="docs-example-code"><code><span class="ctrl">$</span> pnpm add github:CodigoSinSiesta/theme</code></pre>
+    </div>
+    <p>
+      En tu CSS global:
+    </p>
+    <div class="docs-example">
+      <div class="docs-example-label">src/styles/global.css</div>
+      <pre class="docs-example-code"><code><span class="ctrl">@import</span> <span class="str">'@codigosinsiesta/theme/all.css'</span>;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Componentes-átomo (v0.2.0+)</h2>
+    <p>Primitivas reutilizables. Pásales props con el contenido y obtienes el patrón canónico del kit V4.</p>
+    <div class="docs-grid">
+      {components.map((c) => (
+        <a class="docs-card" href={base + c.href}>
+          <span class="docs-card-name">{c.name}</span>
+          <span class="docs-card-desc">{c.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Slide-shells canónicos (v0.3.0+)</h2>
+    <p>Composiciones completas de slide. Pásales data y obtienes un slide pixel-perfect.</p>
+    <div class="docs-grid">
+      {shells.map((s) => (
+        <a class="docs-card" href={base + s.href}>
+          <span class="docs-card-name">{s.name}</span>
+          <span class="docs-card-desc">{s.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .docs-card {
+    background: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    padding: 18px 22px;
+    text-decoration: none;
+    transition: border-color 150ms ease-out, transform 150ms ease-out, box-shadow 150ms ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .docs-card:hover {
+    border-color: var(--color-electrico);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+  }
+  .docs-card-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--color-tinta);
+  }
+  .docs-card-desc {
+    font-size: 13px;
+    color: var(--color-tinta3);
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
+    .docs-grid { grid-template-columns: 1fr; }
+  }
+</style>

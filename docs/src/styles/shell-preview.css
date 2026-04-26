@@ -1,0 +1,29 @@
+/* shell-preview.css — preview escalado para slide-shells dentro del docs.
+ * Los slides asumen min-height:100vh; los embebemos a escala para que quepan
+ * en el docs sin scroll infinito.
+ */
+
+.shell-preview-frame {
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  height: 470px;
+}
+.shell-preview-scale {
+  width: 1700px;
+  height: 783px;
+  transform-origin: top left;
+  transform: scale(0.55);
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Cancela el padding que el chrome global añadiría para reservar accent-bar+breadcrumb,
+     ya que aquí no se renderiza el chrome global. */
+  padding: 0 !important;
+}
+.shell-preview-scale :global(.swiper-slide) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

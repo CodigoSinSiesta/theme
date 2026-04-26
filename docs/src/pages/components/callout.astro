@@ -1,0 +1,66 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Callout from '../../../../src/components/Callout.svelte';
+---
+
+<DocsLayout title="Callout · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.2.0+</span>
+    <h1 class="docs-page-title">Callout</h1>
+    <p class="docs-page-desc">
+      Aside box con kind semántico (info / ok / warn / err). Border-left 3px coloreado + bg translúcido + icon + título + body.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Las 4 variantes semánticas</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="flex-direction: column; gap: 16px; align-items: stretch;">
+        <Callout kind="info" title="Pro tip" client:load>
+          El paso 4 es <strong>no-negociable</strong>. Si saltas a ejecutar, pierdes el músculo.
+        </Callout>
+        <Callout kind="ok" title="Lo que mejora" client:load>
+          Identidad de "engineering deck" más fuerte. Mejor contraste para code y terminal.
+        </Callout>
+        <Callout kind="warn" title="Cuidado con la lectura ingenua" client:load>
+          Los benchmarks miden tareas pequeñas. Mantenibilidad a 6 meses no aparece aquí.
+        </Callout>
+        <Callout kind="err" title="No hagas esto" client:load>
+          Subir el QR como imagen sin alt — pierdes accesibilidad y compatibilidad con readers.
+        </Callout>
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;Callout</span> <span class="key">kind</span>=<span class="str">"info"</span> <span class="key">title</span>=<span class="str">"Pro tip"</span><span class="tag">&gt;</span>
+  El paso 4 es <span class="tag">&lt;strong&gt;</span>no-negociable<span class="tag">&lt;/strong&gt;</span>.
+<span class="tag">&lt;/Callout&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Override del icon</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="flex-direction: column; gap: 12px; align-items: stretch;">
+        <Callout kind="info" title="Custom" icon="🚀" client:load>
+          Cualquier emoji o glyph sustituye al icono por defecto del kind.
+        </Callout>
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;Callout</span> <span class="key">kind</span>=<span class="str">"info"</span> <span class="key">title</span>=<span class="str">"Custom"</span> <span class="key">icon</span>=<span class="str">"🚀"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/Callout&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>kind</code></td><td><code>'info' | 'ok' | 'warn' | 'err'</code></td><td><code>'info'</code></td><td>Paleta semántica.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título del callout (opcional).</td></tr>
+        <tr><td><code>icon</code></td><td><code>string</code></td><td>(según <code>kind</code>: 💡 ✓ ⚠️ ✗)</td><td>Override del icono por defecto.</td></tr>
+        <tr><td><code>children</code></td><td><code>Snippet</code></td><td>—</td><td>Body content (acepta <code>&lt;strong&gt;</code> y <code>&lt;code&gt;</code>).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

@@ -1,0 +1,117 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideShell from '../../../../src/slides/SlideShell.svelte';
+import '../../styles/shell-preview.css';
+
+const presets: Array<'azul' | 'identidad' | 'verde' | 'cierre' | 'lila' | 'naranja' | 'none'> =
+  ['azul', 'identidad', 'verde', 'cierre', 'lila', 'naranja', 'none'];
+---
+
+<DocsLayout title="SlideShell · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.3.0+</span>
+    <h1 class="docs-page-title">SlideShell</h1>
+    <p class="docs-page-desc">
+      Wrapper base de cualquier slide. Aporta <code>.swiper-slide</code> + 7 bg presets de gradientes radiales + <code>.slide-content</code> con max-width canónico + slot para contenido custom.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Los 7 <code>bgPreset</code></h2>
+    <p>Cada uno es una combinación distinta de gradientes radiales. Se eligen por temperatura emocional del slide (cierre = más festivo, naranja = warning, verde = hands-on, etc.).</p>
+    <div class="presets-grid">
+      {presets.map((p) => (
+        <div>
+          <div class="preset-label"><code>bgPreset="{p}"</code></div>
+          <div class="preset-frame">
+            <SlideShell bgPreset={p} client:load>
+              <div class="preset-marker">{p}</div>
+            </SlideShell>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">slide custom envolviendo SlideShell</div>
+      <pre class="docs-example-code"><code><span class="ctrl">&lt;script&gt;</span>
+  import SlideShell from <span class="str">'@codigosinsiesta/theme/slides/SlideShell.svelte'</span>;
+  import {'{'} Eyebrow {'}'} from <span class="str">'@codigosinsiesta/theme/components'</span>;
+<span class="ctrl">&lt;/script&gt;</span>
+
+<span class="tag">&lt;SlideShell</span> <span class="key">bgPreset</span>=<span class="str">"naranja"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Eyebrow</span> <span class="key">accent</span>=<span class="str">"warn"</span><span class="tag">&gt;</span>Cuándo NO usar<span class="tag">&lt;/Eyebrow&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Anti-patrones del kit V4<span class="tag">&lt;/h2&gt;</span>
+  <span class="ctrl">&lt;!-- tu layout custom --&gt;</span>
+<span class="tag">&lt;/SlideShell&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>bgPreset</code></td><td><code>'azul' | 'identidad' | 'verde' | 'cierre' | 'lila' | 'naranja' | 'none'</code></td><td><code>'azul'</code></td><td>Gradientes radiales del fondo.</td></tr>
+        <tr><td><code>maxWidth</code></td><td><code>number | string</code></td><td><code>1280</code></td><td>Max-width del <code>.slide-content</code>.</td></tr>
+        <tr><td><code>children</code></td><td><code>Snippet</code></td><td>—</td><td>Contenido del slide.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>
+
+<style>
+  .presets-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .preset-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-tinta3);
+    margin-bottom: 6px;
+    letter-spacing: 0.06em;
+  }
+  .preset-label code {
+    font-family: var(--font-mono);
+    background: rgba(96, 165, 250, 0.10);
+    color: var(--color-cielo);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .preset-frame {
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+  }
+  .preset-frame :global(.swiper-slide) {
+    min-height: 0 !important;
+    height: 200px !important;
+    padding: 0 !important;
+  }
+  .preset-marker {
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    padding: 8px 16px;
+    background: var(--color-fondo-elev);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-cielo);
+    align-self: center;
+  }
+  @media (max-width: 768px) {
+    .presets-grid { grid-template-columns: 1fr; }
+  }
+</style>

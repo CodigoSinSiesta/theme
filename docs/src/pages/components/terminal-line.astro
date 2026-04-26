@@ -1,0 +1,46 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import TerminalLine from '../../../../src/components/TerminalLine.svelte';
+---
+
+<DocsLayout title="TerminalLine · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.2.0+</span>
+    <h1 class="docs-page-title">TerminalLine</h1>
+    <p class="docs-page-desc">
+      Una línea individual de terminal con 5 tipos semánticos. Pensado para componer dentro de <code>&lt;TerminalWindow&gt;</code> (o tu propia caja).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Los 5 tipos</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="flex-direction: column; gap: 4px; align-items: stretch; background: #000; padding: 24px;">
+        <TerminalLine type="comment" text="esto es un comentario" client:load />
+        <TerminalLine type="cmd"     text="uv tool install graphifyy" client:load />
+        <TerminalLine type="out"     text="Resolved 12 packages..." client:load />
+        <TerminalLine type="ok"      text="✓ installed graphifyy 0.8.2" client:load />
+        <TerminalLine type="err"     text="✗ network error: ETIMEDOUT" client:load />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;TerminalLine</span> <span class="key">type</span>=<span class="str">"comment"</span> <span class="key">text</span>=<span class="str">"esto es un comentario"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;TerminalLine</span> <span class="key">type</span>=<span class="str">"cmd"</span>     <span class="key">text</span>=<span class="str">"uv tool install graphifyy"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;TerminalLine</span> <span class="key">type</span>=<span class="str">"out"</span>     <span class="key">text</span>=<span class="str">"Resolved 12 packages..."</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;TerminalLine</span> <span class="key">type</span>=<span class="str">"ok"</span>      <span class="key">text</span>=<span class="str">"✓ installed graphifyy 0.8.2"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;TerminalLine</span> <span class="key">type</span>=<span class="str">"err"</span>     <span class="key">text</span>=<span class="str">"✗ network error: ETIMEDOUT"</span> <span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>type</code></td><td><code>'cmd' | 'out' | 'ok' | 'err' | 'comment'</code></td><td><code>'out'</code></td><td>Tipo semántico de la línea (afecta color y prefijo).</td></tr>
+        <tr><td><code>text</code></td><td><code>string</code></td><td><code>''</code></td><td>Contenido de la línea.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

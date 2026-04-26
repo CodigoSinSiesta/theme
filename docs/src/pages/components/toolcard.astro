@@ -1,0 +1,89 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ToolCard from '../../../../src/components/ToolCard.svelte';
+---
+
+<DocsLayout title="ToolCard · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">componente · v0.2.0+</span>
+    <h1 class="docs-page-title">ToolCard</h1>
+    <p class="docs-page-desc">
+      Card con accent bar 5px superior + icon box 42×42 + title display + tag pill + subtitle + body + meta strip opcional. Color del accent customizable.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Variantes</h2>
+    <div class="docs-example">
+      <div class="docs-example-stage" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch;">
+        <ToolCard
+          icon="🐙"
+          title="GitHub Copilot"
+          subtitle="El pionero"
+          tag="IDE Plugin"
+          accent="#3b82f6"
+          body="Completion + chat dentro del IDE. El más extendido."
+          meta={['100M+ users', 'VSCode/JB']}
+          client:load
+        />
+        <ToolCard
+          icon="🤖"
+          title="Claude Code"
+          subtitle="CLI agéntico"
+          tag="CLI"
+          accent="#2563eb"
+          body="Terminal-first. Lee y edita el repo entero con criterio. Skills + subagentes nativos."
+          meta={['Anthropic', 'CLI']}
+          client:load
+        />
+        <ToolCard
+          icon="⚡"
+          title="Cursor"
+          subtitle="Fork de VSCode IA-first"
+          tag="IDE"
+          accent="#60a5fa"
+          body="Edit múltiples archivos a la vez. Composer + agente."
+          client:load
+        />
+        <ToolCard
+          icon="🚀"
+          title="Aider"
+          subtitle="Pair programmer"
+          tag="CLI"
+          accent="#93c5fd"
+          body="Open source. Git-first: cada edit es un commit. Bring your own model."
+          meta={['OSS', 'BYOM']}
+          client:load
+        />
+      </div>
+      <div class="docs-example-label">uso</div>
+      <pre class="docs-example-code"><code><span class="tag">&lt;ToolCard</span>
+  <span class="key">icon</span>=<span class="str">"🤖"</span>
+  <span class="key">title</span>=<span class="str">"Claude Code"</span>
+  <span class="key">subtitle</span>=<span class="str">"CLI agéntico"</span>
+  <span class="key">tag</span>=<span class="str">"CLI"</span>
+  <span class="key">accent</span>=<span class="str">"#2563eb"</span>
+  <span class="key">body</span>=<span class="str">"Terminal-first. Lee y edita el repo entero."</span>
+  <span class="key">meta</span>={'{'}[<span class="str">'Anthropic'</span>, <span class="str">'CLI'</span>]{'}'}
+<span class="tag">/&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead>
+        <tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>icon</code></td><td><code>string</code></td><td><code>''</code></td><td>Emoji/glyph para el icon box.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título display.</td></tr>
+        <tr><td><code>subtitle</code></td><td><code>string</code></td><td><code>''</code></td><td>Subtítulo (opcional).</td></tr>
+        <tr><td><code>tag</code></td><td><code>string</code></td><td><code>''</code></td><td>Pill mono uppercase a la derecha del título.</td></tr>
+        <tr><td><code>accent</code></td><td><code>string</code></td><td><code>var(--color-electrico)</code></td><td>Color del accent bar superior + borde del icon box.</td></tr>
+        <tr><td><code>body</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto principal (alternativa al slot).</td></tr>
+        <tr><td><code>meta</code></td><td><code>string[]</code></td><td><code>[]</code></td><td>Strip inferior con meta-data en mono.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>
