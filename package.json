@@ -1,7 +1,7 @@
 {
   "name": "@codigosinsiesta/theme",
-  "version": "0.1.0",
-  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome (accent-bar + breadcrumb + footer + eyebrow bar) + Tailwind preset.",
+  "version": "0.2.0",
+  "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 (Eyebrow, Callout, ToolCard, TerminalLine, QRCode).",
   "type": "module",
   "main": "./src/tokens.css",
   "files": [
@@ -17,7 +17,21 @@
     "./tokens.css": "./src/tokens.css",
     "./chrome.css": "./src/chrome.css",
     "./all.css": "./src/all.css",
-    "./tailwind.preset.js": "./src/tailwind.preset.js"
+    "./tailwind.preset.js": "./src/tailwind.preset.js",
+    "./components": "./src/components/index.js",
+    "./components/Eyebrow.svelte": "./src/components/Eyebrow.svelte",
+    "./components/Callout.svelte": "./src/components/Callout.svelte",
+    "./components/ToolCard.svelte": "./src/components/ToolCard.svelte",
+    "./components/TerminalLine.svelte": "./src/components/TerminalLine.svelte",
+    "./components/QRCode.svelte": "./src/components/QRCode.svelte"
+  },
+  "peerDependencies": {
+    "svelte": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "svelte": {
+      "optional": true
+    }
   },
   "keywords": [
     "design-system",
