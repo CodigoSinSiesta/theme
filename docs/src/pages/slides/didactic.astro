@@ -1,0 +1,67 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideDidactic from '../../../../src/slides/SlideDidactic.svelte';
+import '../../styles/shell-preview.css';
+
+const definition = {
+  title: 'Alucinación',
+  body: 'Output del modelo que **suena correcto** pero no se corresponde con la realidad observable.'
+};
+
+const analogy = {
+  title: 'Estudiante con miedo a quedar mal',
+  body: 'En vez de decir "no lo sé", **inventa una respuesta plausible**. Si nadie la verifica, queda como verdad.'
+};
+
+const examples = {
+  title: 'Patrones típicos',
+  items: [
+    'Cita una función que **no existe** en la lib',
+    'Recuerda una API en una versión que cambió',
+    'Inventa un tipo que **suena razonable** pero no compila',
+    'Mezcla dos features de dos lenguajes parecidos'
+  ]
+};
+---
+
+<DocsLayout title="SlideDidactic · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideDidactic</h1>
+    <p class="docs-page-desc">
+      Bloque didáctico de 3 columnas: <strong>Definition · Analogía · Examples</strong>. Cada bloque lleva un mega-número gradient (01 / 02 / 03) + key mono + h4 + body. El bloque "analog" recibe gradient violeta sutil. El bloque "example" lista bullets mono con <code>›</code> chevron.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Estructura definir → analogizar → ejemplificar</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideDidactic
+          eyebrow="concepto"
+          title="¿Qué es una alucinación?"
+          titleHighlight="alucinación"
+          definition={definition}
+          analogy={analogy}
+          examples={examples}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>definition</code></td><td><code>{`{ title, body }`}</code></td><td>—</td><td>Bloque 01 (default styling).</td></tr>
+        <tr><td><code>analogy</code></td><td><code>{`{ title, body }`}</code></td><td>—</td><td>Bloque 02 (gradient violeta).</td></tr>
+        <tr><td><code>examples</code></td><td><code>{`{ title, items }`}</code></td><td>—</td><td>Bloque 03 (lista mono con <code>›</code>).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

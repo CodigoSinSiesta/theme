@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideNestedEras from '../../../../src/slides/SlideNestedEras.svelte';
+import '../../styles/shell-preview.css';
+
+const eras = [
+  { label: '2020 · Models' },
+  { label: '2023 · Tools' },
+  { label: '2024 · Agents' },
+  { label: '2026<br>HARNESS' }
+];
+---
+
+<DocsLayout title="SlideNestedEras · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideNestedEras</h1>
+    <p class="docs-page-desc">
+      Anillos concéntricos matryoshka. Cada anillo lleva un label mono. El más interno (innermost) recibe gradient violeta + glow + label centrado más grande. Útil para "X contiene a Y" o evolución temporal acumulativa.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>2020 → 2026 · cada era contiene a la anterior</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideNestedEras
+          eyebrow="2020 → 2026"
+          title="Cada era contiene a la anterior"
+          titleHighlight="contiene"
+          eras={eras}
+          size={520}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker centrado.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título centrado.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>eras</code></td><td><code>{`Era[]`}</code></td><td><code>[]</code></td><td>Orden outermost → innermost. <code>{`{ label, accent? }`}</code>. Si nadie declara accent, el último lo recibe auto.</td></tr>
+        <tr><td><code>size</code></td><td><code>number</code></td><td><code>560</code></td><td>Diámetro del anillo más externo en px.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

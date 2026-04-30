@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideAccentCards from '../../../../src/slides/SlideAccentCards.svelte';
+import '../../styles/shell-preview.css';
+
+const cards = [
+  { accent: 'cielo',     icon: 'T', tag: 'tools',      title: 'Tools',      body: 'Funciones que el modelo invoca con argumentos tipados. La **primitiva más usada**.' },
+  { accent: 'violeta',   icon: 'R', tag: 'resources',  title: 'Resources',  body: 'Datos contextuales — archivos, fragmentos, snapshots.' },
+  { accent: 'ok',        icon: 'P', tag: 'prompts',    title: 'Prompts',    body: 'Plantillas reusables que el cliente puede invocar.' },
+  { accent: 'warn',      icon: 'S', tag: 'sampling',   title: 'Sampling',   body: 'El servidor pide al cliente que llame al LLM por él.' }
+];
+---
+
+<DocsLayout title="SlideAccentCards · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideAccentCards</h1>
+    <p class="docs-page-desc">
+      Grid de cards con border-top de color custom por card. Cada card lleva icon box (tinted con el accent), tag mono uppercase, h4, body. Variante más colorimétrica que <code>ToolCard</code>, pensada para "categorías distintas" (MCP primitives, capas, tipos de tool).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>MCP primitives · 4 columnas</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideAccentCards
+          eyebrow="MCP primitives"
+          title="Las cuatro primitivas"
+          titleHighlight="primitivas"
+          cards={cards}
+          columns={4}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>cards</code></td><td><code>{`AccentCard[]`}</code></td><td><code>[]</code></td><td><code>{`{ accent, icon?, iconImg?, tag?, title, body }`}</code>. <code>accent</code> acepta token (electrico/cobalto/cielo/ok/warn/err/violeta) o literal.</td></tr>
+        <tr><td><code>columns</code></td><td><code>2 | 3 | 4</code></td><td><code>4</code></td><td>Columnas.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

@@ -16,17 +16,38 @@ const shells = [
   { href: '/slides/hero',      name: 'SlideHero',      desc: 'Portada completa: eyebrow + title con highlight + subtitle + intro + tools + author card + 3 orbs.' },
   { href: '/slides/toc',       name: 'SlideTOC',       desc: 'Agenda con chapter cards en grid 2-cols. Estados current/past/future.' },
   { href: '/slides/terminal',  name: 'SlideTerminal',  desc: 'Hands-on con TerminalWindow + narración paso a paso lateral + Pro tip Callout.' },
-  { href: '/slides/resources', name: 'SlideResources', desc: 'Cierre con takeaways grid arriba + links + QR placeholder abajo.' }
+  { href: '/slides/resources', name: 'SlideResources', desc: 'Cierre con takeaways grid arriba + links + QR placeholder abajo.' },
+  { href: '/slides/statement', name: 'SlideStatement', desc: 'Idea grande + palabra-highlight gradient + atribución. Para tesis y rotundidades.' },
+  { href: '/slides/compare',   name: 'SlideCompare',   desc: 'A vs B do/don\'t. Cards rojo + verde con accent semántico configurable.' },
+  { href: '/slides/stats',     name: 'SlideStats',     desc: 'Big numbers en grid con trend autocoloreado (↑ ok / ↓ err) + callout opcional.' },
+  { href: '/slides/diagram',   name: 'SlideDiagram',   desc: 'Cajas + flechas SVG curvadas + leyenda. Coords absolutas en viewBox 1180×460.' },
+  { href: '/slides/code',      name: 'SlideCode',      desc: 'Window mac-style con código + gutter + columna de notas L{n} + callout.' },
+  { href: '/slides/list',      name: 'SlideList',      desc: 'Items numerados en grid 2-4 columnas. Patrón "12 reglas" / checklist.' },
+  { href: '/slides/pattern-grid',   name: 'SlidePatternGrid',   desc: 'Cards con mini-SVGs de patrones agénticos (chain / fan-out / fan-in / orchestrator-workers / eval-loop).' },
+  { href: '/slides/decision-table', name: 'SlideDecisionTable', desc: 'Tabla cuadrante glass con highlight-row + celdas auto-coloreadas (✓ / ✕ / ~) + reglas prácticas.' },
+  { href: '/slides/pipeline',       name: 'SlidePipeline',      desc: 'Pipeline horizontal de pasos numerados separados por →. Soporta Heroicons SVG + paso success final.' },
+  { href: '/slides/handson',        name: 'SlideHandsOn',       desc: 'Workshop pill ⚡ N min + pasos numerados + bloques shell. Highlight de "current step" para presentación en vivo.' },
+  { href: '/slides/section',        name: 'SlideSection',       desc: 'Divisor de capítulo: número gigante con gradiente + label parte·sección + h1 + hint.' },
+  { href: '/slides/quote',          name: 'SlideQuote',         desc: 'Aforismo de cierre: 💬 + eyebrow + cita gigante + atribución entre rules.' },
+  { href: '/slides/whoami',         name: 'SlideWhoAmI',        desc: 'Speaker card: avatar circular + bio + tags + handles + callout opcional.' },
+  { href: '/slides/tools-grid',     name: 'SlideToolsGrid',     desc: 'Header + grid 3×2 de ToolCards (composición canónica del kit V4).' },
+  { href: '/slides/equation',       name: 'SlideEquation',      desc: 'Slide-tesis tipo ecuación: term + op + term = outcome (Agent = Model + Harness).' },
+  { href: '/slides/layer-stack',    name: 'SlideLayerStack',    desc: 'Capas horizontales tipo OS-stack (kernel/runtime/app) con tinted backgrounds.' },
+  { href: '/slides/nested-eras',    name: 'SlideNestedEras',    desc: 'Anillos concéntricos matryoshka — el más interno con gradient violeta + glow.' },
+  { href: '/slides/code-compare',   name: 'SlideCodeCompare',   desc: 'Dos paneles de código lado-a-lado con badge flotante. Highlight ligero ts/js/py/shell.' },
+  { href: '/slides/accent-cards',   name: 'SlideAccentCards',   desc: 'Grid de cards con border-top de color custom por card. MCP primitives, capas, etc.' },
+  { href: '/slides/triada',         name: 'SlideTriada',        desc: 'Knowledge-graph triada: card vertical con N filas (NODE/EDGE/TRIPLE) + chips violeta.' },
+  { href: '/slides/didactic',       name: 'SlideDidactic',      desc: 'Definition + Analogía + Examples — estructura pedagógica de 3 columnas.' }
 ];
 ---
 
 <DocsLayout title="theme · @codigosinsiesta · docs">
   <div class="docs-page-header">
-    <span class="docs-page-eyebrow">v0.4.0 · dark blueprint</span>
+    <span class="docs-page-eyebrow">v0.7.0 · dark blueprint</span>
     <h1 class="docs-page-title">@codigosinsiesta/theme</h1>
     <p class="docs-page-desc">
       Sistema de diseño V4 compartido entre las presentaciones de Código Sin Siesta.
-      Tokens CSS + chrome global + Tailwind preset + 6 componentes-átomo Svelte + 5 slide-shells canónicos. Mismo stack Astro 5 + Svelte 5 + Tailwind 4 que los decks consumidores — lo que ves aquí funciona idéntico en producción.
+      Tokens CSS + chrome global + Tailwind preset + 6 componentes-átomo Svelte + <strong>26 slide-shells canónicos</strong> cubriendo el kit V4 completo + los 16 patrones del audit V5 (Tier 1/2/3) + 4 layouts editoriales residuales (Section / Quote / WhoAmI / ToolsGrid). Brand assets oficiales (búho + wordmark + 13 Heroicons). Mismo stack Astro 5 + Svelte 5 + Tailwind 4 que los decks consumidores.
     </p>
   </div>
 
@@ -62,8 +83,8 @@ const shells = [
   </section>
 
   <section class="docs-section">
-    <h2>Slide-shells canónicos (v0.3.0+)</h2>
-    <p>Composiciones completas de slide. Pásales data y obtienes un slide pixel-perfect.</p>
+    <h2>Slide-shells canónicos · 26 layouts (v0.7.0 cierra el kit completo)</h2>
+    <p>Composiciones completas de slide. Pásales data y obtienes un slide pixel-perfect. Los layouts cubren los 15 slide-types del kit V4, los 16 patrones del audit V5, y 4 layouts editoriales residuales.</p>
     <div class="docs-grid">
       {shells.map((s) => (
         <a class="docs-card" href={base + s.href}>

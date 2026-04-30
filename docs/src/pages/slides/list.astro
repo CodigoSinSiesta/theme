@@ -1,0 +1,76 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideList from '../../../../src/slides/SlideList.svelte';
+import '../../styles/shell-preview.css';
+
+const items = [
+  { title: 'Lee el código',       body: 'Antes de pedir, abre el archivo.' },
+  { title: 'Specs > prompts',     body: "Define qué cuenta como 'hecho'." },
+  { title: 'Edits pequeños',      body: 'Un objetivo, un commit.' },
+  { title: 'Verifica salidas',    body: 'No asumas. Mira el output.' },
+  { title: 'Tests primero',       body: 'Si rompe, lo sabes ya.' },
+  { title: 'Types como muro',     body: 'Compilador de tu lado.' },
+  { title: 'Memoria escrita',     body: 'Decisiones en un `.md`.' },
+  { title: 'Una herramienta',     body: 'Composable y simple.' },
+  { title: 'Sandbox por defecto', body: 'Que no toque tu shell.' },
+  { title: 'Reverts baratos',     body: 'Git como red de seguridad.' },
+  { title: 'Review humana',       body: 'PR pequeño, **revisable**.' },
+  { title: 'Mide impacto',        body: '¿Mejoró algo medible?' }
+];
+---
+
+<DocsLayout title="SlideList · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideList</h1>
+    <p class="docs-page-desc">
+      Items numerados en grid 2-4 columnas. Patrón "12 reglas anti-alucinación", checklists, anti-patterns. Cada card tiene número 36×36 con gradient + título display + body opcional.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>12 reglas (3 columnas)</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideList
+          eyebrow="checklist anti-alucinación"
+          title="12 reglas para que el agente no se invente cosas"
+          titleHighlight="12 reglas"
+          items={items}
+          columns={3}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Variante a 2 columnas</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideList
+          eyebrow="cierre"
+          title="Takeaways del taller"
+          titleHighlight="Takeaways"
+          items={items.slice(0, 6)}
+          columns={2}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>items</code></td><td><code>{`{ title, body? }[]`}</code></td><td><code>[]</code></td><td>Items con num auto. Body acepta <code>**strong**</code> y <code>`code`</code>.</td></tr>
+        <tr><td><code>columns</code></td><td><code>2 | 3 | 4</code></td><td><code>3</code></td><td>Columnas del grid.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

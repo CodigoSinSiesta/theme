@@ -1,0 +1,70 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideCompare from '../../../../src/slides/SlideCompare.svelte';
+import '../../styles/shell-preview.css';
+
+const left = {
+  label: 'vibe coding',
+  icon: '🌀',
+  headline: 'Pides y rezas',
+  items: [
+    'El agente decide la arquitectura',
+    'Cero tests, cero verificación',
+    'Copy-paste de respuestas largas',
+    'No queda rastro del por qué'
+  ]
+};
+const right = {
+  label: 'engineering',
+  icon: '⚙️',
+  headline: 'Pides, verificas, iteras',
+  items: [
+    'Tú decides la arquitectura',
+    'Tests + types como contrato',
+    'Reviews con criterio técnico',
+    'Decisiones documentadas'
+  ]
+};
+---
+
+<DocsLayout title="SlideCompare · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideCompare</h1>
+    <p class="docs-page-desc">
+      Cards do/don't (rojo vs verde por defecto). Header con label mono uppercase + headline display + items con bullets +/–. El kind de cada lado controla todo el accent.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Default (err vs ok)</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideCompare
+          eyebrow="framework 4r · sesión 1"
+          title="Vibe coding vs ingeniería"
+          titleHighlight="ingeniería"
+          left={left}
+          right={right}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker (opcional).</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar con gradiente.</td></tr>
+        <tr><td><code>left</code></td><td><code>{`{ label, headline, items, icon? }`}</code></td><td>—</td><td>Lado izquierdo (convención: "bad").</td></tr>
+        <tr><td><code>right</code></td><td><code>{`{ label, headline, items, icon? }`}</code></td><td>—</td><td>Lado derecho (convención: "good").</td></tr>
+        <tr><td><code>leftKind</code></td><td><code>'err' | 'ok' | 'electrico' | 'neutral'</code></td><td><code>'err'</code></td><td>Accent del lado izquierdo.</td></tr>
+        <tr><td><code>rightKind</code></td><td><code>'err' | 'ok' | 'electrico' | 'neutral'</code></td><td><code>'ok'</code></td><td>Accent del lado derecho.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

@@ -1,0 +1,42 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideQuote from '../../../../src/slides/SlideQuote.svelte';
+import '../../styles/shell-preview.css';
+---
+
+<DocsLayout title="SlideQuote · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideQuote</h1>
+    <p class="docs-page-desc">
+      Slide de cierre / aforismo. <code>💬</code> + eyebrow + cita gigante en comillas tipográficas + atribución entre dos rules cortos.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Aforismo de cierre</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideQuote
+          eyebrow="para llevarse a casa"
+          quote="Calidad sobre velocidad. Comprensión sobre atajos."
+          attribution="Manifiesto · Código Sin Siesta"
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>icon</code></td><td><code>string</code></td><td><code>'💬'</code></td><td>Emoji al inicio. <code>''</code> lo oculta.</td></tr>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'para llevarse a casa'</code></td><td>Kicker mono.</td></tr>
+        <tr><td><code>quote</code></td><td><code>string</code></td><td><code>''</code></td><td>La cita. Se envuelve en comillas tipográficas auto.</td></tr>
+        <tr><td><code>attribution</code></td><td><code>string</code></td><td><code>''</code></td><td>Fuente / autor entre dos rules.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

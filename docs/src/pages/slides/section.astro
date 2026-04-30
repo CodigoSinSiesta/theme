@@ -1,0 +1,43 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideSection from '../../../../src/slides/SlideSection.svelte';
+import '../../styles/shell-preview.css';
+---
+
+<DocsLayout title="SlideSection · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideSection</h1>
+    <p class="docs-page-desc">
+      Divisor de capítulo. Número gigante con gradiente cobalto→eléctrico + label "parte · sección" mono + h1 + hint. Centrado vertical y horizontalmente.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Capítulo 02</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideSection
+          number="02"
+          label="parte · sección"
+          title="Anatomía de un agente"
+          hint="Plan · Edit · Verify · Reflect — el loop que separa el juguete del trabajo serio."
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>number</code></td><td><code>string</code></td><td><code>'01'</code></td><td>Número grande con gradiente.</td></tr>
+        <tr><td><code>label</code></td><td><code>string</code></td><td><code>'parte · sección'</code></td><td>Micro-eyebrow mono encima del título.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>H1 del capítulo.</td></tr>
+        <tr><td><code>hint</code></td><td><code>string</code></td><td><code>''</code></td><td>Descripción (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

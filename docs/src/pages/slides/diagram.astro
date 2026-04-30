@@ -1,0 +1,76 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideDiagram from '../../../../src/slides/SlideDiagram.svelte';
+import '../../styles/shell-preview.css';
+
+const nodes = [
+  { id: 'agent', label: 'Agente',        sub: 'claude / codex',     x: 40,  y: 150, w: 200, h: 90, color: 'electrico', icon: '🤖' },
+  { id: 'mcp',   label: 'MCP Server',    sub: 'protocolo abierto',  x: 340, y: 90,  w: 220, h: 90, color: 'cielo',     icon: '🔌' },
+  { id: 'tools', label: 'Tools',         sub: 'funciones expuestas', x: 340, y: 230, w: 220, h: 90, color: 'cielo',     icon: '🛠️' },
+  { id: 'fs',    label: 'Filesystem',    sub: 'read / write',       x: 680, y: 30,  w: 200, h: 80, color: 'ok',        icon: '📁' },
+  { id: 'git',   label: 'Git',           sub: 'history / diffs',    x: 680, y: 130, w: 200, h: 80, color: 'ok',        icon: '🌿' },
+  { id: 'db',    label: 'Database',      sub: 'sql / vector',       x: 680, y: 230, w: 200, h: 80, color: 'ok',        icon: '🗄️' },
+  { id: 'api',   label: 'APIs externas', sub: 'rest / graphql',     x: 680, y: 330, w: 200, h: 80, color: 'warn',      icon: '🌐' },
+  { id: 'user',  label: 'Tú',            sub: 'prompts + reviews',  x: 980, y: 180, w: 160, h: 90, color: 'cobalto',   icon: '👤' }
+];
+
+const edges = [
+  { from: 'agent', to: 'mcp' },
+  { from: 'agent', to: 'tools' },
+  { from: 'mcp',   to: 'fs' },
+  { from: 'mcp',   to: 'git' },
+  { from: 'tools', to: 'db' },
+  { from: 'tools', to: 'api', dashed: true, label: 'con auth' }
+];
+
+const legend = [
+  { color: 'electrico', label: 'runtime' },
+  { color: 'cielo',     label: 'protocolo' },
+  { color: 'ok',        label: 'recursos locales' },
+  { color: 'warn',      label: 'externo · cuidado' }
+];
+---
+
+<DocsLayout title="SlideDiagram · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideDiagram</h1>
+    <p class="docs-page-desc">
+      Cajas con coordenadas absolutas (viewBox 1180×460) + flechas SVG con curvas Bézier right-edge → left-edge. Soporta edges <code>dashed</code> y labels en pill al medio. Leyenda al pie.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Arquitectura MCP</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideDiagram
+          eyebrow="arquitectura · MCP"
+          title="Cómo se conecta un agente al mundo"
+          titleHighlight="agente"
+          nodes={nodes}
+          edges={edges}
+          legend={legend}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>nodes</code></td><td><code>{`Node[]`}</code></td><td><code>[]</code></td><td>Cajas. <code>{`{ id, label, sub?, x, y, w, h, color?, icon? }`}</code>. Color acepta token o literal.</td></tr>
+        <tr><td><code>edges</code></td><td><code>{`Edge[]`}</code></td><td><code>[]</code></td><td>Conexiones. <code>{`{ from, to, label?, dashed? }`}</code>.</td></tr>
+        <tr><td><code>legend</code></td><td><code>{`{ color, label }[]`}</code></td><td><code>[]</code></td><td>Chips de leyenda al pie.</td></tr>
+        <tr><td><code>viewBoxWidth</code></td><td><code>number</code></td><td><code>1180</code></td><td>Ancho del viewBox SVG.</td></tr>
+        <tr><td><code>viewBoxHeight</code></td><td><code>number</code></td><td><code>460</code></td><td>Alto del viewBox SVG.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

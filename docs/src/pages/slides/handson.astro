@@ -1,0 +1,64 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideHandsOn from '../../../../src/slides/SlideHandsOn.svelte';
+import '../../styles/shell-preview.css';
+
+const steps = [
+  {
+    title: 'Clona el repo del taller',
+    body: 'Trae el scaffold con los configs ya listos.',
+    code: '$ git clone github.com/css/agents-101 && cd agents-101'
+  },
+  {
+    title: 'Crea el archivo del agente',
+    body: 'Define `name`, `tools` y el prompt en `.agents/reviewer.md`.',
+    code: '$ claude agent new reviewer\n✓ agente creado en .agents/reviewer.md'
+  },
+  {
+    title: 'Invócalo desde el padre',
+    body: 'Pásale solo el brief — **no toda la conversación**.'
+  }
+];
+---
+
+<DocsLayout title="SlideHandsOn · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.6.0+</span>
+    <h1 class="docs-page-title">SlideHandsOn</h1>
+    <p class="docs-page-desc">
+      Slide canónica para talleres. Eyebrow píldora <code>⚡ N min</code> (warning), pasos numerados verticales con uno marcado como <code>current</code> (warning glow), bloque shell opcional por paso con highlight ligero (<code>$</code> prompt, <code># …</code> comentarios, <code>✓ …</code> ok, <code>✗ … !</code> warn).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Hands-on con paso 02 destacado</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideHandsOn
+          eyebrow="Hands-on · 25 min"
+          title="Define tu primer subagente"
+          titleHighlight="primer subagente"
+          intro="Tres pasos. Lo levantas y lo invocas en menos de 10 minutos."
+          steps={steps}
+          current={1}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'Hands-on · 25 min'</code></td><td>Texto del workshop pill (precedido de ⚡).</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>steps</code></td><td><code>{`Step[]`}</code></td><td><code>[]</code></td><td>Pasos. <code>{`{ title, body, code?, codeLang? }`}</code>.</td></tr>
+        <tr><td><code>current</code></td><td><code>number | null</code></td><td><code>null</code></td><td>Índice 0-based del paso destacado (warning glow).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

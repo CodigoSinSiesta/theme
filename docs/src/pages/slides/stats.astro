@@ -1,0 +1,58 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideStats from '../../../../src/slides/SlideStats.svelte';
+import '../../styles/shell-preview.css';
+
+const stats = [
+  { value: '55%',  label: 'velocidad',         trend: '↑ tareas atómicas',   color: 'ok',         note: 'Tareas con scope claro y bien definido.' },
+  { value: '~30%', label: 'errores residuales', trend: '↑ código no revisado', color: 'err',       note: 'Bugs que pasan a main si no hay revisión humana.' },
+  { value: '2.1×', label: 'throughput',         trend: '= con review estricta', color: 'electrico', note: 'Solo si añades review + tests al loop.' },
+  { value: '-12%', label: 'comprensión',        trend: '↓ del propio código', color: 'warn',       note: 'Menos sensación de propiedad sobre lo escrito.' }
+];
+---
+
+<DocsLayout title="SlideStats · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideStats</h1>
+    <p class="docs-page-desc">
+      Big numbers en grid con top-accent border + label mono + trend autocoloreado por prefijo (<code>↑</code> ok, <code>↓</code> err) + note opcional. Callout final para matizar.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>4 stats con callout</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideStats
+          eyebrow="los datos"
+          title="¿Realmente nos hace más rápidos?"
+          titleHighlight="rápidos"
+          intro="GitHub mide impacto en 2024–25. Los números cuentan parte de la historia, no toda."
+          stats={stats}
+          callout={{
+            kind: 'warn',
+            title: 'Cuidado con la lectura ingenua',
+            body: 'Los benchmarks miden tareas pequeñas. **Mantenibilidad a 6 meses** no aparece aquí.'
+          }}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker (opcional).</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>stats</code></td><td><code>{`Stat[]`}</code></td><td><code>[]</code></td><td>2-4 stats. <code>color</code> acepta token (<code>'ok'</code>, <code>'err'</code>, <code>'electrico'</code>, <code>'warn'</code>, <code>'cielo'</code>) o un valor literal.</td></tr>
+        <tr><td><code>callout</code></td><td><code>{`{ kind?, title?, body }`}</code></td><td><code>null</code></td><td>Callout opcional al pie.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

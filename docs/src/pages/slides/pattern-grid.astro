@@ -1,0 +1,55 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlidePatternGrid from '../../../../src/slides/SlidePatternGrid.svelte';
+import '../../styles/shell-preview.css';
+
+const patterns = [
+  { type: 'chain',                title: 'Chain',                body: 'La salida de un paso es la entrada del siguiente. **Determinista**, fácil de depurar.' },
+  { type: 'fan-out',              title: 'Fan-out',              body: 'Un agente delega en varios subagentes en paralelo. Útil para análisis independientes.', accent: true },
+  { type: 'fan-in',               title: 'Fan-in',               body: 'Resultados se sintetizan en un solo agente. Combina perspectivas en un veredicto.' },
+  { type: 'orchestrator-workers', title: 'Orchestrator + workers', body: 'Un agente padre coordina N workers especializados. **Patrón canónico** de subagentes.' },
+  { type: 'eval-loop',            title: 'Eval-loop',            body: 'Un agente evalúa el output del otro y reintenta hasta cumplir spec.' }
+];
+---
+
+<DocsLayout title="SlidePatternGrid · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.6.0+</span>
+    <h1 class="docs-page-title">SlidePatternGrid</h1>
+    <p class="docs-page-desc">
+      Grid de cards-pattern con mini-SVG (200×120) + título + descripción. Cinco SVGs built-in para los patrones agénticos canónicos: <code>chain</code>, <code>fan-out</code>, <code>fan-in</code>, <code>orchestrator-workers</code>, <code>eval-loop</code>. Pasa <code>{`type: 'custom'`}</code> + <code>svg</code> inline para diagramas a medida.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>5 patrones agénticos · 3 columnas</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlidePatternGrid
+          eyebrow="orquestación · sesión 2"
+          title="Tres formas de orquestar"
+          titleHighlight="orquestar"
+          intro="No todas hacen lo mismo. Conocer el espectro te ayuda a elegir el patrón correcto."
+          patterns={patterns}
+          columns={3}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>patterns</code></td><td><code>{`Pattern[]`}</code></td><td><code>[]</code></td><td>3-6 patrones. <code>{`{ type, title, body, accent?, svg? }`}</code>.</td></tr>
+        <tr><td><code>columns</code></td><td><code>2 | 3 | 4</code></td><td><code>3</code></td><td>Columnas del grid.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

@@ -1,6 +1,6 @@
 {
   "name": "@codigosinsiesta/theme",
-  "version": "0.4.0",
+  "version": "0.7.0",
   "description": "Sistema de diseño V4 'dark blueprint' compartido entre las presentaciones de Código Sin Siesta. Tokens CSS + chrome + Tailwind preset + componentes Svelte 5 + slide-shells canónicos. Docs site (Storybook) en codigosinsiesta.github.io/theme.",
   "type": "module",
   "main": "./src/tokens.css",
@@ -9,6 +9,7 @@
     "README.md",
     "LICENSE"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./src/index.js",
@@ -30,7 +31,31 @@
     "./slides/SlideHero.svelte": "./src/slides/SlideHero.svelte",
     "./slides/SlideTOC.svelte": "./src/slides/SlideTOC.svelte",
     "./slides/SlideTerminal.svelte": "./src/slides/SlideTerminal.svelte",
-    "./slides/SlideResources.svelte": "./src/slides/SlideResources.svelte"
+    "./slides/SlideResources.svelte": "./src/slides/SlideResources.svelte",
+    "./slides/SlideStatement.svelte": "./src/slides/SlideStatement.svelte",
+    "./slides/SlideCompare.svelte": "./src/slides/SlideCompare.svelte",
+    "./slides/SlideStats.svelte": "./src/slides/SlideStats.svelte",
+    "./slides/SlideDiagram.svelte": "./src/slides/SlideDiagram.svelte",
+    "./slides/SlideCode.svelte": "./src/slides/SlideCode.svelte",
+    "./slides/SlideList.svelte": "./src/slides/SlideList.svelte",
+    "./slides/SlidePatternGrid.svelte": "./src/slides/SlidePatternGrid.svelte",
+    "./slides/SlideDecisionTable.svelte": "./src/slides/SlideDecisionTable.svelte",
+    "./slides/SlidePipeline.svelte": "./src/slides/SlidePipeline.svelte",
+    "./slides/SlideHandsOn.svelte": "./src/slides/SlideHandsOn.svelte",
+    "./slides/SlideSection.svelte": "./src/slides/SlideSection.svelte",
+    "./slides/SlideQuote.svelte": "./src/slides/SlideQuote.svelte",
+    "./slides/SlideWhoAmI.svelte": "./src/slides/SlideWhoAmI.svelte",
+    "./slides/SlideToolsGrid.svelte": "./src/slides/SlideToolsGrid.svelte",
+    "./slides/SlideEquation.svelte": "./src/slides/SlideEquation.svelte",
+    "./slides/SlideLayerStack.svelte": "./src/slides/SlideLayerStack.svelte",
+    "./slides/SlideNestedEras.svelte": "./src/slides/SlideNestedEras.svelte",
+    "./slides/SlideCodeCompare.svelte": "./src/slides/SlideCodeCompare.svelte",
+    "./slides/SlideAccentCards.svelte": "./src/slides/SlideAccentCards.svelte",
+    "./slides/SlideTriada.svelte": "./src/slides/SlideTriada.svelte",
+    "./slides/SlideDidactic.svelte": "./src/slides/SlideDidactic.svelte",
+    "./assets/*": "./src/assets/*",
+    "./icons/*": "./src/icons/*",
+    "./BRAND.md": "./src/BRAND.md"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"

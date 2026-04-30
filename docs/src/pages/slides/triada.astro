@@ -1,0 +1,53 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideTriada from '../../../../src/slides/SlideTriada.svelte';
+import '../../styles/shell-preview.css';
+
+const rows = [
+  { key: 'NODE',   text: 'Una entidad nombrada. Cualquier "cosa" que quieras referenciar.', chip: '<Skill>' },
+  { key: 'EDGE',   text: 'Una relación dirigida entre dos nodes.', chip: 'uses → <Tool>' },
+  { key: 'TRIPLE', text: 'La unidad mínima del grafo: subject → predicate → object.', code: 'graph.add({\n  subject: "Skill:graphify",\n  predicate: "uses",\n  object:  "Tool:tree-sitter"\n});' }
+];
+---
+
+<DocsLayout title="SlideTriada · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideTriada</h1>
+    <p class="docs-page-desc">
+      Knowledge-graph triada. Card vertical con N filas <code>(key | value)</code>. Cada fila puede llevar texto inline + chip violeta + bloque <code>pre</code> con código. Útil para enseñar primitivas con su sintaxis (NODE / EDGE / TRIPLE).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Knowledge graph · NODE / EDGE / TRIPLE</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideTriada
+          eyebrow="los tres conceptos"
+          title="Cómo se modela un knowledge graph"
+          titleHighlight="knowledge graph"
+          rows={rows}
+          insight="Si lo entiendes a este nivel, **todo el grafo se vuelve trivial** — solo es composición de triples sobre el mismo store."
+          insightTitle="El insight"
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>rows</code></td><td><code>{`Row[]`}</code></td><td><code>[]</code></td><td><code>{`{ key, text?, chip?, code? }`}</code>.</td></tr>
+        <tr><td><code>insight</code></td><td><code>string</code></td><td><code>''</code></td><td>Callout info al pie (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>insightTitle</code></td><td><code>string</code></td><td><code>'El insight'</code></td><td>Title del callout.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

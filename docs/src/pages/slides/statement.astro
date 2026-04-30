@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideStatement from '../../../../src/slides/SlideStatement.svelte';
+import '../../styles/shell-preview.css';
+---
+
+<DocsLayout title="SlideStatement · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideStatement</h1>
+    <p class="docs-page-desc">
+      Una idea grande con palabra-highlight gradient + atribución opcional. Para tesis, manifiestos y rotundidades. Centra verticalmente el bloque con un mínimo de 60vh.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Tesis principal</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideStatement
+          eyebrow="tesis"
+          statement="El agente no sustituye el criterio. Lo amplifica."
+          highlight="amplifica"
+          source="Manifiesto · Código Sin Siesta"
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Variante centrada (<code>align="center"</code>)</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideStatement
+          eyebrowAccent="ok"
+          eyebrow="takeaway"
+          statement="Calidad sobre velocidad. Comprensión sobre atajos."
+          highlight="Comprensión"
+          align="center"
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker arriba (opcional).</td></tr>
+        <tr><td><code>eyebrowAccent</code></td><td><code>'electrico' | 'ok' | 'warn' | 'err'</code></td><td><code>'electrico'</code></td><td>Color del bar del eyebrow.</td></tr>
+        <tr><td><code>statement</code></td><td><code>string</code></td><td><code>''</code></td><td>La frase. Corta y rotunda.</td></tr>
+        <tr><td><code>highlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring de <code>statement</code> a destacar con gradiente cobalto→eléctrico.</td></tr>
+        <tr><td><code>source</code></td><td><code>string</code></td><td><code>''</code></td><td>Atribución / fuente al pie (opcional).</td></tr>
+        <tr><td><code>align</code></td><td><code>'left' | 'center'</code></td><td><code>'left'</code></td><td>Alineación del bloque entero.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

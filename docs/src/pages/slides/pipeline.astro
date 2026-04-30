@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlidePipeline from '../../../../src/slides/SlidePipeline.svelte';
+import '../../styles/shell-preview.css';
+
+const steps = [
+  { label: 'INPUT',  title: 'Brief',         body: 'El padre identifica la tarea y prepara solo el contexto necesario.' },
+  { label: 'RUN',    title: 'Subagente',     body: 'Ejecuta en su propia ventana de contexto, con sus propias tools.' },
+  { label: 'RETURN', title: 'Resumen',       body: 'Devuelve un resultado compacto, no el rastro completo.' },
+  { label: 'MERGE',  title: 'Padre integra', body: 'Continúa con el contexto enriquecido, **sin haber visto el ruido**.', accent: 'ok' as const }
+];
+---
+
+<DocsLayout title="SlidePipeline · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.6.0+</span>
+    <h1 class="docs-page-title">SlidePipeline</h1>
+    <p class="docs-page-desc">
+      Pipeline horizontal de pasos numerados separados por <code>→</code>. Cada paso lleva icon box en gradient + label mono uppercase + h5 + body. Soporta <code>iconImg</code> apuntando a Heroicons SVG (auto-tinted a <code>--color-cielo</code>). Último paso opcionalmente <code>{`accent: 'ok'`}</code> (verde, success).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Subagent invocation flow</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlidePipeline
+          eyebrow="flujo end-to-end"
+          title="Cómo se invoca un subagente"
+          titleHighlight="subagente"
+          intro="Cada paso tiene una responsabilidad clara y aislada."
+          steps={steps}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>steps</code></td><td><code>{`Step[]`}</code></td><td><code>[]</code></td><td>3-5 pasos ideales. <code>{`{ label?, icon?, iconImg?, title, body?, accent? }`}</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

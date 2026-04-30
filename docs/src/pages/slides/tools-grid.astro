@@ -1,0 +1,56 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideToolsGrid from '../../../../src/slides/SlideToolsGrid.svelte';
+import '../../styles/shell-preview.css';
+
+const tools = [
+  { icon: '🐙', title: 'GitHub Copilot', subtitle: 'El pionero',  tag: 'IDE',  accent: '#3b82f6', body: 'Completion + chat dentro del IDE. El más extendido. Funciona bien para tareas atómicas.', meta: ['100M+ users', 'VSCode/JB'] },
+  { icon: '⚡', title: 'Cursor',         subtitle: 'Fork VSCode IA-first', tag: 'IDE', accent: '#60a5fa', body: 'Edit múltiples archivos a la vez. Composer + agente. La curva: aprender a delegar bien.', meta: ['Dev tool', 'Pago'] },
+  { icon: '🤖', title: 'Claude Code',    subtitle: 'CLI agéntico', tag: 'CLI', accent: '#2563eb', body: 'Terminal-first. Lee y edita el repo entero con criterio. Skills + subagentes nativos.', meta: ['Anthropic', 'CLI'] },
+  { icon: '💻', title: 'Codex CLI',      subtitle: 'OpenAI agent', tag: 'CLI', accent: '#1e3a8a', body: 'OSS. Ejecuta comandos, escribe tests, itera hasta que pasa. Sandbox por defecto.', meta: ['OSS', 'Apache 2.0'] },
+  { icon: '🚀', title: 'Aider',          subtitle: 'Pair programmer', tag: 'CLI', accent: '#93c5fd', body: 'Open source. Git-first: cada edit es un commit. Bring your own model.', meta: ['OSS', 'BYOM'] },
+  { icon: '🎯', title: 'Continue',       subtitle: 'Autohospedable', tag: 'Plugin', accent: '#1e40af', body: 'Plugin VSCode/JB self-hosted. Config en YAML. Para equipos con compliance.', meta: ['OSS', 'VSCode/JB'] }
+];
+---
+
+<DocsLayout title="SlideToolsGrid · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideToolsGrid</h1>
+    <p class="docs-page-desc">
+      Header (eyebrow + h2 + intro) + grid 3×2 de <code>ToolCard</code>. Composición canónica del kit V4 para slides tipo "el panorama".
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>6 herramientas · 3 columnas</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideToolsGrid
+          eyebrow="el panorama"
+          title="6 herramientas que importan en 2026"
+          titleHighlight="2026"
+          intro="No todas hacen lo mismo. **Conocer el espectro** te ayuda a elegir la correcta para cada tarea."
+          tools={tools}
+          columns={3}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>intro</code></td><td><code>string</code></td><td><code>''</code></td><td>Párrafo intro (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+        <tr><td><code>tools</code></td><td><code>{`ToolCardProps[]`}</code></td><td><code>[]</code></td><td>Items. Mismos props que <code>{`<ToolCard>`}</code>.</td></tr>
+        <tr><td><code>columns</code></td><td><code>2 | 3</code></td><td><code>3</code></td><td>Columnas (3 = 3×2 si 6 tools, 2 = 2×3 si 6 tools).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

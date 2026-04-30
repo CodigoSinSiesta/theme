@@ -1,0 +1,67 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideCode from '../../../../src/slides/SlideCode.svelte';
+import '../../styles/shell-preview.css';
+
+const code = `export const skill = {
+  name: "graphify-query",
+  trigger: "/q",
+  description:
+    "Pregunta al índice del repo.",
+  async run({ input, ctx }) {
+    const q = input.trim();
+    const hits = await ctx.search(q);
+    return ctx.format(hits);
+  }
+};`;
+
+const annotations = [
+  { line: 3, text: 'Trigger explícito — el agente sabe cuándo invocarte.' },
+  { line: 5, text: '`description` = contrato. Concreto, sin prosa.' },
+  { line: 7, text: 'Recibe `ctx`, no globals. **Testeable** y aislado.' }
+];
+---
+
+<DocsLayout title="SlideCode · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.5.0+</span>
+    <h1 class="docs-page-title">SlideCode</h1>
+    <p class="docs-page-desc">
+      Window mac-style con 3 dots + lang badge + gutter de líneas + columna de notas <code>L{`{n}`}</code> a la derecha. Callout opcional al pie de la columna.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Skill mínima en TypeScript</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideCode
+          eyebrow="anatomía de una skill"
+          title="Skill: estructura mínima"
+          titleHighlight="mínima"
+          language="ts"
+          code={code}
+          annotations={annotations}
+          callout={{ kind: 'info', title: 'Pro tip', body: 'Si la description ocupa más de 2 líneas, **divide en dos skills**.' }}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>language</code></td><td><code>string</code></td><td><code>'ts'</code></td><td>Etiqueta arriba-derecha de la window.</td></tr>
+        <tr><td><code>code</code></td><td><code>string</code></td><td><code>''</code></td><td>Bloque entero, con <code>\n</code>. Se renderiza tal cual (white-space: pre).</td></tr>
+        <tr><td><code>annotations</code></td><td><code>{`{ line, text }[]`}</code></td><td><code>[]</code></td><td>Notas L{`{n}`} en la columna lateral. Acepta <code>**strong**</code> y <code>`code`</code>.</td></tr>
+        <tr><td><code>callout</code></td><td><code>{`{ kind?, title?, body }`}</code></td><td><code>null</code></td><td>Callout opcional al pie de la columna.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

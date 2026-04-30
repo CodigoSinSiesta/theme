@@ -1,0 +1,55 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideEquation from '../../../../src/slides/SlideEquation.svelte';
+import '../../styles/shell-preview.css';
+
+const terms = [
+  { kind: 'term' as const, label: 'Modelo', value: 'LLM' },
+  { kind: 'op' as const,   symbol: '+' },
+  { kind: 'term' as const, label: 'Tools',  value: 'API' },
+  { kind: 'op' as const,   symbol: '+' },
+  { kind: 'term' as const, label: 'Loop',   value: 'Harness' },
+  { kind: 'op' as const,   symbol: '=' },
+  { kind: 'term' as const, label: 'Outcome', value: 'Agente', outcome: true }
+];
+---
+
+<DocsLayout title="SlideEquation · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideEquation</h1>
+    <p class="docs-page-desc">
+      Slide-tesis tipo ecuación. <code>term + op + term = outcome</code>. Cada term es una caja glass con label mono pequeño + texto display grande. Operadores en gradiente highlight. El término marcado <code>outcome: true</code> recibe gradient violeta + glow.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Agent = Model + Tools + Harness</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideEquation
+          eyebrow="la tesis"
+          title="Un agente no es sólo un modelo"
+          titleHighlight="no es"
+          terms={terms}
+          note="Cuando falla un agente, lo más probable es que el problema esté en uno de los **otros tres términos** — no en el modelo."
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>terms</code></td><td><code>{`Term[]`}</code></td><td><code>[]</code></td><td>Mezcla de <code>{`{ kind: 'term', label?, value, outcome? }`}</code> y <code>{`{ kind: 'op', symbol }`}</code>.</td></tr>
+        <tr><td><code>note</code></td><td><code>string</code></td><td><code>''</code></td><td>Lede al pie (acepta <code>**strong**</code> y <code>`code`</code>).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

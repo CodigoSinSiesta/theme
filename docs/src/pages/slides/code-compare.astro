@@ -1,0 +1,81 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideCodeCompare from '../../../../src/slides/SlideCodeCompare.svelte';
+import '../../styles/shell-preview.css';
+
+const left = {
+  title: 'mcp-server · vanilla',
+  tag: 'antes',
+  lang: 'ts' as const,
+  code: `const server = new Server({
+  name: "demo",
+  version: "1.0.0"
+});
+
+server.setRequestHandler(
+  ListToolsRequestSchema,
+  async () => ({ tools: [/* … */] })
+);
+
+server.setRequestHandler(
+  CallToolRequestSchema,
+  async (req) => { /* … */ }
+);`
+};
+
+const right = {
+  title: 'mcp-server · FastMCP',
+  tag: 'después',
+  lang: 'ts' as const,
+  code: `const mcp = new FastMCP({ name: 'demo' });
+
+mcp.tool('search', {
+  description: 'Busca en el repo',
+  parameters: z.object({ q: z.string() })
+}, async ({ q }) => {
+  return await ctx.search(q);
+});`
+};
+---
+
+<DocsLayout title="SlideCodeCompare · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideCodeCompare</h1>
+    <p class="docs-page-desc">
+      Dos paneles de código lado-a-lado con badge flotante absoluto al medio. Highlight ligero por regex (keywords, strings, números, comentarios, fn calls). Soporta <code>ts | js | py | shell | css | json | plain</code>.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>FastMCP · 6× menos código</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideCodeCompare
+          eyebrow="comparativa"
+          title="Vanilla vs FastMCP"
+          titleHighlight="FastMCP"
+          left={left}
+          right={right}
+          badge="6× menos código"
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>left</code> / <code>right</code></td><td><code>Pane</code></td><td>—</td><td><code>{`{ title, tag?, code, lang? }`}</code>.</td></tr>
+        <tr><td><code>badge</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto del badge flotante (vacío = sin badge).</td></tr>
+        <tr><td><code>leftKind</code> / <code>rightKind</code></td><td><code>'bad' | 'good' | 'neutral'</code></td><td><code>'bad'</code> / <code>'good'</code></td><td>Accent del border + tag pill por panel.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

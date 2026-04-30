@@ -1,0 +1,49 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideLayerStack from '../../../../src/slides/SlideLayerStack.svelte';
+import '../../styles/shell-preview.css';
+
+const layers = [
+  { name: 'App',     desc: 'Tu prompt — la tarea que el usuario quiere resolver.',  meta: 'user space',   kind: 'app' as const },
+  { name: 'Runtime', desc: 'Subagentes, skills, tools — el que **orquesta todo**.', meta: 'orchestrator', kind: 'runtime' as const },
+  { name: 'Kernel',  desc: 'Modelo + harness + ventana de contexto.',                meta: 'core',         kind: 'kernel' as const }
+];
+---
+
+<DocsLayout title="SlideLayerStack · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideLayerStack</h1>
+    <p class="docs-page-desc">
+      Capas horizontales tipo OS-stack (kernel/runtime/app). Cada layer = grid 3-cols (name | desc | meta). Tres <code>kind</code> con tinted backgrounds: <code>kernel</code> (violeta), <code>runtime</code> (azul fuerte), <code>app</code> (default).
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>El harness es el sistema operativo</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideLayerStack
+          eyebrow="analogía"
+          title="El harness es el sistema operativo"
+          titleHighlight="sistema operativo"
+          layers={layers}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>layers</code></td><td><code>{`Layer[]`}</code></td><td><code>[]</code></td><td><code>{`{ name, desc, meta?, kind? }`}</code> · kind: kernel/runtime/app/default.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

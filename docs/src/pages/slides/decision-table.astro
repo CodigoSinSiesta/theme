@@ -1,0 +1,63 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideDecisionTable from '../../../../src/slides/SlideDecisionTable.svelte';
+import '../../styles/shell-preview.css';
+
+const columns = ['Approach', 'Velocidad', 'Coste', 'Mantenible', 'Recomendación'];
+
+const rows = [
+  { cells: ['Mega-prompt', '✓', '~', '✕', 'Solo prototipos'] },
+  { cells: ['Subagentes',  '✓', '✓', '✓', 'Default · producción'] },
+  { cells: ['Fine-tune',   '✕', '✕', '~', 'Casos extremos'] },
+  { cells: ['RAG puro',    '~', '✓', '✓', 'Cuando hay corpus'] }
+];
+---
+
+<DocsLayout title="SlideDecisionTable · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.6.0+</span>
+    <h1 class="docs-page-title">SlideDecisionTable</h1>
+    <p class="docs-page-desc">
+      Tabla cuadrante glass con thead mono uppercase, fila resaltada (gradiente cobalto) y celdas auto-coloreadas (<code>✓</code> ok / <code>✕</code> err / <code>~</code> warn). Bloque "reglas prácticas" opcional debajo.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Matriz de decisión con highlight-row</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideDecisionTable
+          eyebrow="cuándo cada cosa"
+          title="Matriz de decisión"
+          titleHighlight="decisión"
+          columns={columns}
+          rows={rows}
+          highlightIndex={1}
+          rules={[
+            'Empieza por **subagentes**: 80% de los casos.',
+            'Sube a fine-tune solo cuando el subagente cae por consistencia, no por velocidad.',
+            'RAG es complementario, no sustituto.'
+          ]}
+          client:load
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>''</code></td><td>Kicker.</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td><code>''</code></td><td>Título.</td></tr>
+        <tr><td><code>titleHighlight</code></td><td><code>string</code></td><td><code>''</code></td><td>Substring del título a destacar.</td></tr>
+        <tr><td><code>columns</code></td><td><code>{`string[]`}</code></td><td><code>[]</code></td><td>Cabeceras (mono uppercase auto).</td></tr>
+        <tr><td><code>rows</code></td><td><code>{`{ cells: Cell[] }[]`}</code></td><td><code>[]</code></td><td>Filas. <code>Cell</code> = <code>string</code> (auto-detecta <code>✓ / ✕ / ~</code>) o <code>{`{ value, kind?, align? }`}</code>.</td></tr>
+        <tr><td><code>highlightIndex</code></td><td><code>number | null</code></td><td><code>null</code></td><td>Fila a destacar (0-based).</td></tr>
+        <tr><td><code>rules</code></td><td><code>{`string[]`}</code></td><td><code>[]</code></td><td>Lista numerada al pie. Acepta <code>**strong**</code> y <code>`code`</code>.</td></tr>
+        <tr><td><code>rulesTitle</code></td><td><code>string</code></td><td><code>'Reglas prácticas'</code></td><td>Eyebrow del bloque rules.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>

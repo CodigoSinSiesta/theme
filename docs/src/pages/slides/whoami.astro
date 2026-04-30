@@ -1,0 +1,54 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SlideWhoAmI from '../../../../src/slides/SlideWhoAmI.svelte';
+import '../../styles/shell-preview.css';
+
+const speaker = {
+  name: 'Alejandro de la Fuente',
+  role: 'Tech Lead · NTT Data · GDNE',
+  headline: 'Construyo software con criterio. IA aplicada con cabeza.',
+  bio: 'Llevo años peleando con código real: arquitecturas que se mantienen, equipos que iteran sin romper, IA que ayuda en vez de estorbar. Aquí comparto **lo que funciona** — sin humo ni tutorialitis.',
+  tags: ['agentes', 'MCP', 'arquitectura', 'DX', 'testing'],
+  handles: [
+    { icon: '🐙', value: 'github.com/TellMeAlex' },
+    { icon: '🌐', value: 'tellmealex.dev' },
+    { icon: '💼', value: 'linkedin.com/in/alejandro-de-la-fuente' }
+  ],
+  callout: {
+    kind: 'info' as const,
+    title: 'Disclaimer',
+    body: 'Todo lo que cuento sale de proyectos reales. Si algo no encaja con tu contexto, **ignóralo**.'
+  }
+};
+---
+
+<DocsLayout title="SlideWhoAmI · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">slide-shell · v0.7.0+</span>
+    <h1 class="docs-page-title">SlideWhoAmI</h1>
+    <p class="docs-page-desc">
+      Speaker card 2-cols (avatar | bio). Avatar circular con iniciales auto-generadas (o <code>avatarUrl</code>) + nombre + rol + handles pill. Columna derecha con eyebrow + h1 + bio + tags + callout opcional.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Speaker · Alejandro de la Fuente</h2>
+    <div class="shell-preview-frame">
+      <div class="shell-preview-scale">
+        <SlideWhoAmI speaker={speaker} client:load />
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Props</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>speaker</code></td><td><code>Speaker</code></td><td>—</td><td><code>{`{ name, role?, avatarUrl?, headline?, bio?, tags?, handles?, callout? }`}</code></td></tr>
+        <tr><td><code>eyebrow</code></td><td><code>string</code></td><td><code>'¿quién soy?'</code></td><td>Kicker arriba del headline.</td></tr>
+        <tr><td><code>headlineFallback</code></td><td><code>string</code></td><td><code>'Construyo software con criterio.'</code></td><td>H1 si <code>speaker.headline</code> está vacío.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</DocsLayout>
