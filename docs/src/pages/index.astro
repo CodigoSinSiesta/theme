@@ -4,7 +4,8 @@ const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
 const composables = [
   { href: '/composables/intersection-observer', name: 'useIntersectionObserver', desc: 'Composable runes-based para detectar cuándo un elemento entra en viewport. Patrón Svelte action.' },
-  { href: '/composables/counter-animation',     name: 'useCounterAnimation',     desc: 'Anima un valor numérico de 0 → target con easing + rAF. Respeta prefers-reduced-motion.' }
+  { href: '/composables/counter-animation',     name: 'useCounterAnimation',     desc: 'Anima un valor numérico de 0 → target con easing + rAF. Respeta prefers-reduced-motion.' },
+  { href: '/composables/typing-effect',         name: 'useTypingEffect',         desc: 'Texto carácter a carácter (efecto máquina de escribir) con modo loop opcional. Cursor CSS incluido.' }
 ];
 
 const components = [

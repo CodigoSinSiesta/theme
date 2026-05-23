@@ -1,0 +1,96 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import TypingEffectDemo from '../../components/TypingEffectDemo.svelte';
+---
+
+<DocsLayout title="useTypingEffect · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">composable · v0.8.0</span>
+    <h1 class="docs-page-title">useTypingEffect</h1>
+    <p class="docs-page-desc">
+      Renderiza un texto carácter a carácter con efecto de máquina de escribir. Modo <code>loop</code> para títulos rotantes. Respeta <code>prefers-reduced-motion</code> mostrando el texto completo sin animar.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demos</h2>
+    <TypingEffectDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">hero.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; useTypingEffect &#125; from <span class="str">'@codigosinsiesta/theme'</span>;
+  const typing = useTypingEffect(&#123;
+    text: <span class="str">'Technical Leader Specialist'</span>,
+    speed: <span class="num">80</span>
+  &#125;);
+&lt;/script&gt;
+
+&lt;h1 aria-live=<span class="str">"polite"</span>&gt;
+  &lt;span&gt;&#123;typing.displayText&#125;&lt;/span&gt;
+  &lt;span class=<span class="str">"csi-typing-cursor"</span> aria-hidden=<span class="str">"true"</span>&gt;&lt;/span&gt;
+&lt;/h1&gt;</code></pre>
+    </div>
+    <p>
+      El cursor parpadeante (<code>.csi-typing-cursor</code>) viene en <code>chrome.css</code> — solo CSS, sin componente. Toma <code>currentColor</code> del contenedor.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Accesibilidad</h2>
+    <ul class="docs-list">
+      <li><strong>Single (default)</strong>: envuelve el contenedor en <code>aria-live="polite"</code>. Cuando termine de escribirse, los screen readers anunciarán el texto final.</li>
+      <li><strong>Loop</strong>: usa <code>aria-live="off"</code> (o no pongas nada). Si lo dejas en <code>polite</code>, anunciará cada ciclo y satura.</li>
+      <li><code>prefers-reduced-motion: reduce</code>: el composable salta a <code>text</code> instantáneamente y el cursor deja de parpadear (animación CSS pausada por <code>chrome.css</code>).</li>
+    </ul>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Option</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>text</code></td><td><code>string</code></td><td>—</td><td>Texto a escribir.</td></tr>
+        <tr><td><code>speed</code></td><td><code>number</code></td><td><code>80</code></td><td>ms por carácter.</td></tr>
+        <tr><td><code>startDelay</code></td><td><code>number</code></td><td><code>0</code></td><td>ms antes de empezar a escribir.</td></tr>
+        <tr><td><code>loop</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Si <code>true</code>, borra y reescribe en bucle.</td></tr>
+        <tr><td><code>loopPause</code></td><td><code>number</code></td><td><code>2000</code></td><td>ms de pausa entre fases (solo en loop).</td></tr>
+      </tbody>
+    </table>
+    <p>Devuelve:</p>
+    <table class="docs-props">
+      <thead><tr><th>Field</th><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>displayText</code></td><td><code>string</code> (reactivo)</td><td>Texto visible actual.</td></tr>
+        <tr><td><code>isComplete</code></td><td><code>boolean</code> (reactivo)</td><td><code>true</code> cuando termina de escribir (en loop, transitorio).</td></tr>
+        <tr><td><code>reset()</code></td><td>fn</td><td>Reinicia desde cero respetando <code>startDelay</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Decks</strong>: portadas (<code>SlideHero</code>) con título escribiéndose.</li>
+      <li><strong>Portfolio</strong>: hero dinámico con rol profesional.</li>
+      <li><strong>Landings de talleres</strong>: títulos del workshop con efecto introductorio.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>

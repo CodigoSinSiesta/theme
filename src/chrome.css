@@ -129,3 +129,25 @@
 .swiper-slide .label[data-accent="ok"]::before   { background: var(--color-ok); }
 .swiper-slide .label[data-accent="warn"]::before { background: var(--color-warn); }
 .swiper-slide .label[data-accent="err"]::before  { background: var(--color-err); }
+
+/* ─── Typing cursor — usado con useTypingEffect ─── */
+.csi-typing-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: csi-typing-blink 1s steps(2, start) infinite;
+}
+@keyframes csi-typing-blink {
+  to {
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .csi-typing-cursor {
+    animation: none;
+    opacity: 0.7;
+  }
+}
