@@ -9,3 +9,4 @@
  */
 
 export { useIntersectionObserver } from './useIntersectionObserver.svelte.js';
+export { useCounterAnimation, easeOutCubic } from './useCounterAnimation.svelte.js';

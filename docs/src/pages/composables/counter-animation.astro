@@ -1,0 +1,92 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CounterAnimationDemo from '../../components/CounterAnimationDemo.svelte';
+---
+
+<DocsLayout title="useCounterAnimation · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">composable · v0.8.0</span>
+    <h1 class="docs-page-title">useCounterAnimation</h1>
+    <p class="docs-page-desc">
+      Anima un valor numérico de 0 → <code>target</code> durante <code>duration</code> ms con <code>requestAnimationFrame</code>. Respeta <code>prefers-reduced-motion</code>: con motion reducido, salta al target sin interpolar. Combina con <code>useIntersectionObserver</code> para arrancar al entrar en viewport.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demos</h2>
+    <CounterAnimationDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso canónico (combo con IntersectionObserver)</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">stat-counter.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; useIntersectionObserver, useCounterAnimation &#125; from <span class="str">'@codigosinsiesta/theme'</span>;
+
+  const inView  = useIntersectionObserver(&#123; threshold: <span class="num">0.5</span> &#125;);
+  const counter = useCounterAnimation(&#123;
+    target: <span class="num">42</span>,
+    duration: <span class="num">2000</span>,
+    isActive: () =&gt; inView.isVisible
+  &#125;);
+&lt;/script&gt;
+
+&lt;div use:inView.target&gt;
+  &#123;counter.value&#125;+
+&lt;/div&gt;</code></pre>
+    </div>
+    <p>
+      Pasa <code>isActive</code> como <strong>función</strong> para que el composable reaccione a cambios via <code>$effect</code>. Si pasas un boolean literal, solo se usa como valor inicial.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Option</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>target</code></td><td><code>number</code></td><td>—</td><td>Valor final del contador.</td></tr>
+        <tr><td><code>duration</code></td><td><code>number</code></td><td><code>2000</code></td><td>Duración total en ms.</td></tr>
+        <tr><td><code>isActive</code></td><td><code>boolean | () =&gt; boolean</code></td><td><code>true</code></td><td>Si es función, el composable usa <code>$effect</code> para reaccionar a sus cambios.</td></tr>
+        <tr><td><code>easing</code></td><td><code>(t: number) =&gt; number</code></td><td><code>easeOutCubic</code></td><td>Curva de progreso. Recibe <code>t ∈ [0,1]</code>.</td></tr>
+      </tbody>
+    </table>
+    <p>Devuelve:</p>
+    <table class="docs-props">
+      <thead><tr><th>Field</th><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>value</code></td><td><code>number</code> (reactivo)</td><td>Valor actual del contador.</td></tr>
+        <tr><td><code>isComplete</code></td><td><code>boolean</code> (reactivo)</td><td><code>true</code> tras alcanzar target.</td></tr>
+        <tr><td><code>target</code></td><td><code>number</code> (reactivo)</td><td>Target actual (cambiable vía <code>setTarget</code>).</td></tr>
+        <tr><td><code>isActive</code></td><td><code>boolean</code> (reactivo)</td><td>Estado activo actual.</td></tr>
+        <tr><td><code>reset()</code></td><td>fn</td><td>Vuelve a 0 y rearranca si está activo.</td></tr>
+        <tr><td><code>setTarget(n)</code></td><td>fn</td><td>Cambia el target y resetea.</td></tr>
+        <tr><td><code>setActive(b)</code></td><td>fn</td><td>Setter imperativo (alternativa al getter reactivo).</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Accesibilidad</h2>
+    <p>
+      Si el usuario tiene activo <code>prefers-reduced-motion: reduce</code>, el composable <strong>salta directo al target</strong> sin interpolar — sin animación de cuenta. El consumidor no tiene que hacer nada extra.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Decks</strong>: <code>SlideStats</code> con métricas animadas (hoy son estáticas).</li>
+      <li><strong>Portfolio CsS</strong>: contadores de proyectos, años de experiencia, métricas de impacto.</li>
+      <li><strong>Landings y dashboards</strong>: cualquier número que cuente una historia.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+</style>
