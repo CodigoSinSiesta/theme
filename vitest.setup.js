@@ -51,3 +51,23 @@ MockIntersectionObserver.reset = () => {
 
 vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
 globalThis.__MockIO = MockIntersectionObserver;
+
+/**
+ * Mock de matchMedia — jsdom no la implementa. Por defecto NO matchea
+ * `prefers-reduced-motion: reduce`. Los tests que necesiten simular motion
+ * reducido lo cambian via `globalThis.__setReducedMotion(true)`.
+ */
+let __reducedMotion = false;
+window.matchMedia = (query) => ({
+  matches: query.includes('prefers-reduced-motion: reduce') ? __reducedMotion : false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+});
+globalThis.__setReducedMotion = (value) => {
+  __reducedMotion = value;
+};
