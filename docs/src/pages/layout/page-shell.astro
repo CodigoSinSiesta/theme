@@ -1,0 +1,108 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PageShellDemo from '../../components/PageShellDemo.svelte';
+---
+
+<DocsLayout title="PageShell · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">layout · v0.9.0</span>
+    <h1 class="docs-page-title">PageShell</h1>
+    <p class="docs-page-desc">
+      Wrapper top-level para cualquier página CsS. Define skip link integrado, estructura header/main/footer vía snippets, <code>data-theme</code> aplicado al root, y barra opcional de scroll progress. Equivalente web de <code>SlideShell</code>.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demos</h2>
+    <PageShellDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">layout/BaseLayout.astro (Astro 5 + Svelte 5)</div>
+      <pre class="docs-example-code"><code>---
+import &#123; PageShell &#125; from <span class="str">'@codigosinsiesta/theme/layout'</span>;
+---
+
+&lt;PageShell theme=<span class="str">"dark"</span> scrollProgress client:load&gt;
+  &lt;SiteHeader slot=<span class="str">"header"</span> /&gt;
+  &lt;slot slot=<span class="str">"main"</span> /&gt;
+  &lt;SiteFooter slot=<span class="str">"footer"</span> /&gt;
+&lt;/PageShell&gt;</code></pre>
+    </div>
+    <p>
+      Si usas <strong>Svelte puro</strong>, los slots se pasan como snippets:
+    </p>
+    <div class="docs-example">
+      <div class="docs-example-label">App.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; PageShell, SiteHeader, SiteFooter &#125; from <span class="str">'@codigosinsiesta/theme'</span>;
+&lt;/script&gt;
+
+&lt;PageShell theme=<span class="str">"dark"</span> scrollProgress&gt;
+  &#123;#snippet header()&#125;&lt;SiteHeader ... /&gt;&#123;/snippet&#125;
+  &#123;#snippet main()&#125;&lt;BentoGrid&gt;...&lt;/BentoGrid&gt;&#123;/snippet&#125;
+  &#123;#snippet footer()&#125;&lt;SiteFooter ... /&gt;&#123;/snippet&#125;
+&lt;/PageShell&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Accesibilidad</h2>
+    <ul class="docs-list">
+      <li><strong>Skip link integrado</strong>: primer elemento focusable, oculto hasta recibir foco. Apunta a <code>#main</code>. Personaliza el texto con <code>skipLinkLabel</code>.</li>
+      <li><strong>Landmarks ARIA</strong>: usa <code>&lt;header&gt;</code>, <code>&lt;main id="main" tabindex="-1"&gt;</code>, <code>&lt;footer&gt;</code> — landmarks nativos detectados por screen readers.</li>
+      <li><strong>Scroll progress</strong>: la barra es <code>role="presentation"</code> + <code>aria-hidden="true"</code> — decorativa, no se anuncia.</li>
+    </ul>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>theme</code></td><td><code>'dark' | 'light'</code></td><td><code>'dark'</code></td><td>Aplica <code>data-theme</code> al root. <code>"light"</code> ya se acepta pero los tokens light llegan en v0.11.0.</td></tr>
+        <tr><td><code>lang</code></td><td><code>string</code></td><td><code>'es'</code></td><td>Atributo <code>lang</code> del shell.</td></tr>
+        <tr><td><code>scrollProgress</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Renderiza barra de progreso fija arriba.</td></tr>
+        <tr><td><code>skipLinkLabel</code></td><td><code>string</code></td><td><code>'Saltar al contenido'</code></td><td>Texto del skip link.</td></tr>
+        <tr><td><code>header</code></td><td><code>Snippet</code></td><td>—</td><td>Snippet del header. Opcional.</td></tr>
+        <tr><td><code>main</code></td><td><code>Snippet</code></td><td>—</td><td>Snippet del main. Opcional.</td></tr>
+        <tr><td><code>footer</code></td><td><code>Snippet</code></td><td>—</td><td>Snippet del footer. Opcional.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Light blueprint pre-cableado</h2>
+    <p>
+      La prop <code>theme="light"</code> se acepta desde v0.9.0 aunque la variante <strong>light blueprint</strong> del theme se entrega en v0.11.0. Decisión deliberada: evita un breaking change cuando llegue light.
+    </p>
+    <p>
+      Hoy, <code>theme="light"</code> aplica <code>data-theme="light"</code> al root pero se renderiza con los tokens dark. Los consumidores pueden empezar a estructurar su código para soportar light desde ya.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS (Astro+Svelte 5)</strong>: layout base de la one-page bento.</li>
+      <li><strong>Landings de talleres</strong>: hero + secciones marketing.</li>
+      <li><strong>Sitios CsS futuros</strong>: cualquier app web con estructura header/main/footer.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>
