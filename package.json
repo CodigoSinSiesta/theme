@@ -23,6 +23,7 @@
     "./composables/useIntersectionObserver": "./src/composables/useIntersectionObserver.svelte.js",
     "./composables/useCounterAnimation": "./src/composables/useCounterAnimation.svelte.js",
     "./composables/useTypingEffect": "./src/composables/useTypingEffect.svelte.js",
+    "./composables/useKeyboardNav": "./src/composables/useKeyboardNav.svelte.js",
     "./components": "./src/components/index.js",
     "./components/Eyebrow.svelte": "./src/components/Eyebrow.svelte",
     "./components/Callout.svelte": "./src/components/Callout.svelte",

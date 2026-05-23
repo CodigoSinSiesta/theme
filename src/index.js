@@ -50,3 +50,4 @@ export default tokens;
 export { useIntersectionObserver } from './composables/useIntersectionObserver.svelte.js';
 export { useCounterAnimation, easeOutCubic } from './composables/useCounterAnimation.svelte.js';
 export { useTypingEffect } from './composables/useTypingEffect.svelte.js';
+export { useKeyboardNav } from './composables/useKeyboardNav.svelte.js';

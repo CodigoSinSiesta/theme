@@ -1,0 +1,102 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import KeyboardNavDemo from '../../components/KeyboardNavDemo.svelte';
+---
+
+<DocsLayout title="useKeyboardNav · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">composable · v0.8.0</span>
+    <h1 class="docs-page-title">useKeyboardNav</h1>
+    <p class="docs-page-desc">
+      Gestiona atajos de teclado a nivel de app/página. Acepta una lista de shortcuts con modifier + handler + label, y proporciona la lista para renderizar un panel de ayuda. No interfiere con foco en form fields.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo</h2>
+    <KeyboardNavDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">app.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; useKeyboardNav &#125; from <span class="str">'@codigosinsiesta/theme'</span>;
+
+  const nav = useKeyboardNav([
+    &#123; key: <span class="str">'1'</span>, modifier: <span class="str">'alt'</span>, label: <span class="str">'Ir a Hero'</span>,  handler: () =&gt; scrollTo(<span class="str">'#hero'</span>)     &#125;,
+    &#123; key: <span class="str">'a'</span>, modifier: <span class="str">'alt'</span>, label: <span class="str">'Panel a11y'</span>, handler: openA11y                       &#125;,
+    &#123; key: <span class="str">'Escape'</span>,             label: <span class="str">'Cerrar'</span>,     handler: closeAll                       &#125;
+  ]);
+&lt;/script&gt;
+
+&lt;ul aria-label=<span class="str">"Atajos de teclado"</span>&gt;
+  &#123;#each nav.shortcuts as s&#125;
+    &lt;li&gt;&lt;kbd&gt;&#123;s.modifier ? s.modifier + <span class="str">'+'</span> : <span class="str">''</span>&#125;&#123;s.key&#125;&lt;/kbd&gt; — &#123;s.label&#125;&lt;/li&gt;
+  &#123;/each&#125;
+&lt;/ul&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <p>Acepta <strong>literal array o getter</strong> (mismo patrón polimórfico que <code>useCounterAnimation.isActive</code>):</p>
+    <div class="docs-example">
+      <div class="docs-example-label">reactivo · getter</div>
+      <pre class="docs-example-code"><code>let shortcuts = $state([...]);
+const nav = useKeyboardNav(() =&gt; shortcuts); <span class="ctrl">// se reasigna cuando el array cambia</span></code></pre>
+    </div>
+    <table class="docs-props">
+      <thead><tr><th>Shortcut field</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>key</code></td><td><code>string</code></td><td>—</td><td>Tecla: <code>'a'</code>, <code>'1'</code>, <code>'Escape'</code>, <code>'ArrowLeft'</code>… (case-insensitive para letras).</td></tr>
+        <tr><td><code>modifier</code></td><td><code>string</code></td><td><code>undefined</code></td><td><code>'alt'</code> | <code>'ctrl'</code> | <code>'shift'</code> | <code>'meta'</code> o combinaciones tipo <code>'altShift'</code>, <code>'ctrlShift'</code>.</td></tr>
+        <tr><td><code>label</code></td><td><code>string</code></td><td>—</td><td>Descripción legible para panel de ayuda.</td></tr>
+        <tr><td><code>handler</code></td><td><code>(e: KeyboardEvent) =&gt; void</code></td><td>—</td><td>Función a ejecutar al matchear.</td></tr>
+        <tr><td><code>preventDefault</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Llama a <code>e.preventDefault()</code> antes del handler.</td></tr>
+        <tr><td><code>forceTrigger</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Si <code>true</code>, dispara también con foco en input/textarea/contenteditable. Útil para <code>Escape</code>.</td></tr>
+      </tbody>
+    </table>
+    <p>Devuelve:</p>
+    <table class="docs-props">
+      <thead><tr><th>Field</th><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>shortcuts</code></td><td><code>Shortcut[]</code> (reactivo)</td><td>Lista actual — renderiza el panel de ayuda con ella.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Comportamiento</h2>
+    <ul class="docs-list">
+      <li><strong>Modifier exacto</strong>: <code>modifier: 'alt'</code> matchea solo si <code>altKey</code> es true Y los otros modifiers están a false. Sin <code>modifier</code>, exige cero modifiers.</li>
+      <li><strong>Foco en form fields</strong>: input, textarea, select y contenteditable bloquean el shortcut por defecto. Activa <code>forceTrigger: true</code> para teclas globales como <code>Escape</code>.</li>
+      <li><strong>Primer match gana</strong>: si dos shortcuts matchean la misma combinación, solo se dispara el primero del array.</li>
+      <li><strong>Múltiples instancias</strong>: cada <code>useKeyboardNav()</code> registra su propio listener. Coexisten sin pisarse.</li>
+    </ul>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS</strong>: <code>Alt+1..6</code> para saltar entre secciones, <code>Alt+A</code> para abrir panel de accesibilidad, <code>Escape</code> para cerrar diálogos.</li>
+      <li><strong>Decks</strong>: complementar los atajos nativos de Swiper (<code>←/→/Esc</code>) con atajos numerados de salto a slide.</li>
+      <li><strong>Apps con paleta de comandos</strong>: <code>Cmd+K</code> / <code>Ctrl+K</code> para abrir un launcher.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>
