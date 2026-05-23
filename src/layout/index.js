@@ -11,4 +11,5 @@
  *   import PageShell from '@codigosinsiesta/theme/layout/PageShell.svelte';
  */
 
-export { default as PageShell } from './PageShell.svelte';
+export { default as PageShell }  from './PageShell.svelte';
+export { default as SiteHeader } from './SiteHeader.svelte';
