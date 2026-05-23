@@ -14,6 +14,9 @@ function isActive(href: string): boolean {
   return pathname === full || pathname === full + '/';
 }
 
+const composableLinks = [
+  { href: '/composables/intersection-observer', label: 'useIntersectionObserver' }
+];
 const componentLinks = [
   { href: '/components/eyebrow',         label: 'Eyebrow' },
   { href: '/components/callout',         label: 'Callout' },
@@ -74,6 +77,12 @@ const shellLinks = [
         <span class="docs-version">v0.7.0 · dark blueprint</span>
 
         <nav class="docs-nav" aria-label="Navegación de docs">
+          <div class="docs-nav-section">
+            <span class="docs-nav-title">Composables</span>
+            {composableLinks.map((l) => (
+              <a class={`docs-nav-link ${isActive(l.href) ? 'active' : ''}`} href={base + l.href}>{l.label}</a>
+            ))}
+          </div>
           <div class="docs-nav-section">
             <span class="docs-nav-title">Componentes-átomo</span>
             {componentLinks.map((l) => (

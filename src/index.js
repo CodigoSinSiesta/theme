@@ -43,3 +43,8 @@ export const tokens = {
 };
 
 export default tokens;
+
+// Composables runes-based (Svelte 5). Solo se evalúan al importar — los
+// consumidores que solo quieren `tokens` no pagan coste de bundle (sideEffects:
+// false en package.json permite el tree-shaking).
+export { useIntersectionObserver } from './composables/useIntersectionObserver.svelte.js';
