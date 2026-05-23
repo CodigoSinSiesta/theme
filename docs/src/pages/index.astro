@@ -9,6 +9,10 @@ const composables = [
   { href: '/composables/keyboard-nav',          name: 'useKeyboardNav',          desc: 'Atajos de teclado globales con modifier matching, skip en form fields, y lista para panel de ayuda.' }
 ];
 
+const layout = [
+  { href: '/layout/page-shell', name: 'PageShell', desc: 'Wrapper top-level con skip link integrado + slots header/main/footer + theme + scroll progress. Equivalente web de SlideShell.' }
+];
+
 const components = [
   { href: '/components/eyebrow',         name: 'Eyebrow',        desc: 'Barra horizontal 24×2px + texto mono uppercase. Acompaña el header de cada slide.' },
   { href: '/components/callout',         name: 'Callout',        desc: 'Aside box con kind semántico (info/ok/warn/err). Border-left + icono + título + body.' },
@@ -81,6 +85,19 @@ const shells = [
     <p>Helpers runes-based (Svelte 5) para patrones comunes de animación on-scroll y comportamiento reactivo. Compartidos entre decks y sitios CsS (portfolio, landings).</p>
     <div class="docs-grid">
       {composables.map((c) => (
+        <a class="docs-card" href={base + c.href}>
+          <span class="docs-card-name">{c.name}</span>
+          <span class="docs-card-desc">{c.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Layout — sitios web (v0.9.0+)</h2>
+    <p>Primitivos para layout de páginas web (no decks). Site shell, container bento, cards. Compañeros de los <em>slide-shells</em> para presentaciones.</p>
+    <div class="docs-grid">
+      {layout.map((c) => (
         <a class="docs-card" href={base + c.href}>
           <span class="docs-card-name">{c.name}</span>
           <span class="docs-card-desc">{c.desc}</span>

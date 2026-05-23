@@ -20,6 +20,9 @@ const composableLinks = [
   { href: '/composables/typing-effect',         label: 'useTypingEffect' },
   { href: '/composables/keyboard-nav',          label: 'useKeyboardNav' }
 ];
+const layoutLinks = [
+  { href: '/layout/page-shell', label: 'PageShell' }
+];
 const componentLinks = [
   { href: '/components/eyebrow',         label: 'Eyebrow' },
   { href: '/components/callout',         label: 'Callout' },
@@ -83,6 +86,12 @@ const shellLinks = [
           <div class="docs-nav-section">
             <span class="docs-nav-title">Composables</span>
             {composableLinks.map((l) => (
+              <a class={`docs-nav-link ${isActive(l.href) ? 'active' : ''}`} href={base + l.href}>{l.label}</a>
+            ))}
+          </div>
+          <div class="docs-nav-section">
+            <span class="docs-nav-title">Layout (sitios web)</span>
+            {layoutLinks.map((l) => (
               <a class={`docs-nav-link ${isActive(l.href) ? 'active' : ''}`} href={base + l.href}>{l.label}</a>
             ))}
           </div>
