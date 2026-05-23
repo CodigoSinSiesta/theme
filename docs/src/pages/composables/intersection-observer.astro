@@ -1,0 +1,82 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import IntersectionObserverDemo from '../../components/IntersectionObserverDemo.svelte';
+---
+
+<DocsLayout title="useIntersectionObserver · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">composable · v0.8.0</span>
+    <h1 class="docs-page-title">useIntersectionObserver</h1>
+    <p class="docs-page-desc">
+      Composable runes-based (Svelte 5) que envuelve <code>IntersectionObserver</code> y lo expone como Svelte action. Centraliza el patrón "haz algo cuando un elemento entre en viewport" que cada deck reimplementaba.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo · triggerOnce: false</h2>
+    <p>Haz scroll en la caja: el estado vuelve a <code>false</code> al salir del viewport.</p>
+    <IntersectionObserverDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Demo · triggerOnce: true</h2>
+    <p>Una vez que el target entra, el observer se desconecta y el estado se queda en <code>true</code>.</p>
+    <IntersectionObserverDemo triggerOnce client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">my-component.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; useIntersectionObserver &#125; from <span class="str">'@codigosinsiesta/theme'</span>;
+  const observer = useIntersectionObserver(&#123; threshold: <span class="num">0.3</span>, triggerOnce: <span class="num">true</span> &#125;);
+&lt;/script&gt;
+
+&lt;div use:observer.target class:visible=&#123;observer.isVisible&#125;&gt;
+  ...
+&lt;/div&gt;</code></pre>
+    </div>
+    <p>
+      El mismo <code>observer</code> puede aplicarse a N nodos. <code>isVisible</code> será <code>true</code> mientras cualquiera de ellos esté intersectando.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Option</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>threshold</code></td><td><code>number | number[]</code></td><td><code>0</code></td><td>Igual que <code>IntersectionObserverInit.threshold</code>.</td></tr>
+        <tr><td><code>rootMargin</code></td><td><code>string</code></td><td><code>'0px'</code></td><td>Margen alrededor del root.</td></tr>
+        <tr><td><code>root</code></td><td><code>Element | null</code></td><td><code>null</code></td><td>Viewport ancestral.</td></tr>
+        <tr><td><code>triggerOnce</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Si <code>true</code>, desconecta tras la primera intersección.</td></tr>
+      </tbody>
+    </table>
+    <p>Devuelve:</p>
+    <table class="docs-props">
+      <thead><tr><th>Field</th><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>target</code></td><td>Svelte action</td><td>Aplícalo con <code>use:observer.target</code>.</td></tr>
+        <tr><td><code>isVisible</code></td><td><code>boolean</code> (reactivo)</td><td><code>true</code> si algún nodo observado está intersectando.</td></tr>
+        <tr><td><code>entry</code></td><td><code>IntersectionObserverEntry | null</code></td><td>Última entry registrada — útil para leer <code>intersectionRatio</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Decks</strong>: disparar animaciones cuando un slide se activa.</li>
+      <li><strong>Sitios CsS (portfolio, landings)</strong>: animar barras de skills, items de timeline, contadores de stats al hacer scroll.</li>
+      <li><strong>Lazy-load</strong>: combinar con <code>triggerOnce</code> para cargar contenido pesado solo cuando aparece.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+</style>

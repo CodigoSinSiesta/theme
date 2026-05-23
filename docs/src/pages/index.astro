@@ -2,6 +2,10 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
+const composables = [
+  { href: '/composables/intersection-observer', name: 'useIntersectionObserver', desc: 'Composable runes-based para detectar cuándo un elemento entra en viewport. Patrón Svelte action.' }
+];
+
 const components = [
   { href: '/components/eyebrow',         name: 'Eyebrow',        desc: 'Barra horizontal 24×2px + texto mono uppercase. Acompaña el header de cada slide.' },
   { href: '/components/callout',         name: 'Callout',        desc: 'Aside box con kind semántico (info/ok/warn/err). Border-left + icono + título + body.' },
@@ -66,6 +70,19 @@ const shells = [
     <div class="docs-example">
       <div class="docs-example-label">src/styles/global.css</div>
       <pre class="docs-example-code"><code><span class="ctrl">@import</span> <span class="str">'@codigosinsiesta/theme/all.css'</span>;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Composables (v0.8.0+)</h2>
+    <p>Helpers runes-based (Svelte 5) para patrones comunes de animación on-scroll y comportamiento reactivo. Compartidos entre decks y sitios CsS (portfolio, landings).</p>
+    <div class="docs-grid">
+      {composables.map((c) => (
+        <a class="docs-card" href={base + c.href}>
+          <span class="docs-card-name">{c.name}</span>
+          <span class="docs-card-desc">{c.desc}</span>
+        </a>
+      ))}
     </div>
   </section>
 

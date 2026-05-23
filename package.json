@@ -19,6 +19,8 @@
     "./chrome.css": "./src/chrome.css",
     "./all.css": "./src/all.css",
     "./tailwind.preset.js": "./src/tailwind.preset.js",
+    "./composables": "./src/composables/index.js",
+    "./composables/useIntersectionObserver": "./src/composables/useIntersectionObserver.svelte.js",
     "./components": "./src/components/index.js",
     "./components/Eyebrow.svelte": "./src/components/Eyebrow.svelte",
     "./components/Callout.svelte": "./src/components/Callout.svelte",
@@ -57,6 +59,10 @@
     "./icons/*": "./src/icons/*",
     "./BRAND.md": "./src/BRAND.md"
   },
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
   "peerDependencies": {
     "svelte": ">=5.0.0"
   },
@@ -64,6 +70,15 @@
     "svelte": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/svelte": "^5.2.6",
+    "jsdom": "^25.0.1",
+    "svelte": "^5.45.5",
+    "vite": "^6.0.0",
+    "vitest": "^3.2.4"
   },
   "keywords": [
     "design-system",
