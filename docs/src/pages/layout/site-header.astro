@@ -1,0 +1,130 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SiteHeaderDemo from '../../components/SiteHeaderDemo.svelte';
+---
+
+<DocsLayout title="SiteHeader · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">layout · v0.9.0</span>
+    <h1 class="docs-page-title">SiteHeader</h1>
+    <p class="docs-page-desc">
+      Top bar del sitio: logo (owl + wordmark de v0.6.0), nav links, slot para controles a11y/palette, y atajos <code>Alt+1..9</code> registrados automáticamente vía <code>useKeyboardNav</code>. Responsive con <code>&lt;details&gt;</code> nativo en mobile.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo</h2>
+    <SiteHeaderDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">app.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; SiteHeader &#125; from <span class="str">'@codigosinsiesta/theme/layout'</span>;
+  const links = [
+    &#123; href: <span class="str">'#hero'</span>,    label: <span class="str">'Inicio'</span> &#125;,
+    &#123; href: <span class="str">'#about'</span>,   label: <span class="str">'Sobre mí'</span> &#125;,
+    &#123; href: <span class="str">'#projects'</span>, label: <span class="str">'Proyectos'</span> &#125;
+  ];
+&lt;/script&gt;
+
+&lt;SiteHeader &#123;links&#125; activeHref=<span class="str">"#hero"</span> logoVariant=<span class="str">"both"</span>&gt;
+  &#123;#snippet controls()&#125;
+    &lt;button&gt;🌗 Light&lt;/button&gt;
+    &lt;button aria-label=<span class="str">"Accesibilidad"</span>&gt;♿&lt;/button&gt;
+  &#123;/snippet&#125;
+&lt;/SiteHeader&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Atajos de teclado integrados</h2>
+    <p>
+      El componente registra <code>Alt+1</code> a <code>Alt+9</code> automáticamente para los primeros 9 links (máximo del modifier numérico). Cada atajo dispara:
+    </p>
+    <ul class="docs-list">
+      <li>Si <code>href</code> empieza por <code>#</code> → <code>scrollIntoView</code> suave al elemento.</li>
+      <li>Si <code>href</code> es absoluto/relativo → <code>window.location.href</code> (navegación).</li>
+    </ul>
+    <p>
+      Desactiva con <code>keyboardShortcuts=&#123;false&#125;</code> si interfiere con shortcuts de tu app.
+    </p>
+    <p class="hint-box">
+      Los <kbd>kbd</kbd> badges junto a cada link son visibles solo en desktop. En mobile (<code>&lt;=768px</code>) se ocultan — el modifier Alt no aplica en pantallas táctiles.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Responsive</h2>
+    <p>
+      Por debajo de 768px el nav colapsa dentro de un <code>&lt;details&gt;</code> nativo. El <code>&lt;summary&gt;</code> renderiza el icono <code>bars-3.svg</code> (Heroicons v0.6.0) como botón hamburguer. Sin JS custom de toggle — el browser gestiona el estado open/closed.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>links</code></td><td><code>Link[]</code></td><td><code>[]</code></td><td>Array de <code>&#123; href, label &#125;</code>. Solo se usan los primeros 9 para atajos.</td></tr>
+        <tr><td><code>activeHref</code></td><td><code>string</code></td><td><code>''</code></td><td>Link con este href recibe <code>aria-current="page"</code>.</td></tr>
+        <tr><td><code>logoVariant</code></td><td><code>'owl' | 'wordmark' | 'both'</code></td><td><code>'both'</code></td><td>Qué assets de marca renderiza.</td></tr>
+        <tr><td><code>homeHref</code></td><td><code>string</code></td><td><code>'/'</code></td><td>Destino del click en logo.</td></tr>
+        <tr><td><code>keyboardShortcuts</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Si <code>false</code>, no registra Alt+N.</td></tr>
+        <tr><td><code>ariaLabel</code></td><td><code>string</code></td><td><code>'Navegación principal'</code></td><td><code>aria-label</code> del <code>&lt;nav&gt;</code>.</td></tr>
+        <tr><td><code>controls</code></td><td><code>Snippet</code></td><td>—</td><td>Snippet renderizado a la derecha (desktop) / dentro de details (mobile).</td></tr>
+        <tr><td><code>logo</code></td><td><code>Snippet</code></td><td>—</td><td>Override completo del logo. Si se proporciona, <code>logoVariant</code> se ignora.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Links externos</h2>
+    <p>
+      Cualquier <code>href</code> que matchee <code>http(s)://</code>, <code>mailto:</code> o <code>tel:</code> se renderiza automáticamente con <code>target="_blank"</code> + <code>rel="noopener noreferrer"</code>. No necesitas marcarlo manualmente.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS</strong>: nav entre secciones one-page con <code>Alt+N</code>.</li>
+      <li><strong>Landings de talleres</strong>: nav minimal con CTA principal en <code>controls</code>.</li>
+      <li><strong>Apps con sidebar</strong>: usar <code>logoVariant="owl"</code> compacto + nav en sidebar custom.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .hint-box {
+    background: color-mix(in oklab, var(--color-electrico) 10%, var(--color-fondo-alt));
+    border-left: 3px solid var(--color-electrico);
+    padding: 10px 14px;
+    border-radius: 6px;
+    color: var(--color-tinta2);
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .hint-box kbd {
+    background: var(--color-fondo);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--color-borde);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-cielo);
+  }
+</style>
