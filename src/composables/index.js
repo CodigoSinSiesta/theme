@@ -10,3 +10,4 @@
 
 export { useIntersectionObserver } from './useIntersectionObserver.svelte.js';
 export { useCounterAnimation, easeOutCubic } from './useCounterAnimation.svelte.js';
+export { useTypingEffect } from './useTypingEffect.svelte.js';
