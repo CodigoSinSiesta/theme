@@ -1,0 +1,7 @@
+<!--
+  LinkedIn mark — outline variant.
+  Glyph reescrito (rectángulo + "in") con stroke=currentColor + fill=none +
+  stroke-width 1.5 para emparejar el estilo line/outline Heroicons del theme.
+  24x24 viewBox.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 3.75h15a.75.75 0 0 1 .75.75v15a.75.75 0 0 1-.75.75h-15a.75.75 0 0 1-.75-.75v-15a.75.75 0 0 1 .75-.75z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5v6.75"></path><circle cx="7.5" cy="7.875" r="0.9"></circle><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 17.25V10.5m0 2.25c0-1.243 1.007-2.25 2.25-2.25s2.25 1.007 2.25 2.25v4.5"></path></svg>

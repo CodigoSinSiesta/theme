@@ -13,3 +13,4 @@
 
 export { default as PageShell }  from './PageShell.svelte';
 export { default as SiteHeader } from './SiteHeader.svelte';
+export { default as SiteFooter } from './SiteFooter.svelte';
