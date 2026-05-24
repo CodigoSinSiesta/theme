@@ -1,0 +1,106 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SiteFooterDemo from '../../components/SiteFooterDemo.svelte';
+---
+
+<DocsLayout title="SiteFooter · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">layout · v0.9.0</span>
+    <h1 class="docs-page-title">SiteFooter</h1>
+    <p class="docs-page-desc">
+      Pie de página estático sin estado: copyright + social links con iconos opcionales + tagline. Patrón minimal para portfolios, landings de talleres y sitios CsS. Grid de 3 columnas en desktop, stack vertical centrado en mobile.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo</h2>
+    <SiteFooterDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">app.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; SiteFooter &#125; from <span class="str">'@codigosinsiesta/theme/layout'</span>;
+  const links = [
+    &#123; href: <span class="str">'https://github.com/TellMeAlex'</span>,   label: <span class="str">'GitHub'</span>,   icon: <span class="str">'github'</span> &#125;,
+    &#123; href: <span class="str">'https://linkedin.com/in/...'</span>,     label: <span class="str">'LinkedIn'</span>, icon: <span class="str">'linkedin'</span> &#125;,
+    &#123; href: <span class="str">'mailto:alex@tellmealex.dev'</span>,      label: <span class="str">'Email'</span>,    icon: <span class="str">'envelope'</span> &#125;
+  ];
+&lt;/script&gt;
+
+&lt;SiteFooter
+  copyright=<span class="str">"© 2026 Alejandro de la Fuente"</span>
+  tagline=<span class="str">"Hecho con ♥ · parte de Código Sin Siesta"</span>
+  &#123;links&#125;
+/&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Iconos</h2>
+    <p>
+      Cada <code>link.icon</code> es el <strong>basename</strong> de un asset que el consumer sirve desde <code>/icons/{'{'}icon{'}'}.svg</code>. El componente NO inlina los SVG — usa un <code>&lt;img&gt;</code> con ruta absoluta. Si el archivo no existe, el browser oculta el icono y queda solo el label.
+    </p>
+    <p>
+      <strong>Iconos disponibles en v0.9.0</strong> (13 Heroicons originales de v0.6.0 + 3 sociales nuevos):
+    </p>
+    <table class="docs-props">
+      <thead><tr><th>Nombre</th><th>Tipo</th><th>Uso típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>github</code></td><td>Social</td><td>Links a repos/perfil GitHub.</td></tr>
+        <tr><td><code>linkedin</code></td><td>Social</td><td>Perfil profesional.</td></tr>
+        <tr><td><code>envelope</code></td><td>Social</td><td>Links <code>mailto:</code>.</td></tr>
+        <tr><td colspan="3"><em>+ 13 Heroicons outline de v0.6.0: bars-3, book-open, bookmark, check-circle, chevron-left, chevron-right, cpu-chip, light-bulb, magnifying-glass, puzzle-piece, sparkles, wrench-screwdriver, x-mark</em></td></tr>
+      </tbody>
+    </table>
+    <p>
+      En Astro, copia los SVG a <code>public/icons/</code> (se sirven en <code>/icons/*.svg</code> automáticamente). En Vite puro, usa <code>publicDir</code> equivalente.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>copyright</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto de copyright. Si vacío, el bloque no se renderiza.</td></tr>
+        <tr><td><code>tagline</code></td><td><code>string</code></td><td><code>''</code></td><td>Lema centrado. Si vacío, el bloque no se renderiza.</td></tr>
+        <tr><td><code>links</code></td><td><code>FooterLink[]</code></td><td><code>[]</code></td><td>Lista de links. Si vacía, el nav no se renderiza.</td></tr>
+      </tbody>
+    </table>
+    <p><code>FooterLink</code>:</p>
+    <table class="docs-props">
+      <thead><tr><th>Field</th><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>href</code></td><td><code>string</code></td><td>URL del link. Si empieza con <code>http(s):</code>, auto-aplica <code>target="_blank"</code> + <code>rel="noopener noreferrer"</code>.</td></tr>
+        <tr><td><code>label</code></td><td><code>string</code></td><td>Texto visible.</td></tr>
+        <tr><td><code>icon</code></td><td><code>string</code> (opcional)</td><td>Basename del SVG en <code>/icons/{'{'}icon{'}'}.svg</code>. Si no existe, se renderiza solo el label.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS</strong>: copyright + GitHub + LinkedIn + email + tagline "Hecho con ♥".</li>
+      <li><strong>Landings de talleres</strong>: copyright + link al repo del workshop + recursos.</li>
+      <li><strong>Sitios CsS futuros</strong>: footer consistente de marca.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>
