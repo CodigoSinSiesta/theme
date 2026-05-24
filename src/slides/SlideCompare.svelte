@@ -7,12 +7,16 @@
     eyebrow:        string                                   — kicker (opcional)
     title:          string                                   — título del slide
     titleHighlight: string                                   — palabra del título a destacar
+    subtitle:       string                                   — línea editorial bajo el título (opcional, soporta **strong** y `code`)
     left:           CompareSide                              — lado izquierdo (por convención: "bad" / err)
     right:          CompareSide                              — lado derecho (por convención: "good" / ok)
     leftKind:       'err' | 'ok' | 'electrico' | 'neutral'   — accent del lado izquierdo (default err)
     rightKind:      'err' | 'ok' | 'electrico' | 'neutral'   — accent del lado derecho (default ok)
+    insight:        { icon?, body }                          — cierre narrativo bajo la comparativa (opcional, body soporta **strong** y `code`)
 
-  CompareSide = { label, headline, items: string[], icon? }
+  CompareSide = { label, headline?, items: string[], icon? }
+    label    → título de la columna (h3). En el patrón "sobrio" se renderiza solo eso.
+    headline → si se pasa, label pasa a kicker uppercase mono pequeño y headline al h3 grande.
 -->
 
 <script lang="ts">
@@ -20,25 +24,36 @@
   import Eyebrow from '../components/Eyebrow.svelte';
 
   type Kind = 'err' | 'ok' | 'electrico' | 'neutral';
-  type Side = { label: string; headline: string; items: string[]; icon?: string };
+  type Side = { label: string; headline?: string; items: string[]; icon?: string };
+  type Insight = { icon?: string; body: string };
 
   let {
     eyebrow = '',
     title = '',
     titleHighlight = '',
-    left = { label: '', headline: '', items: [] } as Side,
-    right = { label: '', headline: '', items: [] } as Side,
+    subtitle = '',
+    left = { label: '', items: [] } as Side,
+    right = { label: '', items: [] } as Side,
     leftKind = 'err' as Kind,
-    rightKind = 'ok' as Kind
+    rightKind = 'ok' as Kind,
+    insight = null as Insight | null
   } = $props<{
     eyebrow?: string;
     title?: string;
     titleHighlight?: string;
+    subtitle?: string;
     left?: Side;
     right?: Side;
     leftKind?: Kind;
     rightKind?: Kind;
+    insight?: Insight | null;
   }>();
+
+  function renderInline(s: string): string {
+    return s
+      .replaceAll(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replaceAll(/`([^`]+)`/g, '<code>$1</code>');
+  }
 
   const titleParts = $derived.by(() => {
     if (!titleHighlight || !title.includes(titleHighlight)) return null;
@@ -72,20 +87,27 @@
         {title}
       {/if}
     </h2>
+    {#if subtitle}
+      <p class="subtitle">{@html renderInline(subtitle)}</p>
+    {/if}
   </div>
 
   <div class="compare-row">
-    <div class="card kind-{leftKind}">
+    <div class="card kind-{leftKind}" class:has-headline={!!left.headline}>
       <div class="card-head">
         <span class="card-icon">{left.icon || defaultIcon(leftKind)}</span>
-        <div>
-          <div class="card-label">{left.label}</div>
-          <div class="card-headline">{left.headline}</div>
-        </div>
+        {#if left.headline}
+          <div>
+            <div class="card-label">{left.label}</div>
+            <div class="card-headline">{left.headline}</div>
+          </div>
+        {:else}
+          <h3 class="card-title">{left.label}</h3>
+        {/if}
       </div>
       <ul class="items">
         {#each left.items as item}
-          <li><span class="bullet">{bullet(leftKind)}</span><span>{item}</span></li>
+          <li><span class="bullet">{bullet(leftKind)}</span><span>{@html renderInline(item)}</span></li>
         {/each}
       </ul>
     </div>
@@ -94,25 +116,42 @@
       <div class="vs">vs</div>
     </div>
 
-    <div class="card kind-{rightKind}">
+    <div class="card kind-{rightKind}" class:has-headline={!!right.headline}>
       <div class="card-head">
         <span class="card-icon">{right.icon || defaultIcon(rightKind)}</span>
-        <div>
-          <div class="card-label">{right.label}</div>
-          <div class="card-headline">{right.headline}</div>
-        </div>
+        {#if right.headline}
+          <div>
+            <div class="card-label">{right.label}</div>
+            <div class="card-headline">{right.headline}</div>
+          </div>
+        {:else}
+          <h3 class="card-title">{right.label}</h3>
+        {/if}
       </div>
       <ul class="items">
         {#each right.items as item}
-          <li><span class="bullet">{bullet(rightKind)}</span><span>{item}</span></li>
+          <li><span class="bullet">{bullet(rightKind)}</span><span>{@html renderInline(item)}</span></li>
         {/each}
       </ul>
     </div>
   </div>
+
+  {#if insight}
+    <aside class="insight">
+      {#if insight.icon}<span class="insight-icon" aria-hidden="true">{insight.icon}</span>{/if}
+      <p class="insight-body">{@html renderInline(insight.body)}</p>
+    </aside>
+  {/if}
 </SlideShell>
 
 <style>
-  .header { display: flex; flex-direction: column; gap: var(--spacing-md); }
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+    align-items: center;
+  }
   h2 {
     margin: 0;
     font-family: var(--font-display);
@@ -126,6 +165,23 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+  .subtitle {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-cielo);
+    opacity: 0.85;
+  }
+  .subtitle :global(strong) { color: var(--color-tinta); opacity: 1; font-weight: 700; }
+  .subtitle :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 1px 5px;
+    background: rgba(96, 165, 250, 0.10);
+    border-radius: 3px;
+    color: var(--color-cielo);
   }
 
   .compare-row {
@@ -151,7 +207,15 @@
     align-items: center;
     gap: 12px;
   }
-  .card-icon { font-size: 24px; line-height: 1; }
+  .card-icon { font-size: 22px; line-height: 1; }
+  .card-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    color: var(--color-tinta);
+  }
   .card-label {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -167,6 +231,9 @@
     margin-top: 2px;
     line-height: 1.15;
   }
+  /* En patrón sobrio (sin headline), el card-title hereda color del kind */
+  .kind-err :global(.card-title) { color: var(--color-tinta); }
+  .kind-ok :global(.card-title) { color: var(--color-tinta); }
 
   .items {
     list-style: none;
@@ -185,6 +252,15 @@
   }
   .items li:last-child { margin-bottom: 0; }
   .bullet { font-weight: 700; margin-top: 2px; flex-shrink: 0; }
+  .items :global(strong) { color: var(--color-tinta); font-weight: 700; }
+  .items :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 1px 5px;
+    background: rgba(96, 165, 250, 0.10);
+    border-radius: 3px;
+    color: var(--color-cielo);
+  }
 
   /* ── Variantes por kind ── */
   .kind-err .card-head { background: var(--color-err-bg); }
@@ -220,6 +296,34 @@
     color: var(--color-tinta2);
   }
 
+  /* ── Insight (cierre narrativo opcional) ── */
+  .insight {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.20);
+    border-radius: 14px;
+  }
+  .insight-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .insight-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-tinta);
+    opacity: 0.9;
+  }
+  .insight-body :global(strong) { color: var(--color-cielo); font-weight: 800; opacity: 1; }
+  .insight-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 1px 5px;
+    background: rgba(96, 165, 250, 0.10);
+    border-radius: 3px;
+    color: var(--color-cielo);
+  }
+
   @media (max-width: 900px) {
     .compare-row {
       grid-template-columns: 1fr;
@@ -227,5 +331,11 @@
     }
     .vs-wrap { padding: 4px 0; }
     .vs { width: 48px; height: 48px; font-size: 16px; }
+    .insight {
+      padding: var(--spacing-md);
+      gap: var(--spacing-md);
+    }
+    .insight-icon { font-size: 1.5rem; }
+    .insight-body { font-size: 0.9rem; }
   }
 </style>
