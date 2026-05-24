@@ -15,3 +15,4 @@ export { default as PageShell }  from './PageShell.svelte';
 export { default as SiteHeader } from './SiteHeader.svelte';
 export { default as SiteFooter } from './SiteFooter.svelte';
 export { default as BentoGrid }  from './BentoGrid.svelte';
+export { default as BentoCard }  from './BentoCard.svelte';

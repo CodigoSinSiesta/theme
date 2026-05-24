@@ -29,6 +29,7 @@
     "./layout/SiteHeader.svelte": "./src/layout/SiteHeader.svelte",
     "./layout/SiteFooter.svelte": "./src/layout/SiteFooter.svelte",
     "./layout/BentoGrid.svelte": "./src/layout/BentoGrid.svelte",
+    "./layout/BentoCard.svelte": "./src/layout/BentoCard.svelte",
     "./components": "./src/components/index.js",
     "./components/Eyebrow.svelte": "./src/components/Eyebrow.svelte",
     "./components/Callout.svelte": "./src/components/Callout.svelte",
