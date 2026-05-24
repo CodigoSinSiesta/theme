@@ -100,12 +100,44 @@
       {/if}
     </a>
 
-    <details class="csi-site-header__menu">
+    <!--
+      Desktop: nav + controls inline (siempre visibles).
+      Mobile: ambos colapsan dentro de <details> nativo.
+      Renderizamos los nodos dos veces porque el UA stylesheet de details
+      oculta non-summary children cuando no está [open], y `display: contents`
+      en el details no override esa regla de forma fiable cross-browser.
+      Coste DOM mínimo (links son <a> simples).
+    -->
+    <nav class="csi-site-header__nav csi-site-header__nav--desktop" aria-label={ariaLabel}>
+      {#each links.slice(0, 9) as link, i (link.href)}
+        {@const external = isExternal(link.href)}
+        <a
+          class="csi-site-header__link"
+          href={link.href}
+          aria-current={activeHref === link.href ? 'page' : undefined}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+        >
+          <span>{link.label}</span>
+          {#if keyboardShortcuts}
+            <kbd class="csi-site-header__kbd" aria-hidden="true">Alt+{i + 1}</kbd>
+          {/if}
+        </a>
+      {/each}
+    </nav>
+
+    {#if controls}
+      <div class="csi-site-header__controls csi-site-header__controls--desktop">
+        {@render controls()}
+      </div>
+    {/if}
+
+    <details class="csi-site-header__menu csi-site-header__menu--mobile">
       <summary class="csi-site-header__hamburger" aria-label="Abrir menú">
         <span class="csi-site-header__hamburger-icon" aria-hidden="true">{@html barsSvg}</span>
       </summary>
 
-      <nav class="csi-site-header__nav" aria-label={ariaLabel}>
+      <nav class="csi-site-header__nav csi-site-header__nav--mobile" aria-label="{ariaLabel} (mobile)">
         {#each links.slice(0, 9) as link, i (link.href)}
           {@const external = isExternal(link.href)}
           <a
@@ -124,7 +156,9 @@
       </nav>
 
       {#if controls}
-        <div class="csi-site-header__controls">{@render controls()}</div>
+        <div class="csi-site-header__controls csi-site-header__controls--mobile">
+          {@render controls()}
+        </div>
       {/if}
     </details>
   </div>
@@ -168,24 +202,25 @@
     display: block;
   }
 
-  /* Desktop layout — details acts as a transparent container. */
-  .csi-site-header__menu {
-    display: contents;
-  }
-  .csi-site-header__hamburger {
-    display: none;
-  }
-  .csi-site-header__hamburger::-webkit-details-marker {
-    display: none;
-  }
-  .csi-site-header__hamburger::marker {
-    display: none;
-  }
-  .csi-site-header__nav {
+  /* Desktop layout — nav + controls inline, mobile details oculto. */
+  .csi-site-header__nav--desktop {
     display: flex;
     gap: 4px;
     align-items: center;
     flex-wrap: wrap;
+  }
+  .csi-site-header__controls--desktop {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .csi-site-header__menu--mobile {
+    display: none;
+  }
+
+  /* Shared nav styles (apply to both desktop + mobile copies) */
+  .csi-site-header__nav {
+    align-items: center;
   }
   .csi-site-header__link {
     color: var(--color-tinta2);
@@ -216,15 +251,13 @@
     border-radius: 3px;
     border: 1px solid var(--color-borde);
   }
-  .csi-site-header__controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
   /* Mobile — details collapses; summary becomes the hamburger toggle. */
   @media (max-width: 768px) {
-    .csi-site-header__menu {
+    .csi-site-header__nav--desktop,
+    .csi-site-header__controls--desktop {
+      display: none;
+    }
+    .csi-site-header__menu--mobile {
       display: block;
       position: relative;
     }
@@ -237,6 +270,12 @@
       list-style: none;
       border-radius: 6px;
     }
+    .csi-site-header__hamburger::-webkit-details-marker {
+      display: none;
+    }
+    .csi-site-header__hamburger::marker {
+      content: '';
+    }
     .csi-site-header__hamburger:hover {
       background: var(--color-fondo);
     }
@@ -245,13 +284,17 @@
       height: 22px;
       display: block;
     }
-    .csi-site-header__menu[open] .csi-site-header__nav,
-    .csi-site-header__menu[open] .csi-site-header__controls {
+    .csi-site-header__menu--mobile[open] {
+      /* Absolute positioned dropdown panel — anchored al header inner */
+    }
+    .csi-site-header__menu--mobile[open] .csi-site-header__nav--mobile {
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
+      display: flex;
       flex-direction: column;
       align-items: stretch;
+      gap: 2px;
       background: var(--color-fondo-alt);
       border: 1px solid var(--color-borde);
       border-radius: 8px;
@@ -260,14 +303,18 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
       z-index: 90;
     }
-    .csi-site-header__menu[open] .csi-site-header__nav {
-      gap: 2px;
+    .csi-site-header__menu--mobile[open] .csi-site-header__controls--mobile {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 8px 0 0 0;
+      margin-top: 8px;
+      border-top: 1px solid var(--color-borde);
     }
-    .csi-site-header__menu[open] .csi-site-header__controls {
-      top: calc(100% + 8px + var(--csi-mobile-controls-offset, 280px));
-    }
-    .csi-site-header__menu:not([open]) .csi-site-header__nav,
-    .csi-site-header__menu:not([open]) .csi-site-header__controls {
+    .csi-site-header__menu--mobile:not([open]) .csi-site-header__nav--mobile,
+    .csi-site-header__menu--mobile:not([open]) .csi-site-header__controls--mobile {
       display: none;
     }
     .csi-site-header__kbd {
