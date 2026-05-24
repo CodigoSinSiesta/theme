@@ -1,0 +1,111 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import BentoGridDemo from '../../components/BentoGridDemo.svelte';
+---
+
+<DocsLayout title="BentoGrid · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">layout · v0.9.0</span>
+    <h1 class="docs-page-title">BentoGrid</h1>
+    <p class="docs-page-desc">
+      Container CSS Grid puro para layout one-page tipo bento. <strong>CSS-only</strong>, sin JS de hidratación: renderizable server-side sin <code>client:*</code>. Recibe <code>BentoCard</code>s como hijos — cada card declara su <code>size</code> y se posiciona via <code>grid-column: span N</code>.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo</h2>
+    <BentoGridDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">page.svelte (Svelte 5)</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; BentoGrid, BentoCard &#125; from <span class="str">'@codigosinsiesta/theme/layout'</span>;
+&lt;/script&gt;
+
+&lt;BentoGrid cols=&#123;12&#125; gap=<span class="str">"24px"</span> dense&gt;
+  &lt;BentoCard size=<span class="str">"xl"</span> ariaLabel=<span class="str">"Hero"</span>&gt;...&lt;/BentoCard&gt;
+  &lt;BentoCard size=<span class="str">"md"</span> ariaLabel=<span class="str">"About"</span>&gt;...&lt;/BentoCard&gt;
+  &lt;BentoCard size=<span class="str">"sm"</span> ariaLabel=<span class="str">"Stat"</span>&gt;...&lt;/BentoCard&gt;
+&lt;/BentoGrid&gt;</code></pre>
+    </div>
+    <p>
+      <strong>Nota</strong>: <code>BentoCard</code> llega en un PR aparte (issue #13). Mientras tanto, <code>BentoGrid</code> acepta cualquier hijo Svelte con <code>grid-column: span N</code> inline o vía clase propia.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>cols</code></td><td><code>number</code></td><td><code>12</code></td><td>Número de columnas del grid en desktop. Se aplica via <code>--csi-bento-cols</code>.</td></tr>
+        <tr><td><code>gap</code></td><td><code>string</code></td><td><code>'20px'</code></td><td>Espaciado entre celdas. Cualquier valor CSS válido (<code>px</code>, <code>rem</code>, <code>clamp(...)</code>). Se aplica via <code>--csi-bento-gap</code>.</td></tr>
+        <tr><td><code>dense</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Si <code>true</code>, aplica <code>grid-auto-flow: dense</code> para compactar huecos cuando las cards tienen tamaños mixtos.</td></tr>
+        <tr><td><code>ariaLabel</code></td><td><code>string</code></td><td><code>''</code></td><td>Si se pasa, aplica <code>aria-label</code> al <code>&lt;section&gt;</code>. Útil cuando el grid es la región principal.</td></tr>
+        <tr><td><code>children</code></td><td><code>Snippet</code></td><td>—</td><td>Hijos del grid. Típicamente <code>BentoCard</code>s, pero acepta cualquier nodo.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Custom props expuestas</h2>
+    <p>El componente expone dos CSS custom props en el <code>style</code> inline del <code>&lt;section&gt;</code>. Consumidores que necesiten variantes ad-hoc pueden overridearlas desde fuera con un selector más específico, o pasar nuevos valores via las props del componente.</p>
+    <table class="docs-props">
+      <thead><tr><th>Custom prop</th><th>Tipo</th><th>Default</th><th>Notas</th></tr></thead>
+      <tbody>
+        <tr><td><code>--csi-bento-cols</code></td><td><code>integer</code></td><td><code>12</code></td><td>Número de columnas. Consumido por <code>grid-template-columns: repeat(var(--csi-bento-cols), 1fr)</code>.</td></tr>
+        <tr><td><code>--csi-bento-gap</code></td><td><code>length</code></td><td><code>20px</code></td><td>Gap entre celdas (row + column). Consumido por <code>gap</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Responsive</h2>
+    <p>BentoGrid colapsa la cuenta de columnas en dos breakpoints. Las <code>BentoCard</code> hijas se reorganizan automáticamente porque sus spans (definidos via la prop <code>size</code>) se aplican relativos al nuevo total de columnas.</p>
+    <table class="docs-props">
+      <thead><tr><th>Breakpoint</th><th>Cols efectivas</th><th>Caso de uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>&gt; 768px</code></td><td><code>cols</code> (default 12)</td><td>Desktop / tablet horizontal. Grid asimétrico real.</td></tr>
+        <tr><td><code>&lt;= 768px</code></td><td><code>4</code></td><td>Tablet portrait / phablet. Las cards <code>xl</code> ocupan todo el ancho.</td></tr>
+        <tr><td><code>&lt;= 480px</code></td><td><code>2</code></td><td>Móvil. Layout casi vertical, máximo 2 cards por fila.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>CSS-only · sin JS</h2>
+    <p>
+      BentoGrid <strong>no</strong> tiene runtime de hidratación. Se renderiza completamente server-side y puede usarse en Astro sin ningún directivo <code>client:*</code>. Toda la lógica de layout (flujo dense, breakpoints responsive, gaps) vive en CSS Grid puro.
+    </p>
+    <p>
+      Esto lo hace ideal para landings estáticas: zero JS shipped al cliente para el container.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS</strong>: layout one-page con cards de tamaños mixtos (hero XL, about MD, KPIs SM).</li>
+      <li><strong>Landings de talleres</strong>: secciones de features en grid asimétrico — el patrón típico bento.</li>
+      <li><strong>Dashboards futuros</strong>: KPIs con tamaños variables (charts grandes + counters pequeños).</li>
+      <li><strong>Galería de proyectos</strong>: thumbnails con featured items destacados (span 2×2 entre 1×1s).</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>
