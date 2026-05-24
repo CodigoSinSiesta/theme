@@ -1,0 +1,114 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import BentoCardDemo from '../../components/BentoCardDemo.svelte';
+---
+
+<DocsLayout title="BentoCard · @codigosinsiesta/theme" pathname={Astro.url.pathname}>
+  <div class="docs-page-header">
+    <span class="docs-page-eyebrow">layout · v0.9.0</span>
+    <h1 class="docs-page-title">BentoCard</h1>
+    <p class="docs-page-desc">
+      Card individual del layout bento. Hija de <code>BentoGrid</code> (CSS Grid). Cierra el círculo con v0.8.0 consumiendo <code>useIntersectionObserver</code> para entry animation con semántica <code>triggerOnce</code>. Respeta <code>prefers-reduced-motion</code> vía CSS <code>@media</code>.
+    </p>
+  </div>
+
+  <section class="docs-section">
+    <h2>Demo</h2>
+    <BentoCardDemo client:load />
+  </section>
+
+  <section class="docs-section">
+    <h2>Uso</h2>
+    <div class="docs-example">
+      <div class="docs-example-label">page.svelte</div>
+      <pre class="docs-example-code"><code>&lt;script&gt;
+  import &#123; BentoGrid, BentoCard &#125; from <span class="str">'@codigosinsiesta/theme/layout'</span>;
+&lt;/script&gt;
+
+&lt;BentoGrid cols=&#123;12&#125; gap=<span class="str">"20px"</span> dense&gt;
+  &lt;BentoCard size=<span class="str">"xl"</span> ariaLabel=<span class="str">"Hero"</span> id=<span class="str">"hero"</span> keyboardHint=<span class="str">"Alt+1"</span>&gt;
+    &lt;h1&gt;Technical Leader Specialist&lt;/h1&gt;
+    &lt;p&gt;Bio del autor...&lt;/p&gt;
+  &lt;/BentoCard&gt;
+
+  &lt;BentoCard size=<span class="str">"md"</span> ariaLabel=<span class="str">"Stats"</span>&gt;
+    &lt;span class=<span class="str">"big-number"</span>&gt;42&lt;/span&gt;
+  &lt;/BentoCard&gt;
+&lt;/BentoGrid&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Tamaños</h2>
+    <p>Cada <code>size</code> mapea a un span de grid (asumiendo <code>BentoGrid</code> con 12 cols):</p>
+    <table class="docs-props">
+      <thead><tr><th>size</th><th>grid-column</th><th>grid-row</th><th>Uso típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>sm</code></td><td><code>span 3</code></td><td><code>span 1</code></td><td>Stat compacto, KPI, badge.</td></tr>
+        <tr><td><code>md</code></td><td><code>span 4</code></td><td><code>span 1</code></td><td>Section secundaria, callout.</td></tr>
+        <tr><td><code>lg</code></td><td><code>span 6</code></td><td><code>span 2</code></td><td>Project showcase, gallery.</td></tr>
+        <tr><td><code>xl</code></td><td><code>span 8</code></td><td><code>span 2</code></td><td>Hero, feature destacada, about largo.</td></tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Responsive cascade</strong>: a <code>≤ 768px</code> las cards <code>lg</code>/<code>xl</code> bajan a <code>span 4 × 1</code>; <code>sm</code>/<code>md</code> a <code>span 2</code>. A <code>≤ 480px</code> todas ocupan el ancho completo del grid colapsado (<code>span 2</code>). Coordinado con los breakpoints de <code>BentoGrid</code> (12 → 4 → 2 cols).
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Entry animation</h2>
+    <p>
+      Con <code>entryAnimation=&#123;true&#125;</code> (default), la card empieza con <code>opacity: 0</code> + <code>translateY(20px)</code> y transiciona a <code>opacity: 1</code> + <code>none</code> en 600ms cuando entra en viewport. La detección usa <code>useIntersectionObserver</code> con <code>threshold: 0.2</code> y <code>triggerOnce: true</code> — tras la primera intersección, el observer se desconecta.
+    </p>
+    <p>
+      <strong>Reduced motion</strong>: si el usuario tiene <code>prefers-reduced-motion: reduce</code> activo, una <code>@media</code> rule del CSS fuerza <code>opacity: 1</code> + <code>transition: none</code>. La card aparece sin animar. El composable sigue corriendo pero su efecto visual queda neutralizado — diseño deliberado para no requerir lógica JS extra.
+    </p>
+  </section>
+
+  <section class="docs-section">
+    <h2>Accesibilidad</h2>
+    <ul class="docs-list">
+      <li><strong><code>ariaLabel</code> obligatorio</strong>: cada card es un landmark <code>&lt;article&gt;</code>. El label da contexto a screen readers cuando navegan por landmarks.</li>
+      <li><strong><code>keyboardHint</code></strong> renderiza un <code>&lt;kbd&gt;</code> visible. Es solo decorativo (<code>aria-hidden</code>); el atajo real lo registra el consumer con <code>useKeyboardNav</code> apuntando al <code>id</code> de la card.</li>
+      <li><strong>Entry animation</strong>: respeta <code>prefers-reduced-motion</code> sin código extra (CSS-only).</li>
+    </ul>
+  </section>
+
+  <section class="docs-section">
+    <h2>API</h2>
+    <table class="docs-props">
+      <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>size</code></td><td><code>'sm' | 'md' | 'lg' | 'xl'</code></td><td><code>'md'</code></td><td>Mapea a grid-column/grid-row span.</td></tr>
+        <tr><td><code>ariaLabel</code></td><td><code>string</code></td><td>—</td><td><strong>Obligatorio</strong>. Label del landmark <code>&lt;article&gt;</code>.</td></tr>
+        <tr><td><code>keyboardHint</code></td><td><code>string</code></td><td><code>''</code></td><td>Texto del badge <code>&lt;kbd&gt;</code>. Si vacío, no se renderiza.</td></tr>
+        <tr><td><code>entryAnimation</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Activa la entry animation on-viewport.</td></tr>
+        <tr><td><code>id</code></td><td><code>string</code></td><td><code>''</code></td><td><code>id</code> HTML para coordinar con <code>useKeyboardNav</code> (ej. <code>scrollTo('#hero')</code>).</td></tr>
+        <tr><td><code>children</code></td><td><code>Snippet</code></td><td>—</td><td>Contenido de la card.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="docs-section">
+    <h2>Casos de uso</h2>
+    <ul class="docs-list">
+      <li><strong>Portfolio CsS</strong>: cada bloque del bento (Hero, About, Skills, Projects, Contact...) con sizes mixtos.</li>
+      <li><strong>Landings de talleres</strong>: feature cards en grid asimétrico.</li>
+      <li><strong>Dashboards</strong>: KPI cards individuales con entry animation al scroll.</li>
+    </ul>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-list {
+    color: var(--color-tinta2);
+    line-height: 1.7;
+  }
+  .docs-list code {
+    background: var(--color-fondo-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+</style>
