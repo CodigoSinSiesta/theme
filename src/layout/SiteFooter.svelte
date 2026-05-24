@@ -97,7 +97,9 @@
   .csi-site-footer {
     border-top: 1px solid var(--color-borde);
     background: var(--color-fondo-alt);
-    color: var(--color-tinta4);
+    /* WCAG 2.1 AA texto pequeño: ratio >= 4.5:1. tinta4 (#64748b) sobre
+       fondo-alt (#1e293b) da 3.07 — insuficiente. tinta3 (#94a3b8) da 5.3. */
+    color: var(--color-tinta3);
     font-family: var(--font-body);
     font-size: 13px;
   }
