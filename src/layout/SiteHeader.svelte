@@ -245,7 +245,9 @@
   .csi-site-header__kbd {
     font-family: var(--font-mono);
     font-size: 10px;
-    color: var(--color-tinta4);
+    /* WCAG 2.1 AA texto pequeño: ratio >= 4.5:1. tinta4 (#64748b) sobre
+       fondo (#0f172a) da 3.75 — insuficiente. tinta3 (#94a3b8) da 6.5 — OK. */
+    color: var(--color-tinta3);
     background: var(--color-fondo);
     padding: 2px 5px;
     border-radius: 3px;
