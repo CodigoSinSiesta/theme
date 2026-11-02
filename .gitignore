@@ -4,3 +4,8 @@ node_modules/
 .env
 .env.local
 dist/
+
+# Motor de vídeo (video/): entornos, modelos y salidas locales
+video/.venv/
+video/modelos/
+__pycache__/

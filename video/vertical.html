@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Código Sin Siesta · vídeo vertical</title>
+<!-- Maqueta vertical 1080×1920: cabecera, hueco para el vídeo horizontal (se superpone con ffmpeg en y=VY) y subtítulos. -->
+<style>
+  @font-face { font-family: 'Space Grotesk'; font-weight: 300 700; font-display: block; src: url(fonts/SpaceGrotesk.woff2) format('woff2'); }
+  @font-face { font-family: 'IBM Plex Sans'; font-weight: 100 700; font-display: block; src: url(fonts/Plex.woff2) format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 100 800; font-display: block; src: url(fonts/JetBrainsMono.woff2) format('woff2'); }
+  :root { --navy: #0f172a; --cyan: #60a5fa; --teal: #3b82f6; --pale: #cbd5e1; --pale3: #94a3b8; --ink: #FAF9F6;
+          --grad: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%); --mono: 'JetBrains Mono', monospace; --disp: 'Space Grotesk', sans-serif; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: var(--ink); }
+  #bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 45% at 50% 40%, rgba(37,99,235,.28) 0%, var(--navy) 70%); }
+  #bg::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(96,165,250,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(96,165,250,.045) 1px, transparent 1px); background-size: 60px 60px; }
+  .abs { position: absolute; }
+  #logo { left: 72px; top: 110px; display: flex; align-items: center; gap: 16px; font-family: var(--disp); font-size: 38px; font-weight: 700; }
+  #logo img { height: 64px; } #logo b { color: var(--cyan); font-weight: 700; }
+  #kind { left: 76px; top: 250px; font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: .16em; color: var(--cyan); text-transform: uppercase; display: flex; align-items: center; gap: 14px; }
+  #kind::before { content: ""; width: 36px; height: 3px; background: var(--cyan); }
+  #title { left: 72px; top: 296px; width: 940px; font-family: var(--disp); font-size: 76px; font-weight: 800; line-height: 1.05; letter-spacing: -.01em; }
+  #sub { left: 76px; top: 392px; width: 940px; font-family: var(--disp); font-size: 46px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  #frame { left: 0; top: 560px; width: 1080px; height: 608px; background: #000; }
+  #chap { left: 76px; top: 1216px; font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: .12em; color: var(--pale); text-transform: uppercase; }
+  #chap b { color: var(--cyan); margin-right: 12px; }
+  #subs { left: 60px; top: 1290px; width: 960px; height: 420px; display: flex; align-items: flex-start; }
+  #line { font-family: var(--disp); font-size: 60px; font-weight: 700; line-height: 1.25; }
+  #line span { opacity: .38; }
+  #line span.on { opacity: 1; }
+  #line span.now { color: var(--cyan); opacity: 1; }
+  #bar { left: 76px; top: 1790px; width: 928px; height: 6px; border-radius: 3px; background: rgba(185,215,249,.18); }
+  #barIn { height: 6px; border-radius: 3px; background: var(--grad); width: 0; }
+  #foot { left: 76px; top: 1820px; font-family: var(--mono); font-size: 20px; color: var(--pale3); }
+</style></head>
+<body>
+<div id="bg"></div>
+<div class="abs" id="logo"><img src="logos/logo-owl-oficial-web.svg"><span>Código<b>SinSiesta</b></span></div>
+<div class="abs" id="kind"></div>
+<div class="abs" id="title"></div>
+<div class="abs" id="sub"></div>
+<div class="abs" id="frame"></div>
+<div class="abs" id="chap"></div>
+<div class="abs" id="subs"><div id="line"></div></div>
+<div class="abs" id="bar"><div id="barIn"></div></div>
+<div class="abs" id="foot">Código Sin Siesta · Formaciones · codigosinsiesta.com</div>
+<script src="pill.js"></script>
+<script src="timeline.js"></script>
+<script>
+const TL = window.TL, PILL = window.PILL, $ = id => document.getElementById(id);
+window.DUR = TL.total;
+$('kind').textContent = PILL.hud;
+$('title').textContent = PILL.big; $('sub').textContent = PILL.sub;
+// Subtítulos: cada párrafo se corta en frases (por las pausas reales de la voz, `marks`) y cada frase en líneas de
+// ≤ 9 palabras. El tiempo de cada palabra se interpola entre anclas, igual que la sincronía de la maqueta horizontal.
+function tAt(sg, i) { const m = sg.marks; let k = 0; while (k < m.length - 2 && m[k + 1][0] <= i) k++;
+  const [c0, t0] = m[k], [c1, t1] = m[k + 1]; return sg.start + t0 + (t1 - t0) * (i - c0) / Math.max(1, c1 - c0); }
+const CUES = [];
+TL.segments.forEach(sg => {
+  const words = []; const re = /\S+/g; let m; while ((m = re.exec(sg.txt))) words.push({ w: m[0], t: tAt(sg, m.index) });
+  // frases: hasta el punto (o una coma, si ya lleva 5 palabras); las de más de 9 palabras se reparten en líneas iguales
+  let cur = [];
+  const flush = () => { if (!cur.length) return; const n = Math.ceil(cur.length / 9), k = Math.ceil(cur.length / n);
+    for (let i = 0; i < cur.length; i += k) { const ws = cur.slice(i, i + k); CUES.push({ a: ws[0].t, words: ws }); } cur = []; };
+  words.forEach(w => { cur.push(w); if (/[.:;?!]$/.test(w.w) || (/,$/.test(w.w) && cur.length >= 5)) flush(); });
+  flush();
+});
+CUES.forEach((c, i) => { const last = c.words[c.words.length - 1]; const sg = TL.segments.find(s => c.a >= s.start - .01 && c.a <= s.start + s.dur + .01);
+  const segEnd = sg ? sg.start + sg.dur + 0.4 : last.t + 1; c.b = Math.min(CUES[i + 1] ? CUES[i + 1].a : 1e9, segEnd); });
+let shown = null;
+window.seek = t => {
+  $('barIn').style.width = (100 * Math.min(1, t / TL.total)) + '%';
+  const ch = [...TL.chapters].reverse().find(c => t >= c.start);
+  $('chap').innerHTML = ch && t < TL.end.start ? `<b>${String(ch.n).padStart(2, '0')}</b>${ch.title}` : '';
+  const c = CUES.find(c => t >= c.a - 0.1 && t < c.b);
+  if (c !== shown) { $('line').innerHTML = c ? c.words.map(w => `<span>${w.w}</span>`).join(' ') : ''; shown = c; }
+  if (c) [...$('line').children].forEach((e, i) => { const w = c.words[i], nx = c.words[i + 1];
+    e.className = t >= w.t - 0.08 ? (nx && t >= nx.t - 0.08 ? 'on' : 'now') : ''; });
+};
+window.ready = document.fonts.ready;
+</script>
+</body></html>

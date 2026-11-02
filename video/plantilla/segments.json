@@ -1,0 +1,7 @@
+[
+ {"id": "c0-01", "ch": 0, "gap": 1.0, "text": "Código Sin Siesta. <short pause> Curso de Pi: título del vídeo."},
+ {"id": "c1-01", "ch": 1, "gap": 1.0, "text": "Este es un párrafo de ejemplo. Cada párrafo es un clip de voz, y los planos se sincronizan con sus palabras."},
+ {"id": "c1-02", "ch": 1, "gap": 1.0, "text": "Las tarjetas aparecen cuando se nombra cada idea: primero la instalación, después la configuración y por último la primera sesión."},
+ {"id": "c2-01", "ch": 2, "gap": 1.0, "text": "Un comando se teclea y sus opciones se iluminan al explicarlas: el modelo, el modo de impresión y el prompt."},
+ {"id": "c2-02", "ch": 2, "gap": 1.0, "text": "Y un diagrama avanza paso a paso: el usuario pide, el agente piensa, usa herramientas y responde."}
+]

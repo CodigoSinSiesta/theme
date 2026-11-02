@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 96" fill="none">
+  
+  <g transform="translate(8 16) scale(1)" stroke="#60A5FA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M16 14 L20 22"></path>
+    <path d="M48 14 L44 22"></path>
+    <path d="M10 30 C 10 18, 22 10, 32 10 C 42 10, 54 18, 54 30 C 54 42, 44 52, 32 52 C 20 52, 10 42, 10 30 Z"></path>
+    <circle cx="22" cy="30" r="7"></circle>
+    <circle cx="42" cy="30" r="7"></circle>
+    <circle cx="22" cy="30" r="1.8" fill="#60A5FA" stroke="none"></circle>
+    <circle cx="42" cy="30" r="1.8" fill="#60A5FA" stroke="none"></circle>
+    <path d="M32 36 L29 41 L32 44 L35 41 Z"></path>
+  </g>
+
+  <text x="92" y="50" font-family="&#39;Space Grotesk&#39;, system-ui, sans-serif" font-size="28" font-weight="900" fill="#FAF9F6" letter-spacing="0.5">CÓDIGO SIN SIESTA</text>
+  <text x="92" y="74" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="11" font-weight="600" fill="#60A5FA" letter-spacing="2.8">TECHNICAL · TALKS · 2026</text>
+</svg>

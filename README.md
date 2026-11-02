@@ -598,10 +598,22 @@ icons/                        · Heroicons v2 outline subset (v0.6.0+)
             magnifying-glass, light-bulb, book-open, bookmark, check-circle,
             puzzle-piece, sparkles
 BRAND.md                      · gate CMO+QA · voz, casing, visual fundamentals (v0.6.0+)
+video/                        · motor de los vídeos de formación (no va en el paquete npm)
+├── README.md                 · dónde aplica, puesta en marcha y licencias de terceros
+├── pildora.html · render.mjs · página animada + render a 30 fps con Playwright y ffmpeg
+├── plantillas/               · 183 plantillas de plano + runtime + galería
+└── figs/ · logos/ · fonts/   · figuras isométricas, logos de herramientas, tipografías (OFL)
 package.json
 README.md
 LICENSE
 ```
+
+## Motor de vídeo (`video/`)
+
+Las presentaciones y webs usan `src/` (el paquete npm). Los **vídeos de formación** (cursos de Pi y oh my pi, Hermes y
+skills) usan `video/`: un motor que anima una página HTML plano a plano, sincronizada con la locución, y la renderiza a
+vídeo. Comparte la identidad V4, pero lleva sus propios tokens y no se publica en npm. Todo lo necesario está en
+[`video/README.md`](video/README.md).
 
 ## Decks que lo consumen
 
