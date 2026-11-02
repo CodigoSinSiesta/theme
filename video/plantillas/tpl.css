@@ -1,0 +1,52 @@
+/* Plantillas de plano (tipo `tpl`): todo el CSS cuelga de .tpl para no pisar el de pildora.html ni el de la galería.
+   Mismos valores que la galería aprobada (motor/prototipo-plantillas). Lienzo de 1920×1080, coordenadas absolutas. */
+.tpl{position:absolute;inset:0;--sky:#93c5fd;--blue:#3b82f6;--deep:#1e3a8a;--body:'IBM Plex Sans',system-ui,sans-serif;
+  --glass:rgba(30,58,138,.20);--line:rgba(96,165,250,.28);color:var(--ink);font-family:var(--body)}
+.tpl *{box-sizing:border-box}
+.tpl .eb{position:absolute;left:120px;top:90px;display:flex;align-items:center;gap:18px;font:600 24px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+.tpl .eb::before{content:"";width:48px;height:3px;background:var(--cyan)}
+.tpl .eb::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+.tpl .h{position:absolute;left:120px;top:140px;font:800 78px/1.05 var(--disp);letter-spacing:-.02em;width:1680px}
+.tpl em{font-style:normal;color:var(--cyan)}
+.tpl .h em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tpl .abs{position:absolute}
+.tpl .g{position:absolute;background:var(--glass);border:1.5px solid var(--line);border-radius:22px;backdrop-filter:blur(10px);padding:28px 34px}
+.tpl .g.lit{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan),0 0 50px rgba(96,165,250,.35);background:rgba(30,58,138,.38)}
+.tpl .mono{font-family:var(--mono)}
+.tpl .t{font:700 44px/1.15 var(--disp)} .tpl .s{font:400 30px/1.35 var(--body);color:var(--pale)} .tpl .k{font:600 22px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--pale3)}
+.tpl .cy{color:var(--cyan)} .tpl .ok{color:var(--ok)} .tpl .bad{color:var(--red)} .tpl .am{color:var(--amber)}
+/* estado inicial; el runtime fija opacity/transform en cada fotograma (sin transiciones: seek(t) es determinista) */
+.tpl .r{opacity:0}
+.tpl svg text{font-family:var(--mono)}
+.tpl .draw{stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600)}
+.tpl .dot{display:block;width:30px;height:30px;border-radius:50%;background:var(--cyan);margin:25px 0 0 -15px;box-shadow:0 0 20px var(--cyan)}
+.tpl .pill{padding:12px 24px;border:1.5px solid var(--line);border-radius:999px;font:500 26px var(--mono);color:var(--sky)}
+.tpl .tile{position:relative;height:270px;display:grid;place-items:center;text-align:center}
+.tpl .row{display:flex;gap:50px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line)}
+.tpl .row .w{font:700 44px var(--mono);color:var(--cyan);width:420px}
+.tpl .fun{position:absolute;height:140px;background:var(--glass);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.tpl .node{display:flex;align-items:center;gap:20px;padding:0 24px;box-shadow:none}
+.tpl .g.lit.node{box-shadow:0 0 0 1px var(--cyan),0 0 50px rgba(96,165,250,.35)}
+.tpl .msg{font-size:32px}
+.tpl .ico{display:inline-grid;place-items:center;flex:none;width:var(--s);height:var(--s);background:#FAF9F6;border-radius:22%;padding:calc(var(--s)*.15);box-shadow:0 8px 24px rgba(2,6,23,.5)}
+.tpl .ico.self{background:none;padding:0;box-shadow:none}
+.tpl .ico img{width:100%;height:100%;object-fit:contain;display:block}
+.tpl .bx{opacity:0;transform:scaleX(0);transform-origin:0 50%}
+.tpl .tog{width:84px;height:44px;border-radius:999px;background:rgba(96,165,250,.18);position:relative;border:1.5px solid var(--line);flex:none}
+.tpl .tog::after{content:"";position:absolute;top:4px;left:4px;width:32px;height:32px;border-radius:50%;background:var(--pale3)}
+.tpl .tog.yes{background:var(--cyan)} .tpl .tog.yes::after{left:44px;background:var(--ink)}
+/* .chip también existe en pildora.html (rótulos sobre capturas): aquí se resetea entero */
+.tpl .chip{position:static;transform:none;white-space:normal;display:inline-block;padding:10px 22px;border:1.5px solid var(--line);border-radius:12px;font:500 26px var(--mono);color:var(--sky);background:rgba(15,23,42,.6);box-shadow:none}
+.tpl .sel{padding:10px 24px;border:1.5px solid var(--line);border-radius:12px;font:500 28px var(--mono);color:var(--ink);background:rgba(15,23,42,.6);min-width:300px}
+.tpl .flex{display:flex;align-items:center}
+.tpl .kc{display:inline-block;padding:18px 34px;border-radius:14px;border:2px solid var(--line);border-bottom-width:9px;background:#16264a;font:700 40px var(--mono);color:var(--ink)}
+.tpl .bdg{display:inline-block;padding:6px 18px;border-radius:8px;font:700 22px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.tpl .bdg.new{background:rgba(52,211,153,.2);color:#a7f3d0}.tpl .bdg.chg{background:rgba(251,191,36,.2);color:#fde68a}.tpl .bdg.del{background:rgba(248,113,113,.22);color:#fecaca}
+.tpl .kpi{position:absolute;width:390px;height:190px;padding:24px 30px}
+.tpl .cell{display:inline-block;width:84px;height:84px;border-radius:14px;margin:0 8px 8px 0}
+.tpl .cell.p{background:rgba(52,211,153,.45)}.tpl .cell.f{background:rgba(248,113,113,.6)}.tpl .cell.w{background:rgba(251,191,36,.5)}
+.tpl .sq{display:inline-grid;place-items:center;width:84px;height:84px;border-radius:14px;border:1.5px solid var(--line);background:var(--glass);font:700 30px var(--mono);margin-right:14px}
+.tpl .sq.lit{border-color:var(--cyan);background:rgba(96,165,250,.35);box-shadow:0 0 28px rgba(96,165,250,.5)}
+.tpl .nd{position:absolute;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:3px solid var(--cyan);background:#16264a;display:grid;place-items:center;font:700 20px var(--mono)}
+.tpl .nd.lit{background:var(--cyan);color:#0f172a;box-shadow:0 0 30px var(--cyan)}
+.tpl .lane{position:absolute;left:120px;width:1680px;height:130px;border:1.5px solid var(--line);background:var(--glass);border-radius:18px}

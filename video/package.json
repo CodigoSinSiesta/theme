@@ -1,0 +1,7 @@
+{
+  "name": "himya-pildora",
+  "private": true,
+  "description": "Motor de render de las píldoras HIMYA (HTML animado + Playwright + ffmpeg)",
+  "type": "module",
+  "dependencies": { "playwright-core": "1.63.0" }
+}

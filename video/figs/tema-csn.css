@@ -1,0 +1,11 @@
+/* Tema Código Sin Siesta para las figuras de Anatomy: el modo oscuro del kit, teñido de pizarra y con el acento cielo
+   como color «lit» (la pieza que el espectador debe mirar). */
+.iso.csn-fig, .csn-fig .iso, .csn-fig {
+  --anatomy-page:#0f172a; --anatomy-card:#0f172a; --anatomy-text:#94a3b8; --anatomy-strong:#e2e8f0; --anatomy-muted:#64748b;
+  --anatomy-paper:#121d34; --anatomy-face:#192743; --anatomy-top:#203154;
+  --anatomy-shade-0:#0e182c; --anatomy-shade-1:#132038; --anatomy-shade-2:#172844; --anatomy-shade-3:#1c3050;
+  --anatomy-lit-top:#1d3566; --anatomy-lit-shade:#16294f;
+  --anatomy-hi:#e2e8f0; --anatomy-mid:#8fa6d0; --anatomy-lo:#506a9c; --anatomy-faint:#2f4570; --anatomy-lit:#93c5fd;
+  --anatomy-halo:#020617; --anatomy-halo-opacity:.85; --anatomy-dot:#dbe7f7;
+  --anatomy-blue:#60a5fa;
+}

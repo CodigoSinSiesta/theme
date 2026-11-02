@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plantillas del motor · Código Sin Siesta</title>
+<link rel="stylesheet" href="../plantillas/tpl.css">
+<style>
+@font-face{font-family:'Space Grotesk';src:url(../fonts/SpaceGrotesk.woff2);font-weight:300 700}
+@font-face{font-family:'IBM Plex Sans';src:url(../fonts/Plex.woff2);font-weight:100 900}
+@font-face{font-family:'JetBrains Mono';src:url(../fonts/JetBrainsMono.woff2);font-weight:100 900}
+:root{--navy:#0f172a;--cyan:#60a5fa;--sky:#93c5fd;--pale:#cbd5e1;--pale3:#94a3b8;--ink:#FAF9F6;--red:#f87171;--amber:#fbbf24;--ok:#34d399;
+ --grad:linear-gradient(90deg,#3b82f6,#60a5fa 50%,#93c5fd);--glass:rgba(30,58,138,.20);--line:rgba(96,165,250,.28);
+ --mono:'JetBrains Mono',monospace;--disp:'Space Grotesk','IBM Plex Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:#0a1220;color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;padding:48px 5vw 80px}
+header{max-width:1400px;margin:0 auto 40px}
+header h1{font:800 44px/1.1 var(--disp);letter-spacing:-.02em}
+header h1 b{background:var(--grad);-webkit-background-clip:text;color:transparent}
+header p{color:var(--pale3);margin-top:12px;max-width:820px;line-height:1.5}
+h2.sec{max-width:1400px;margin:56px auto 20px;font:600 15px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+.grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:28px}
+body.solo .grid{display:block;max-width:1000px}
+figure.card{display:flex;flex-direction:column;gap:10px}
+figcaption{font:500 13px var(--mono);color:var(--pale3);letter-spacing:.04em}
+figcaption b{color:var(--sky);font-weight:700;margin-right:8px}
+figcaption i{color:var(--red);font-style:normal}
+.frame{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--navy)}
+.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:
+ linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px) 0 0/60px 60px,linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px) 0 0/60px 60px,var(--navy);overflow:hidden}
+</style></head><body>
+<header>
+ <h1>Plantillas <b>del motor</b></h1>
+ <p>Las 80 plantillas aprobadas, dibujadas con el mismo runtime que usará el motor (<code>motor/plantillas/runtime.js</code>), cada una desde su módulo.
+ Se animan en bucle como lo harían al nombrar los elementos la locución. <code>?solo=matrix</code> enseña una sola; <code>&amp;fin=1</code> la congela con todo ya dentro.</p>
+</header>
+<main id="main"></main>
+
+<script src="../plantillas/runtime.js"></script>
+<script src="../plantillas/iconos.js"></script>
+<script src="../plantillas/manifiesto.js"></script>
+<script>
+TPLRT.base = '../logos/herramientas/';
+const qs = new URLSearchParams(location.search), solo = qs.get('solo'), fin = qs.get('fin') === '1';
+if (solo) document.body.classList.add('solo');
+const cards = [];
+const main = document.getElementById('main');
+const secs = {};
+for (const [k, v] of Object.entries(TPLMAN.secciones)) {
+  if (solo) break;
+  const h = document.createElement('h2'); h.className = 'sec'; h.textContent = v; main.appendChild(h);
+  const g = document.createElement('div'); g.className = 'grid'; main.appendChild(g); secs[k] = g;
+}
+if (solo) { const g = document.createElement('div'); g.className = 'grid'; main.appendChild(g); secs._ = g; }
+const list = TPLMAN.plantillas.filter(p => !solo || p.n === solo);
+let pend = list.length;
+function boot() {
+  list.forEach(p => {
+    const f = document.createElement('figure'); f.className = 'card';
+    f.innerHTML = `<div class="frame"><div class="stage"></div></div><figcaption><b>${p.n}</b>${p.d}</figcaption>`;
+    (solo ? secs._ : secs[p.sec]).appendChild(f);
+    const stage = f.querySelector('.stage'), cap = f.querySelector('figcaption');
+    let m = null;
+    if (!window.TPL[p.n]) { cap.innerHTML += ' <i>· sin portar</i>'; return; }
+    try { m = TPLRT.mount(stage, p.n); } catch (e) { cap.innerHTML += ` <i>· error: ${e.message}</i>`; console.error(p.n, e); return; }
+    cards.push({ f, stage, m, n: p.n, vis: false });
+  });
+  const fit = () => cards.forEach(c => c.stage.style.transform = `scale(${c.stage.parentElement.clientWidth / 1920})`);
+  addEventListener('resize', fit); fit();
+  const io = new IntersectionObserver(es => es.forEach(e => { const c = cards.find(c => c.f === e.target); if (c) c.vis = e.isIntersecting; }), { rootMargin: '200px' });
+  cards.forEach(c => io.observe(c.f));
+  const t0 = performance.now();
+  (function loop(now) {
+    const t = (now - t0) / 1000;
+    cards.forEach((c, k) => {
+      if (!c.vis && !solo) return;
+      const n = c.m.steps, step = 0.7, cyc = 0.5 + (n + 1) * step + 3.8;
+      const lt = fin ? 99 : ((t + k * 0.15) % cyc);
+      c.m.update(lt, cyc, i => 0.5 + i * step);
+    });
+    requestAnimationFrame(loop);
+  })(t0);
+  window.CARDS = cards;
+}
+// carga el módulo de cada plantilla; las que aún no existen se marcan «sin portar»
+list.forEach(p => { const s = document.createElement('script'); s.src = `../plantillas/${p.n}.js`; s.onload = s.onerror = () => { if (!--pend) boot(); }; document.head.appendChild(s); });
+</script>
+</body></html>
