@@ -19,7 +19,10 @@ for r, p in enumerate(rows):
     dr.text((PAD, y), f"{p['id']} · {p['seg']} · {tag}{p['plantilla']}   (antes: {', '.join(p['antes'])})", fill=(147, 197, 253), font=F)
     dr.text((PAD, y + 32), (p.get('nota') or '')[:150], fill=(203, 213, 225), font=Fs)
     antes = sorted(glob.glob(os.path.join(d, f"{p['id']}.antes-*.jpg")))[-1:]
-    k = next((i + 1 for i, s in enumerate(p.get('despues', [])) if s.startswith('tpl:')), 1)   # el plano nuevo, no la captura
+    # el plano de la plantilla propuesta; si no, el primer tpl (no la captura ni otra plantilla que ya estaba en el párrafo)
+    dp = p.get('despues', [])
+    k = next((i + 1 for i, s in enumerate(dp) if s.startswith(f"tpl:{p.get('plantilla')} ")), None) \
+        or next((i + 1 for i, s in enumerate(dp) if s.startswith('tpl:')), 1)
     cols = antes + [os.path.join(d, f"{p['id']}.medio-{k}.jpg"), os.path.join(d, f"{p['id']}.fin-{k}.jpg")]
     for c, f in enumerate(cols):
         if os.path.exists(f): sheet.paste(Image.open(f).convert('RGB').resize((W, H)), (PAD + c * (W + PAD), y + TOP))

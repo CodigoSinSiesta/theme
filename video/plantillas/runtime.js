@@ -16,6 +16,7 @@
   const lerp = (a, b, p) => a + (b - a) * p;
   const P = (t, a, d) => clamp((t - a) / d);
   const eOut = p => 1 - Math.pow(1 - p, 3);
+  const eBack = p => { const c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };   // la entrada de marca (BRAND.md), igual que en pildora.html
   const eIn = p => p * p;
 
   const TPLRT = window.TPLRT = { base: 'logos/herramientas/' };   // la galería pone '../logos/herramientas/'
@@ -88,7 +89,7 @@
       const A0 = i => { if (i <= 0) return 0.25; const v = at ? at(i) : undefined; return v !== undefined ? v : 0.9 + (i - 1) * gap; };
       R.forEach(e => {
         const a = A0(+e.dataset.i || 0), pin = P(lt, a, 0.35), pos = P(lt, a, 0.6);
-        let op = pin, dy = lerp(34, 0, eOut(pos));
+        let op = pin, dy = lerp(34, 0, eBack(pos));
         if (e.dataset.off) { const po = P(lt, A0(+e.dataset.off), 0.45); op *= 1 - po; dy -= 24 * eIn(po); }
         e.style.opacity = op;
         if (!(e instanceof SVGElement)) e.style.transform = dy ? `translateY(${dy}px)` : 'none';

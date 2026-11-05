@@ -8,7 +8,7 @@ Sistema de diseño **V4 "dark blueprint"** compartido por las presentaciones de 
 
 ## Lo que aporta
 
-- **Tokens CSS** completos: paleta azul cobalto sobre slate-900 (12 colores), neutros slate (8 variantes), semánticos `ok` / `warn` / `err` con `*-bg` y `*-bd` predefinidos, tipografías (`Space Grotesk` / `Inter` / `JetBrains Mono`), spacing/radii/transitions.
+- **Tokens CSS** completos: paleta azul cobalto sobre slate-900 (12 colores), neutros slate (8 variantes), semánticos `ok` / `warn` / `err` con `*-bg` y `*-bd` predefinidos, tipografías (`Space Grotesk` / `IBM Plex Sans` / `JetBrains Mono`), spacing/radii/transitions.
 - **Chrome global de slide** listo para drop-in: top accent-bar 3px (gradiente cobalto→eléctrico→cielo), breadcrumb mono `código sin siesta / <deck> · NN/NN` con pulse-dot, footer `Hecho con ♥ · ←/→ · Esc`, padding global `.swiper-slide`.
 - **Eyebrow V4** — barra horizontal 24×2px antes de cada `<span class="label">` de los slides, con variantes semánticas vía `data-accent="ok|warn|err"`.
 - **6 componentes Svelte 5** importables (v0.2.0+): `Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `TerminalWindow`, `QRCode`. Cubren los átomos del kit V4.

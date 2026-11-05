@@ -17,7 +17,7 @@ TPL['report-payload'] = {
     const fr = s + 1, bl = s + 2, bottom = y(n) + 20;
     const rows = d.fields.map((f, k) => { const code = f.src === 'code';
       return `<div class="abs flex${step[k] > 1 ? ' r' : ''}"${step[k] > 1 ? ` data-i="${step[k]}"` : ''} style="left:150px;top:${y(k)}px;width:860px;height:${pitch - 16}px;border-radius:12px;background:rgba(15,23,42,.6);border:1.5px solid ${code ? 'var(--amber)' : 'var(--line)'};padding:0 24px;justify-content:space-between">
-<span class="mono" style="font-size:26px">${H.esc(f.t)}</span><span class="k ${code ? 'am' : 'cy'}" style="font-size:20px">${H.esc(code ? d.srcLabels.code : d.srcLabels.dialog)}</span></div>`; }).join('');
+<span class="mono" style="font-size:26px">${H.esc(f.t)}</span><span class="k ${code ? 'am' : 'cy'}" style="font-size:22px">${H.esc(code ? d.srcLabels.code : d.srcLabels.dialog)}</span></div>`; }).join('');
     const fy = y(d.free);
     return `${H.HEAD(d)}
 <div class="g lit r" data-i="1" style="left:120px;top:330px;width:920px;height:${bottom - 330}px"><div class="flex" style="gap:14px">${H.GLYPH('envelope', 36)}<span class="k">${H.esc(d.label)}</span></div></div>

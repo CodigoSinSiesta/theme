@@ -18,7 +18,7 @@ TPL['boot-filter'] = {
       return `<div class="g r" data-i="1" style="left:120px;top:${y}px;width:1680px;height:${LH}px;padding:22px 30px"><div class="k">${H.A(L.t)}</div></div>
 <div class="abs r" data-i="1" style="left:490px;top:${y + 30}px;width:270px;height:${LH - 60}px;border-radius:14px;border:2px solid ${L.ok ? 'var(--ok)' : 'var(--red)'};background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;gap:16px">
 <span class="mono" style="font-size:26px">${H.A(d.gate)}</span><span class="t ${L.ok ? 'ok' : 'bad'}" style="font-size:44px">${L.ok ? '✓' : '✕'}</span></div>
-<div class="abs flex r" data-i="6" style="left:150px;top:${y + 76}px;width:310px;gap:12px"><span class="chip" style="font-size:22px;padding:6px 14px;color:var(--amber);border-color:var(--amber)">${H.esc(d.early.t)}</span><span class="s" style="font-size:22px">${H.A(d.early.s)}</span></div>
+<div class="abs flex r" data-i="6" style="left:150px;top:${y + 76}px;width:310px;gap:12px"><span class="chip" style="font-size:22px;padding:6px 14px;color:var(--amber);border-color:var(--amber)">${H.esc(d.early.t)}</span><span class="s" style="font-size:24px">${H.A(d.early.s)}</span></div>
 <div class="abs flex r" data-i="3" style="left:${X + 40}px;top:${y + 28}px;gap:14px">${d.tools.map(t => `<span class="chip" style="color:var(--ink)">${H.esc(t)}</span>`).join('')}</div>
 <div class="abs flex r" data-i="4" style="left:${X + 40}px;top:${y + 100}px;gap:14px">${H.GLYPH('user', 34)}<span class="s" style="font-size:26px">${H.A(d.perms)}</span></div>`;
     };

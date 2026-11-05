@@ -8,7 +8,7 @@
  *   body { background: var(--color-fondo); color: var(--color-tinta); }
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* ─── Paleta azul ─── */
@@ -25,7 +25,7 @@
   --color-fondo-elev: #152033;  /* intermedio — cards */
   --color-borde: #334155;       /* slate-700 — líneas finas */
   --color-borde2: #475569;      /* slate-600 — bordes activos */
-  --color-tinta: #f1f5f9;       /* slate-100 — texto principal */
+  --color-tinta: #FAF9F6;       /* hueso — texto principal; #FFFFFF está prohibido */
   --color-tinta2: #cbd5e1;      /* slate-300 — texto secundario */
   --color-tinta3: #94a3b8;      /* slate-400 — meta */
   --color-tinta4: #64748b;      /* slate-500 — placeholder */
@@ -54,11 +54,13 @@
   --color-accent-strong: rgba(59, 130, 246, 0.45);
   --color-electric-soft: rgba(96, 165, 250, 0.12);
   --color-electric-strong: rgba(96, 165, 250, 0.45);
+  --color-glass: rgba(30, 58, 138, 0.18);   /* superficie de cristal */
+  --color-linea: rgba(96, 165, 250, 0.22);  /* borde de cristal */
 
   /* ─── Tipografía ─── */
-  --font-display: 'Space Grotesk', 'Inter', sans-serif;
-  --font-subheader: 'Space Grotesk', 'Inter', sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --font-subheader: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
 
   /* ─── Spacing ─── */
@@ -101,14 +103,14 @@ body {
 
 /* ─── Glassmorphism card V4 ─── */
 .card-glass {
-  background: var(--color-fondo-elev);
+  background: var(--color-glass);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--color-borde);
+  border: 1px solid var(--color-linea);
   border-radius: var(--radius-lg);
   padding: var(--spacing-2xl);
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.3),
-    0 8px 24px rgba(0, 0, 0, 0.15);
+    0 1px 3px rgba(10, 22, 40, 0.3),
+    0 8px 24px rgba(10, 22, 40, 0.15);
   transition: all var(--transition-base);
 }
 .card-glass:hover {

@@ -20,7 +20,7 @@ TPL['frozen-diff'] = {
     const trow = d.files.map((f, k) => `<div class="abs flex" style="left:1040px;top:${ty(k)}px;width:720px;justify-content:space-between"><span class="mono" style="font-size:24px">${H.esc(f)}</span><span class="mono" style="font-size:24px"><span class="ok">+</span> <span class="bad">−</span></span></div>`).join('');
     const dl = [['+', 88], ['−', 64], ['+', 76], ['', 52]];
     const diffTop = ty(n) + 30;
-    const diff = dl.map(([s, w], k) => `<div class="abs flex" style="left:1040px;top:${diffTop + 50 + k * 34}px;gap:14px"><span class="mono ${s === '+' ? 'ok' : s ? 'bad' : ''}" style="font-size:22px;width:16px">${s}</span><i style="display:block;height:16px;width:${w * 6}px;border-radius:6px;background:${s === '+' ? 'rgba(52,211,153,.4)' : s ? 'rgba(248,113,113,.45)' : 'rgba(96,165,250,.3)'}"></i></div>`).join('');
+    const diff = dl.map(([s, w], k) => `<div class="abs flex" style="left:1040px;top:${diffTop + 50 + k * 34}px;gap:14px"><span class="mono ${s === '+' ? 'ok' : s ? 'bad' : ''}" style="font-size:24px;width:16px">${s}</span><i style="display:block;height:16px;width:${w * 6}px;border-radius:6px;background:${s === '+' ? 'rgba(52,211,153,.4)' : s ? 'rgba(248,113,113,.45)' : 'rgba(96,165,250,.3)'}"></i></div>`).join('');
     return `${H.HEAD(d)}
 <div class="g r" data-i="1" style="left:120px;top:330px;width:620px;height:${rh}px"><div class="k">${H.esc(d.tree)}</div></div>
 <div class="r" data-i="1">${files}${skips}</div>${ch}${strike}
@@ -29,8 +29,8 @@ ${d.skip.map((s, j) => `<div class="abs flex r" data-i="6" style="left:556px;top
 <svg class="abs" style="left:0;top:0" width="1920" height="1080" fill="none" stroke="#60a5fa" stroke-width="3"><path class="draw" data-i="2" d="M740 500 C820 500 920 420 1000 420"/></svg>
 <div class="abs k r" data-i="2" style="left:770px;top:520px;width:200px;text-align:center">una vez</div>
 <div class="g lit r" data-i="2" style="left:1000px;top:330px;width:800px;height:${rh}px"><div class="flex" style="gap:14px">${H.GLYPH('lock-closed', 34)}<span class="k">${H.esc(d.msg)}</span></div></div>
-<div class="r" data-i="3"><div class="abs k" style="left:1040px;top:420px;font-size:20px">${H.esc(d.table)}</div>${trow}</div>
-<div class="r" data-i="4"><div class="abs k" style="left:1040px;top:${diffTop}px;font-size:20px">${H.esc(d.diff)}</div>${diff}</div>
+<div class="r" data-i="3"><div class="abs k" style="left:1040px;top:420px;font-size:22px">${H.esc(d.table)}</div>${trow}</div>
+<div class="r" data-i="4"><div class="abs k" style="left:1040px;top:${diffTop}px;font-size:22px">${H.esc(d.diff)}</div>${diff}</div>
 <div class="abs flex r" data-i="5" style="left:1530px;top:352px"><span class="pill" style="color:var(--ok);border-color:var(--ok);background:rgba(15,23,42,.6)">${H.esc(d.stay)}</span></div>`;
   },
 };
