@@ -47,7 +47,7 @@ Funcional, nunca decorativa-por-decoración.
 
 ## Iconografía
 
-1. **Brand mark** = búho (`assets/logo-owl-{bone,electric,dark,head}.svg`). Nunca restilizar.
+1. **Brand mark** = búho (`assets/logo-owl-{bone,electric,dark,head}.svg`). Nunca restilizar. El búho de la marca es solo la cara (`logo-owl-oficial-web.svg`) y es el único: las variantes `bone`, `electric`, `dark` y `head` son ese mismo dibujo en otro color. El búho de cuerpo entero está retirado.
 2. **UI/nav** = Heroicons v2 outline, stroke 1.5, 24×24, `currentColor`. Subset local en `src/icons/`.
 3. **Contenido semántico** = emoji (legacy V4 quick-win) o Heroicons (preferido en producción).
 4. Unicode chars como glifos: `×`, `−`, `▼`, `↓`, `↑`, `·`, `→`. Reales, no typeados.

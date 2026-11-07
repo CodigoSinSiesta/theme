@@ -586,10 +586,10 @@ src/
     ├── SlideTriada.svelte         · KG card NODE/EDGE/TRIPLE + chips violeta (v0.7.0+)
     └── SlideDidactic.svelte       · Definition + Analogía + Examples 3-block (v0.7.0+)
 assets/                       · brand assets oficiales (v0.6.0+)
-├── logo-owl-bone.svg         · búho blanco · default sobre dark
-├── logo-owl-electric.svg     · búho cielo · accent
-├── logo-owl-dark.svg         · búho navy · sobre bone
-├── logo-owl-head.svg         · solo cabeza · lockups pequeños
+├── logo-owl-bone.svg         · búho oficial (cara) en hueso · default sobre dark
+├── logo-owl-electric.svg     · búho oficial (cara) en cielo · accent
+├── logo-owl-dark.svg         · búho oficial (cara) en marino · sobre bone
+├── logo-owl-head.svg         · búho oficial (cara) · lockups pequeños
 └── logo-wordmark.svg         · CÓDIGO SIN SIESTA + búho horizontal
 icons/                        · Heroicons v2 outline subset (v0.6.0+)
 └── 13 SVG · chevron-left/right, bars-3, x-mark, cpu-chip, wrench-screwdriver,
