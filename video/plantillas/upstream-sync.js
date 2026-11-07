@@ -27,7 +27,7 @@ ${lab(d.up, YU)}${lab(d.down, YD)}
 <g class="r" data-i="1">${dots(YU, 470)}${dots(YD, 810)}</g>
 ${picks}</svg>
 <div class="abs r" data-i="1" style="left:540px;top:${(YU + YD) / 2 - 30}px;width:320px"><div class="k cy">${H.A(d.fork)}</div><div class="k" style="margin-top:8px">${H.A(d.forkWhen)}</div></div>
-<div class="g lit r" data-i="2" style="left:880px;top:${YU + 20}px;width:380px;height:${YD - YU - 40}px;padding:24px 26px;text-align:center"><div class="k" style="font-size:18px">${H.A(d.sync.k)}</div><div class="mono cy" style="font-size:32px;font-weight:700;margin-top:22px">${H.esc(d.sync.hash)}</div><div class="s" style="font-size:26px;margin-top:8px">${H.A(d.sync.when)}</div></div>
+<div class="g lit r" data-i="2" style="left:880px;top:${YU + 20}px;width:380px;height:${YD - YU - 40}px;padding:24px 26px;text-align:center"><div class="k" style="font-size:22px">${H.A(d.sync.k)}</div><div class="mono cy" style="font-size:32px;font-weight:700;margin-top:22px">${H.esc(d.sync.hash)}</div><div class="s" style="font-size:26px;margin-top:8px">${H.A(d.sync.when)}</div></div>
 <div class="abs r" data-i="4" style="left:1100px;top:${YD + 30}px;width:700px;text-align:right"><span class="chip" style="font-size:22px">${H.A(d.pick)}</span></div>
 ${cred}`;
   },

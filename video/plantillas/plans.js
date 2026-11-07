@@ -15,7 +15,7 @@ TPL.plans = {
     const cards = d.plans.map((p, i) => {
       const items = p.items.map(it => { const m = it.m || 'ok'; return `<span class="${m}">${mk[m]}</span> ${H.esc(it.t)}`; }).join('<br>');
       const head = p.lit
-        ? `<div class="flex" style="justify-content:space-between"><div class="k cy">${H.esc(p.name)}</div>${p.badge ? `<span class="pill" style="font-size:20px;padding:6px 16px">${H.esc(p.badge)}</span>` : ''}</div>`
+        ? `<div class="flex" style="justify-content:space-between"><div class="k cy">${H.esc(p.name)}</div>${p.badge ? `<span class="pill" style="font-size:22px;padding:6px 16px">${H.esc(p.badge)}</span>` : ''}</div>`
         : `<div class="k">${H.esc(p.name)}</div>`;
       return `<div class="g${p.lit ? ' lit' : ''} r" data-i="${i + 1}" style="left:${120 + i * (w + 60)}px;top:${p.lit ? 310 : 340}px;width:${w}px;height:${p.lit ? 650 : 600}px">${head}<div class="t" style="font-size:80px;margin:14px 0">${H.esc(p.price)}</div><div class="s" style="font-size:27px;line-height:1.9">${items}</div></div>`;
     }).join('');

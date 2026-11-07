@@ -20,9 +20,9 @@
 ## Visual fundamentals
 
 - **Dark-first siempre**. `#0A1628` (deep navy) o `#0f172a` (slate-900 V4). Nunca blanco, nunca gris, nunca negro puro.
-- **Glassmorphism para superficies**: `rgba(30, 58, 138, 0.15–0.40)` + `1px solid rgba(96, 165, 250, 0.20)` + `backdrop-filter: blur(10px)`. Nunca paneles opacos.
+- **Glassmorphism para superficies**: `rgba(30, 58, 138, 0.18)` (hasta `0.40` en estados activos) + `1px solid rgba(96, 165, 250, 0.22)` + `backdrop-filter: blur(10px)`. Nunca paneles opacos.
 - **Acento + gradiente** azul cobalto → eléctrico → cielo (V4) o azul → eléctrico → violeta (sistema V5). Una frase highlight por headline. Violet jamás como fill.
-- **Foreground**: `#FAF9F6` bone (V5) o `#f1f5f9` slate-100 (V4). `#FFFFFF` puro está prohibido.
+- **Foreground**: `#FAF9F6` bone, en todo: web, presentaciones y vídeo. `#FFFFFF` puro está prohibido.
 - **Eyebrows**: barra 24×2px + texto mono uppercase, casi siempre con dot luminoso.
 - **Brand mark**: `assets/logo-owl-bone.svg` arriba-izq o en el footer de cada slide. No omitir.
 
@@ -30,10 +30,10 @@
 
 - `Space Grotesk` 800–900 — display, hero, h1, big numbers
 - `Bricolage Grotesque` 700–800 — h2/h3 alt subheaders (V5)
-- `Inter` o `IBM Plex Sans` 400–600 — body, párrafos, listas
+- `IBM Plex Sans` 400–600 — body, párrafos, listas (en todo: web, presentaciones y vídeo)
 - `JetBrains Mono` 500–700 — eyebrows, badges, code, counters
 
-No mezclar roles. Body no baja de **24px** a slide-scale (1920×1080) o **16px** en preview.
+No mezclar roles. Body no baja de **24px** a slide-scale (1920×1080) o **16px** en preview. Las etiquetas cortas (eyebrows, chips, badges, rótulos mono) no bajan de **22px**.
 
 ## Animación
 
@@ -42,24 +42,32 @@ Funcional, nunca decorativa-por-decoración.
 - `fadeUp`: `opacity 0→1`, `translateY(28–60px) → 0`, 600–800ms, `cubic-bezier(0.34, 1.56, 0.64, 1)`. Stagger 0.1s.
 - `floatOrb`: `translateY(0 ↔ -25..-30px)`, 9–15s, ease-in-out infinite alternate.
 - `moveGrid`: `background-position 0 → 60px 60px`, 25–30s linear infinite.
-- Counter GSAP count-up 1.6s ease-out para reveals tipo `6×`.
+- Counter GSAP count-up 1.6s ease-out para reveals tipo `6×` (en vídeo, 1.2s: tiene que terminar antes del corte de plano).
 - `pulse-dot`: opacity 1↔0.6 + scale 1↔0.85, 2s ease-in-out infinite.
 
 ## Iconografía
 
-1. **Brand mark** = búho (`assets/logo-owl-{bone,electric,dark,head}.svg`). Nunca restilizar.
+1. **Brand mark** = búho (`assets/logo-owl-{bone,electric,dark,head}.svg`). Nunca restilizar. El búho de la marca es solo la cara (`logo-owl-oficial-web.svg`) y es el único: las variantes `bone`, `electric`, `dark` y `head` son ese mismo dibujo en otro color. El búho de cuerpo entero está retirado.
 2. **UI/nav** = Heroicons v2 outline, stroke 1.5, 24×24, `currentColor`. Subset local en `src/icons/`.
 3. **Contenido semántico** = emoji (legacy V4 quick-win) o Heroicons (preferido en producción).
 4. Unicode chars como glifos: `×`, `−`, `▼`, `↓`, `↑`, `·`, `→`. Reales, no typeados.
 
 ## Forbidden
 
-- Photography, raster imagery, hand-drawn illustrations, textures, grain.
+- Photography, raster imagery, hand-drawn illustrations, textures, grain. **Excepción: 3D propio de la marca** (ver abajo).
 - Backgrounds blancos (`#FFFFFF`) — `#FAF9F6` bone es lo más claro.
 - Solid black `box-shadow` — siempre tintado (deep-navy alpha o blue alpha).
 - Gradient overuse — solo en CTAs y `.hl` / highlight text span.
 - Emoji decorativo (sin peso semántico) en producción.
 - Corporate hedging, *usted*, marketing fluff, filler stats.
+
+## 3D de marca
+
+Se permite 3D propio, y solo este: el búho y figuras técnicas que expliquen un concepto, hechos por nosotros con Blender o three.js.
+
+- Misma paleta y fondo que el resto del sistema: pizarra, azules y hueso. Nada de materiales realistas ni entornos fotográficos.
+- Funcional, como toda la animación: explica algo o identifica la marca. Nunca de adorno.
+- Sigue prohibido lo demás: imágenes generadas por IA, fotografía, modelos o texturas descargados de bancos de recursos.
 
 ## Gate CMO + QA — bloqueantes (rechazo inmediato)
 

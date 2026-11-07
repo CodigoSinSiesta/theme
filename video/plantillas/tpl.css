@@ -1,7 +1,7 @@
 /* Plantillas de plano (tipo `tpl`): todo el CSS cuelga de .tpl para no pisar el de pildora.html ni el de la galería.
    Mismos valores que la galería aprobada (motor/prototipo-plantillas). Lienzo de 1920×1080, coordenadas absolutas. */
 .tpl{position:absolute;inset:0;--sky:#93c5fd;--blue:#3b82f6;--deep:#1e3a8a;--body:'IBM Plex Sans',system-ui,sans-serif;
-  --glass:rgba(30,58,138,.20);--line:rgba(96,165,250,.28);color:var(--ink);font-family:var(--body)}
+  --glass:rgba(30,58,138,.18);--line:rgba(96,165,250,.22);color:var(--ink);font-family:var(--body)}
 .tpl *{box-sizing:border-box}
 .tpl .eb{position:absolute;left:120px;top:90px;display:flex;align-items:center;gap:18px;font:600 24px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
 .tpl .eb::before{content:"";width:48px;height:3px;background:var(--cyan)}

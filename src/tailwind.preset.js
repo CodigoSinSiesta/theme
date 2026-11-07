@@ -34,7 +34,7 @@ export default {
           fondoElev: '#152033',
           borde:     '#334155',
           borde2:    '#475569',
-          tinta:     '#f1f5f9',
+          tinta:     '#FAF9F6',
           tinta2:    '#cbd5e1',
           tinta3:    '#94a3b8',
           tinta4:    '#64748b',
@@ -46,8 +46,8 @@ export default {
         },
       },
       fontFamily: {
-        csiDisplay: ['Space Grotesk', 'Inter', 'sans-serif'],
-        csiBody:    ['Inter', 'system-ui', 'sans-serif'],
+        csiDisplay: ['Space Grotesk', 'IBM Plex Sans', 'sans-serif'],
+        csiBody:    ['IBM Plex Sans', 'system-ui', 'sans-serif'],
         csiMono:    ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
       },
       backgroundImage: {

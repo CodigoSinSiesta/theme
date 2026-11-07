@@ -8,7 +8,7 @@ Sistema de diseño **V4 "dark blueprint"** compartido por las presentaciones de 
 
 ## Lo que aporta
 
-- **Tokens CSS** completos: paleta azul cobalto sobre slate-900 (12 colores), neutros slate (8 variantes), semánticos `ok` / `warn` / `err` con `*-bg` y `*-bd` predefinidos, tipografías (`Space Grotesk` / `Inter` / `JetBrains Mono`), spacing/radii/transitions.
+- **Tokens CSS** completos: paleta azul cobalto sobre slate-900 (12 colores), neutros slate (8 variantes), semánticos `ok` / `warn` / `err` con `*-bg` y `*-bd` predefinidos, tipografías (`Space Grotesk` / `IBM Plex Sans` / `JetBrains Mono`), spacing/radii/transitions.
 - **Chrome global de slide** listo para drop-in: top accent-bar 3px (gradiente cobalto→eléctrico→cielo), breadcrumb mono `código sin siesta / <deck> · NN/NN` con pulse-dot, footer `Hecho con ♥ · ←/→ · Esc`, padding global `.swiper-slide`.
 - **Eyebrow V4** — barra horizontal 24×2px antes de cada `<span class="label">` de los slides, con variantes semánticas vía `data-accent="ok|warn|err"`.
 - **6 componentes Svelte 5** importables (v0.2.0+): `Eyebrow`, `Callout`, `ToolCard`, `TerminalLine`, `TerminalWindow`, `QRCode`. Cubren los átomos del kit V4.
@@ -159,17 +159,15 @@ Una línea individual de terminal con tipos `cmd` | `out` | `ok` | `err` | `comm
 
 #### `<QRCode size? bgColor? fgColor? title? url?>`
 
-QR placeholder 21×21 determinístico (NO escaneable; pensado como decoración para slides finales). Caption opcional.
+QR escaneable generado con la librería `qrcode`. Sin `url` no dibuja código. Caption opcional.
 
 ```svelte
 <QRCode
   size={220}
   title="Escanea para todo"
-  url="codigosinsiesta.github.io/taller-graphify"
+  url="https://codigosinsiesta.github.io/taller-graphify-presentation/"
 />
 ```
-
-> Para un QR escaneable real, genera un SVG con la lib `qrcode` y mételo dentro de la misma caja blanca. El componente sigue valiendo como contenedor estilizado.
 
 ### Slide-shells canónicos (v0.3.0+)
 
@@ -558,7 +556,7 @@ src/
 │   ├── ToolCard.svelte        · card con accent bar + icon box + tag pill
 │   ├── TerminalLine.svelte    · línea individual de terminal (cmd/out/ok/err/comment)
 │   ├── TerminalWindow.svelte  · caja Mac-style que envuelve TerminalLine (v0.3.0+)
-│   └── QRCode.svelte          · placeholder 21×21 con caption
+│   └── QRCode.svelte          · QR escaneable con caption
 └── slides/                    · slide-shells canónicos (v0.3.0+)
     ├── index.js               · barrel re-export
     ├── SlideShell.svelte      · wrapper base con bg presets + slot
@@ -588,10 +586,10 @@ src/
     ├── SlideTriada.svelte         · KG card NODE/EDGE/TRIPLE + chips violeta (v0.7.0+)
     └── SlideDidactic.svelte       · Definition + Analogía + Examples 3-block (v0.7.0+)
 assets/                       · brand assets oficiales (v0.6.0+)
-├── logo-owl-bone.svg         · búho blanco · default sobre dark
-├── logo-owl-electric.svg     · búho cielo · accent
-├── logo-owl-dark.svg         · búho navy · sobre bone
-├── logo-owl-head.svg         · solo cabeza · lockups pequeños
+├── logo-owl-bone.svg         · búho oficial (cara) en hueso · default sobre dark
+├── logo-owl-electric.svg     · búho oficial (cara) en cielo · accent
+├── logo-owl-dark.svg         · búho oficial (cara) en marino · sobre bone
+├── logo-owl-head.svg         · búho oficial (cara) · lockups pequeños
 └── logo-wordmark.svg         · CÓDIGO SIN SIESTA + búho horizontal
 icons/                        · Heroicons v2 outline subset (v0.6.0+)
 └── 13 SVG · chevron-left/right, bars-3, x-mark, cpu-chip, wrench-screwdriver,

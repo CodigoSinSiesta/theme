@@ -22,7 +22,7 @@ export const tokens = {
   fondoElev: '#152033',
   borde: '#334155',
   borde2: '#475569',
-  tinta: '#f1f5f9',
+  tinta: '#FAF9F6',
   tinta2: '#cbd5e1',
   tinta3: '#94a3b8',
   tinta4: '#64748b',
@@ -33,8 +33,8 @@ export const tokens = {
   err: '#f87171',
 
   // Tipografía
-  fontDisplay: '"Space Grotesk", "Inter", sans-serif',
-  fontBody: '"Inter", system-ui, -apple-system, sans-serif',
+  fontDisplay: '"Space Grotesk", "IBM Plex Sans", sans-serif',
+  fontBody: '"IBM Plex Sans", system-ui, -apple-system, sans-serif',
   fontMono: '"JetBrains Mono", "IBM Plex Mono", monospace',
 
   // Slide canvas

@@ -28,6 +28,6 @@ ${blocks}
 <div class="abs r" data-i="${n + 3}" style="left:${T6 - 360}px;top:${YU + 62}px;width:330px;text-align:right"><span class="pill" style="display:inline-block;color:var(--amber);border-color:var(--amber)">${H.A(d.late)}</span></div>
 <svg class="abs" style="left:0;top:0" width="1920" height="1080" fill="none" stroke="#60a5fa" stroke-width="3">
 <path class="draw" data-i="${n + 4}" d="M1600 ${YU + 12} V${YM + 138}"/><path class="draw" data-i="${n + 4}" d="M1588 ${YM + 150} L1600 ${YM + 138} L1612 ${YM + 150}"/></svg>
-<div class="abs r" data-i="${n + 4}" style="left:${T6 + 20}px;top:${YM + 10}px;width:${1780 - T6 - 20}px;height:120px;padding:0 22px;border-radius:12px;border:2px dashed var(--cyan);display:flex;flex-direction:column;justify-content:center"><span class="t" style="font-size:30px">${H.A(d.after.t)}</span><span class="s" style="font-size:22px">${H.A(d.after.s)}</span></div>`;
+<div class="abs r" data-i="${n + 4}" style="left:${T6 + 20}px;top:${YM + 10}px;width:${1780 - T6 - 20}px;height:120px;padding:0 22px;border-radius:12px;border:2px dashed var(--cyan);display:flex;flex-direction:column;justify-content:center"><span class="t" style="font-size:30px">${H.A(d.after.t)}</span><span class="s" style="font-size:24px">${H.A(d.after.s)}</span></div>`;
   },
 };
