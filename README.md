@@ -159,17 +159,15 @@ Una línea individual de terminal con tipos `cmd` | `out` | `ok` | `err` | `comm
 
 #### `<QRCode size? bgColor? fgColor? title? url?>`
 
-QR placeholder 21×21 determinístico (NO escaneable; pensado como decoración para slides finales). Caption opcional.
+QR escaneable generado con la librería `qrcode`. Sin `url` no dibuja código. Caption opcional.
 
 ```svelte
 <QRCode
   size={220}
   title="Escanea para todo"
-  url="codigosinsiesta.github.io/taller-graphify"
+  url="https://codigosinsiesta.github.io/taller-graphify-presentation/"
 />
 ```
-
-> Para un QR escaneable real, genera un SVG con la lib `qrcode` y mételo dentro de la misma caja blanca. El componente sigue valiendo como contenedor estilizado.
 
 ### Slide-shells canónicos (v0.3.0+)
 
@@ -558,7 +556,7 @@ src/
 │   ├── ToolCard.svelte        · card con accent bar + icon box + tag pill
 │   ├── TerminalLine.svelte    · línea individual de terminal (cmd/out/ok/err/comment)
 │   ├── TerminalWindow.svelte  · caja Mac-style que envuelve TerminalLine (v0.3.0+)
-│   └── QRCode.svelte          · placeholder 21×21 con caption
+│   └── QRCode.svelte          · QR escaneable con caption
 └── slides/                    · slide-shells canónicos (v0.3.0+)
     ├── index.js               · barrel re-export
     ├── SlideShell.svelte      · wrapper base con bg presets + slot

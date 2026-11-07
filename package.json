@@ -85,6 +85,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/svelte": "^5.2.6",
     "jsdom": "^25.0.1",
+    "jsqr": "^1.4.0",
     "svelte": "^5.45.5",
     "vite": "^6.0.0",
     "vitest": "^3.2.4"
@@ -106,5 +107,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
   }
 }

@@ -1,20 +1,22 @@
 <!--
   @codigosinsiesta/theme/components/QRCode.svelte
-  V4 design — placeholder de QR (21×21 grid determinístico, NO escaneable).
-  Replica el algoritmo de codigo-sin-siesta/project/src/css-slides-extra.jsx.
-
-  Para un QR escaneable real, generar un SVG con `qrcode` lib y meterlo dentro
-  de la misma caja blanca (props bgColor/fgColor inalterables).
+  QR escaneable generado con la librería `qrcode`. Sin `url` no dibuja código: un QR que no lleva
+  a ninguna parte es peor que no poner ninguno.
 
   Props:
     size:    number  — lado del cuadrado en px (default: 220)
-    bgColor: string  — color de fondo de la tarjeta blanca (default: '#fff')
-    fgColor: string  — color de las celdas activas (default: var(--color-fondo))
+    bgColor: string  — color de fondo de la tarjeta (default: '#fff')
+    fgColor: string  — color de las celdas activas (default: var(--color-fondo)). Debe contrastar con bgColor.
     title:   string  — caption display superior (opcional)
-    url:     string  — caption mono inferior (opcional)
+    url:     string  — destino del QR y caption mono inferior. Sin esquema, se abre con https://
 -->
 
 <script lang="ts">
+  import QR from 'qrcode';
+
+  // Zona de silencio que exige el estándar para que los lectores encuentren el código.
+  const MARGEN = 4;
+
   let {
     size = 220,
     bgColor = '#fff',
@@ -23,29 +25,34 @@
     url = ''
   } = $props<{ size?: number; bgColor?: string; fgColor?: string; title?: string; url?: string }>();
 
-  // Patrón determinístico estilo QR (finder corners + pseudo-random interior)
-  const cells: boolean[] = Array.from({ length: 441 }).map((_, i) => {
-    const r = Math.floor(i / 21);
-    const c = i % 21;
-    const finder  = (r === 0 || r === 6 || c === 0 || c === 6)   && (r < 7 && c < 7);
-    const finderR = (r === 0 || r === 6 || c === 14 || c === 20) && (r < 7 && c >= 14);
-    const finderB = (r === 14 || r === 20 || c === 0 || c === 6) && (r >= 14 && c < 7);
-    const inner =
-      (r >= 2 && r <= 4 && c >= 2  && c <= 4 ) ||
-      (r >= 2 && r <= 4 && c >= 16 && c <= 18) ||
-      (r >= 16 && r <= 18 && c >= 2 && c <= 4);
-    return inner || finder || finderR || finderB || ((r * 7 + c * 13) % 5 < 2);
+  const destino = $derived(!url || /^[a-z][a-z0-9+.-]*:/i.test(url) ? url : `https://${url}`);
+  const modulos = $derived(destino ? QR.create(destino, { errorCorrectionLevel: 'M' }).modules : null);
+  const lado = $derived(modulos ? modulos.size + MARGEN * 2 : 0);
+  const trazado = $derived.by(() => {
+    if (!modulos) return '';
+    let d = '';
+    for (let y = 0; y < modulos.size; y++) {
+      for (let x = 0; x < modulos.size; x++) {
+        if (modulos.get(y, x)) d += `M${x + MARGEN} ${y + MARGEN}h1v1h-1z`;
+      }
+    }
+    return d;
   });
 </script>
 
 <div class="csi-qr">
-  <div class="card" style:width={`${size}px`} style:height={`${size}px`} style:background={bgColor}>
-    <div class="grid">
-      {#each cells as on}
-        <div class="cell" class:on style:background={on ? fgColor : 'transparent'}></div>
-      {/each}
+  {#if modulos}
+    <div class="card" style:width={`${size}px`} style:height={`${size}px`} style:background={bgColor}>
+      <svg
+        viewBox={`0 0 ${lado} ${lado}`}
+        role="img"
+        aria-label={`Código QR: ${title || destino}`}
+        shape-rendering="crispEdges"
+      >
+        <path d={trazado} style:fill={fgColor} />
+      </svg>
     </div>
-  </div>
+  {/if}
   {#if title || url}
     <div class="caption">
       {#if title}<div class="title">{title}</div>{/if}
@@ -64,21 +71,17 @@
   }
   .card {
     border-radius: 14px;
-    padding: 12px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 12px 40px rgba(59, 130, 246, 0.25);
   }
-  .grid {
+  svg {
+    display: block;
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: repeat(21, 1fr);
-    grid-template-rows: repeat(21, 1fr);
-    gap: 1px;
   }
-  .cell { /* color set inline */ }
   .caption { text-align: center; }
   .title {
     font-family: var(--font-display);
